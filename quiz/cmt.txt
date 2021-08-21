@@ -1,0 +1,53 @@
+https://regex101.com/
+
+//Week 2
+ID:         [a-x]+[a-x]*;
+INT:        'int';
+FLOAT:      'float';
+INTVAL:     [+-][0-9]+;
+FLOATVAL:   [+-]'.'[0-9]+;
+LB:         '(';
+RB:         ')';
+LCB:        '{';
+RCB:        '}';
+ASGOP:      '=';
+COMMA:      ',';
+ADDOP:      '+';
+SUBOP:      '-';
+MULOP:      '*';
+DIVOP:      '/';
+
+Rule:
+DECLARATION ->  VARIABLE|FUNCTION 
+VARIABLE    ->  TYPE IDLIST SEMI
+TYPE        ->  INT|FLOAT 
+IDLIST      ->  ID [,ID]? 
+            |   ASSIGNMENT IDLIST 
+FUNCTION    ->  TYPE ID LB VARLIST RB LCB BODY RCB
+VARLIST     ->  VARLIST TYPE IDLIST
+            |   VARIABLE
+            |   
+BODY        ->  STATEMENTS
+STATEMENTS  ->  STATEMENT STATEMENTS
+            |
+
+STATEMENT   ->  ASSIGNMENT | CALL | RETURN SEMI
+ASSIGNMENT  ->  ID ASGOP EXP
+CALL        ->  ID LB VALLIST RB
+RETURN      ->  'return' EXP
+EXP         ->  OPERAND ADDOP EXP
+            |   EXP SUBOP EXP
+            |   EXP MULOP OPERAND
+            |   EXP DIVOP OPERAND
+            |   OPERAND
+
+VALLIST     ->  VALLIST VAL
+            |   VAL COMMA
+            |
+VAL         ->  ID | INTVAL | FLOATVAL
+OPERAND     ->  VAL | CALL | SUBEXP
+SUBEXP      ->  LB EXP RB
+
+
+// [MULOP|DIVOP]
+// | EPSILON

@@ -1,5 +1,12 @@
 https://regex101.com/
 
+// WEEK 1
+
+
+[']((~['])|(['][']))*[']
+'\''  (.* '\'' '\'' .*)*  '\''
+'\''   ('\'''\'')* .*  '\'';
+
 //Week 2
 ID:         [a-x]+[a-x]*;
 INT:        'int';
@@ -21,7 +28,8 @@ Rule:
 DECLARATION ->  VARIABLE|FUNCTION 
 VARIABLE    ->  TYPE IDLIST SEMI
 TYPE        ->  INT|FLOAT 
-IDLIST      ->  ID [,ID]? 
+IDLIST      ->  IDLIST COMMA ID
+            |   ID
             |   ASSIGNMENT IDLIST 
 FUNCTION    ->  TYPE ID LB VARLIST RB LCB BODY RCB
 VARLIST     ->  VARLIST TYPE IDLIST

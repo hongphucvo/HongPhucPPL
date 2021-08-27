@@ -24,69 +24,73 @@ options{
 	language=Python3;
 }
 
-program  : declaration EOF ;
+program  : declarations EOF ;
 
+declarations:   declaration declarations
+            |   declaration             ;
 declaration :   variable|function       ;
+
+
 variable    :   TYPE idlist SEMI        ;
 idlist      :   ID COMMA idlist
             |   ID                      ;
-function    :   TYPE ID paramdcl body   ;
+
+
+function    :   TYPE ID paramdcl LCB body RCB  ;
 paramdcl    :   LB paramlist RB                 
             |   LB RB                   ;
 paramlist   :   params SEMI paramlist
             |   params                  ;
 params      :   TYPE idlist             ;
-param       :   TYPE ID COMMA           ;
 
 
 
-
-
-body        :   LCB statements RCB      ;
-statements  :   statement statements
-            |   statement
+body        :   variable body
+            |   statements
             |                           ;
+statements  :   statement statements
+            |   statement               ;
+statement   :   (assignment | call | returnstate) SEMI  ;
 
-statement   :   assignment | call | returnstate SEMI  ;
+
 assignment  :   ID ASGOP exp            ;
-call        :   ID LB vallist RB        ;
-returnstate :   RETURN exp              ;
+call        :   ID LB explist RB        
+            |   ID LB RB                ;
+returnstate :   RETURNKEY exp           ;
+
+
+explist     :   exp COMMA explist       
+            |   exp                     ;
 exp         :   exp1 ADDOP exp|exp1     
             |   exp1                    ;
 exp1        :   exp2 SUBOP exp1
             |   exp2                    ;
 exp2        :   exp2 (MULOP|DIVOP) operand
             |   operand                 ;
-vallist     :   values 
-            |                           ;
-values      :   val COMMA values
-            |   val                     ;
-val         :   ID | INTVAL | FLOATVAL  ;
-operand     :   val | call | subexp     ;
+operand     :   INTVAL | FLOATVAL | ID | call | subexp;
 subexp      :   LB exp RB               ;
 
 
 
-ID:         [a-xA-Z]+;
-
-INTVAL:     [+-][0-9]+;
-FLOATVAL:   [+-]'.'[0-9]+;
-LB:         '(';
-RB:         ')';
-LCB:        '{';
-RCB:        '}';
-ASGOP:      '=';
-COMMA:      ',';
-ADDOP:      '+';
-SUBOP:      '-';
-MULOP:      '*';
-DIVOP:      '/';
-SEMI:       ';';
-COLON:      ':';
-VAR:        'Var';
-RETURN:     'return';
-TYPE:       'int'|'float';
-WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+VAR         :   'Var';
+RETURNKEY   :   'return';
+TYPE        :   'int'|'float';
+ID          :   [a-xA-Z]+;
+INTVAL      :   [+-]?[0-9]+;
+FLOATVAL    :   [+-]?[0-9]+'.'[0-9]+;
+LB          :   '(';
+RB          :   ')';
+LCB         :   '{';
+RCB         :   '}';
+ASGOP       :   '=';
+COMMA       :   ',';
+ADDOP       :   '+';
+SUBOP       :   '-';
+MULOP       :   '*';
+DIVOP       :   '/';
+SEMI        :   ';';
+COLON       :   ':';
+WS          :   [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 ERROR_CHAR: .;
 UNCLOSE_STRING: .;

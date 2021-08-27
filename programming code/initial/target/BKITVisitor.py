@@ -14,6 +14,11 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKITParser#declarations.
+    def visitDeclarations(self, ctx:BKITParser.DeclarationsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by BKITParser#declaration.
     def visitDeclaration(self, ctx:BKITParser.DeclarationContext):
         return self.visitChildren(ctx)
@@ -49,11 +54,6 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#param.
-    def visitParam(self, ctx:BKITParser.ParamContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKITParser#body.
     def visitBody(self, ctx:BKITParser.BodyContext):
         return self.visitChildren(ctx)
@@ -84,6 +84,11 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKITParser#explist.
+    def visitExplist(self, ctx:BKITParser.ExplistContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by BKITParser#exp.
     def visitExp(self, ctx:BKITParser.ExpContext):
         return self.visitChildren(ctx)
@@ -96,21 +101,6 @@ class BKITVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by BKITParser#exp2.
     def visitExp2(self, ctx:BKITParser.Exp2Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#vallist.
-    def visitVallist(self, ctx:BKITParser.VallistContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#values.
-    def visitValues(self, ctx:BKITParser.ValuesContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#val.
-    def visitVal(self, ctx:BKITParser.ValContext):
         return self.visitChildren(ctx)
 
 

@@ -13,8 +13,15 @@ c=5;"""
     
     def test_wrong_miss_close(self):
         """Variable and Function"""
-        input = """float goo (float a, b) {
-   return foo(1, a, b) + 1;
-} """
+        input = """int a, b,c;
+                   float foo(int a; float c, d) {
+                      int e ;
+                      e = a + 4 ;
+                      c = a * d / 2.0 ;
+                      return c + 1
+}
+                   float goo (float a, b) {
+                      return foo(1, a, b);
+                   }"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,202))

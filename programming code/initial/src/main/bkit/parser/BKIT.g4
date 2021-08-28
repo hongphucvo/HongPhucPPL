@@ -36,7 +36,7 @@ idlist      :   ID COMMA idlist
             |   ID                      ;
 
 
-function    :   TYPE ID paramdcl LCB body RCB  ;
+function    :   TYPE ID paramdcl body   ;
 paramdcl    :   LB paramlist RB                 
             |   LB RB                   ;
 paramlist   :   params SEMI paramlist
@@ -44,12 +44,11 @@ paramlist   :   params SEMI paramlist
 params      :   TYPE idlist             ;
 
 
-
-body        :   variable body
-            |   statements
+body        :   LCB statements RCB
+            |   LCB RCB                 ;
+statements  :   variable statements
+            |   statement statements
             |                           ;
-statements  :   statement statements
-            |   statement               ;
 statement   :   (assignment | call | returnstate) SEMI  ;
 
 

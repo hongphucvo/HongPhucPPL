@@ -24,58 +24,60 @@ def emit(self):
         return result;
 }
 
-program  		: mptype 'main' LB RB LP body? RP EOF ;
+program  		: classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
 
 mptype			: INTTYPE | VOIDTYPE 				;
 
 body			: funcall SEMI						;
 
-//exp				: funcall | INTLIT 					;
+//exp				: funcall | INTLIT 				;
 
 funcall			: ID LB exp? RB 					;
+classdcls       : classdcl classdcls| classdcl;
+classdcl		: CLASS ID memBlock
+				| CLASS ID EXTEND ID  memBlock  	;
 
-classdcl		: CLASS ID memlist
-				| CLASS ID EXTEND ID  memlist 	;
-
-memlist			: LP mems RP
-				| LP RP									;
-mems			: mem mems
-				| mem								;
-mem 			: attribute|method					;
+memBlock		: LP memList RP
+				| LP RP								;
+memList			: classMember memList
+				| classMember						;
+classMember 	: attributeDeclare
+                | methodDeclare			    		;
 
 
 
 //ATTRIBUTE DCL
-attributes		: attribute attributes
+attributes		: attributeDeclare attributes
 				|									;
-attribute		: attribute_type vartype attrilist SEMI;
+attributeDeclare: attribute_type vartype attributeList SEMI;
 attribute_type	: STATIC MUTABLE
 				| MUTABLE STATIC
 				| (STATIC | MUTABLE)
 				|									;
-vartype			: primtype | array | ;//CLASSTYPE ;
-primtype		: INTTYPE|VOIDTYPE|FLOATTYPE|STRINGTYPE|BOOLTYPE;
-
-attrilist		: attri COMMA attrilist
+vartype			: primtype | arraytype | classtype  ;
+primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
+                | STRINGTYPE | BOOLTYPE             ;
+classtype       : ID                                ;
+attributeList	: attri COMMA attributeList
 				| attri 							;
 attri			: ID ASG exp	
 				| ID								;
 
 
 //METHOD DECLR
-method			: method_type return_type ID paramdcl block
+methodDeclare	: methodType returnType ID paramList stmBlock
 				| constructor						;
-constructor		: ID paramdcl block					; 
-method_type		: STATIC|							;
-return_type		: vartype							;
-block			: LP statements RP
+constructor		: ID paramDeclare stmBlock	;
+methodType		: STATIC|							;
+returnType		: vartype							;
+stmBlock	    : LP stmList RP
 				| LP RP								;
-paramdcl    	: LB paramlist RB                 
+paramList   	: LB paramDeclare RB
             	| LB RB                   			;
-paramlist   	: params SEMI paramlist
-            	| params                  			;
-params      	: vartype idlist             		;
-idlist      	: ID COMMA idlist
+paramDeclare   	: param SEMI paramDeclare
+            	| param                  			;
+param      	    : vartype idList             		;
+idList      	: ID COMMA idList
             	| ID                      			;
 //param được gán assign không??? được thì dùng attri=idlist
 
@@ -83,11 +85,12 @@ idlist      	: ID COMMA idlist
 
 
 //ARRAY DCLR
-array			: primtype LSB INTLIT RSB			;
-arraylit		: LP elemlist RP					;
-elemlist		: elem COMMA elemlist
+arraytype			: primtype '[' size ']'			;
+arrayLit		: LP elemList RP					;
+elemList		: elem COMMA elemList
 				| elem 								;
-elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT+;
+elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT;
+size            : INTLIT                            ;
 //assign problem
 
 
@@ -95,56 +98,55 @@ elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT+;
 
 
 //EXPRESSION
-explist			: exps|								;
+explist			: LB exps RB | LB RB				;
 exps			: exp COMMA exps
 				|exp								;
-exp				: exp1 (GT|LT|LEQ|GEQ) exp1			//relational expression
-				| exp1								;
-exp1			: exp2 (EQ|NEQ) exp2					//relational expression			
-				| exp2 (AND|OR) exp2				//boolean expression
+exp				: exp1 (GT|LT|LEQ|GEQ) exp1			    //relational expression
+                | exp1 (EQ|NEQ) exp1				    //relational expression
+                | exp1                              ;
+exp1            : exp2 (AND|OR) exp1				    //boolean expression
+				| exp2 (ADD|SUB) exp1				    //arithemic expression
+				| exp2 (MUL|FLOATDIV|INTDIV|MOD) exp1   //arithemic expression
+				| exp2 CON exp1 					    //string expression
 				| exp2								;
-exp2			: exp3 (ADD|SUB) exp2				//arithemic expression
-				| exp3 (MUL|FLOATDIV|INTDIV|MOD) exp2//arithemic expression
-				| exp3 CON exp2						//string expression
+exp2			: NOT exp3
+				| ADD|SUB exp3						    //sign expression
 				| exp3								;
-exp3			: NOT exp4
-				| ADD|SUB exp4						//sign expression
+exp3			: exp4 '[' exps ']'                     //index
 				| exp4								;
-exp4			: exp5 LSB exps RSB
-				| exp5								;
-exp5			:exp6 DOT ID
-                 			| ID DOT ID
-                 			| exp6 DOT ID LB explist RB
-                 			| ID DOT ID LB explist RB
-                 			| exp6                          ;
+exp4			: exp5 DOT ID                           //member access
+                | ID DOT ID
+                | exp5 DOT ID explist
+                | ID DOT ID explist
+                | exp5                             ;
 	//khong biet lam dot
-exp6			: NEW ID LB exps RB
+exp5			: NEW ID explist                        //Object creation
 				| operand							;
-operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT
+operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit//operand value
 				| 'this' | 'nil'
 				| ID                                ;
 
 
-//6. statement
-statements	: variables stms
-			| stms							;
+stmList	    : variables stms
+		    | stms							        ;
 variables	: variable SEMI variables
 		    | variable SEMI                         ;
-variable	: (MUTABLE)? vartype idlist                 //SEMI
-			|									;			
+variable	: (MUTABLE)? vartype idList                 //SEMI gom lại hay tách riêng
+			|									    ;
 //idlist hay attributes
 stms		: stm SEMI stms
-			| stm 								;
+			| stm SEMI								;
 stm			: lhs ':=' exp
-			| IF exp THEN stms					
-			| IF exp THEN stms ELSE stms 			
-			| FOR scala_var ':=' exp1 (TO|DOWNTO) exp2 DO stms
+			| IF exp THEN stm
+			| IF exp THEN stm SEMI ELSE stm
+			| FOR scala_var ':=' exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
 			| BREAK
 			| CONT
 			| RETURN exp
-			| ;//method invoke 5.6
-scala_var: ID;
-lhs         : ID | ID LSB exp RSB               ;
+			| ID DOT ID explist                     ;   //method invoke 5.6
+scala_var   : ID                                    ;
+lhs         : ID | ID '.' ID
+            | exp '.' ID | exp '[' exp ']'          ;
 
 
 
@@ -178,7 +180,6 @@ ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
 INTLIT		: [0-9]+	;
 BOOLLIT		: 'true'|'false';
 STRINGLIT	: '"'.*'"'	;
-//ARRLIT		: LP (INTLIT+|FLOATLIT+|BOOLLIT+|STRINGLIT+) RB;
 FLOATLIT	:	IntegerPart (DecimalPart | DecimalPart? ExponentPart);
 fragment IntegerPart :  [0-9]+			;
 fragment DecimalPart : 	'.'[0-9]*		;
@@ -188,8 +189,6 @@ LB			: '(' 		;
 RB			: ')' 		;
 LP			: '{'		;
 RP			: '}'		;
-LSB			: '['		;
-RSB			: ']'		;
 SEMI		: ';' 		;
 COLON		: ':'		;
 COMMA		: ','		;
@@ -218,10 +217,9 @@ CON			: '^'		;
 
 
 
-LINECMT		: '#' .*? '\n' 	        -> skip	;
-BLOCKCMT	: '/*' (~['*/'EOF])* '*/'	-> skip	;//eof????
-
-WS 			: [ \t\r\n]+ 	-> skip ; // skip spaces, tabs, newlines
+LINECMT		: '#' .*? '\n' 	            -> skip	;
+BLOCKCMT	: '/*' (~['*/'(EOF)])* '*/'	-> skip	;
+WS 			: [ \t\r\n\f\b]+ 	            -> skip ; // skip spaces, tabs, newlines
 
 
 ERROR_CHAR: .;

@@ -24,7 +24,7 @@ def emit(self):
         return result;
 }
 
-program  		: classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
+program  		:STRINGLIT;// classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
 
 mptype			: INTTYPE | VOIDTYPE 				;
 
@@ -127,26 +127,26 @@ operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit//operand value
 				| ID                                ;
 
 
-stmList	    : variables stms
-		    | stms							        ;
-variables	: variable SEMI variables
-		    | variable SEMI                         ;
-variable	: (MUTABLE)? vartype idList                 //SEMI gom lại hay tách riêng
-			|									    ;
+stmList	        : variables stms
+		        | stms							    ;
+variables	    : variable SEMI variables
+		        | variable SEMI                     ;
+variable	    : (MUTABLE)? vartype idList             //SEMI gom lại hay tách riêng
+			    |								    ;
 //idlist hay attributes
-stms		: stm SEMI stms
-			| stm SEMI								;
-stm			: lhs ':=' exp
-			| IF exp THEN stm
-			| IF exp THEN stm SEMI ELSE stm
-			| FOR scala_var ':=' exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
-			| BREAK
-			| CONT
-			| RETURN exp
-			| ID DOT ID explist                     ;   //method invoke 5.6
-scala_var   : ID                                    ;
-lhs         : ID | ID '.' ID
-            | exp '.' ID | exp '[' exp ']'          ;
+stms		    : stm SEMI stms
+			    | stm SEMI						    ;
+stm			    : lhs ':=' exp
+			    | IF exp THEN stm
+			    | IF exp THEN stm SEMI ELSE stm
+			    | FOR scala_var ':=' exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
+			    | BREAK
+			    | CONT
+			    | RETURN exp
+			    | ID DOT ID explist                 ;   //method invoke 5.6
+scala_var       : ID                                ;
+lhs             : ID | ID '.' ID
+                | exp '.' ID | exp '[' exp ']'      ;
 
 
 
@@ -177,13 +177,16 @@ CONT		: 'continue';
 RETURN		: 'return'	;
 
 ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
-INTLIT		: [0-9]+	;
-BOOLLIT		: 'true'|'false';
-STRINGLIT	: '"'.*'"'	;
-FLOATLIT	:	IntegerPart (DecimalPart | DecimalPart? ExponentPart);
+INTLIT		: [0-9]+	                ;
+BOOLLIT		: 'true'|'false'            ;
+FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
 fragment IntegerPart :  [0-9]+			;
 fragment DecimalPart : 	'.'[0-9]*		;
 fragment ExponentPart:	[Ee][+-]?[0-9]+	;
+STRINGLIT	: '"'Char*?'"'              ;
+fragment Char: SpecialChar | SpecialString;
+fragment SpecialChar:~["\t\f\r\n\\]        ;
+fragment SpecialString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
 
 LB			: '(' 		;
 RB			: ')' 		;
@@ -212,14 +215,9 @@ AND			: '&&'		;
 NOT			: '!'		;
 CON			: '^'		;
 
-
-
-
-
-
 LINECMT		: '#' .*? '\n' 	            -> skip	;
-BLOCKCMT	: '/*' (~['*/'(EOF)])* '*/'	-> skip	;
-WS 			: [ \t\r\n\f\b]+ 	            -> skip ; // skip spaces, tabs, newlines
+BLOCKCMT	: '/*'.*?'*/'	            -> skip	;
+WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
 
 
 ERROR_CHAR: .;

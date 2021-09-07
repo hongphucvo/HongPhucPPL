@@ -8,23 +8,7 @@ options{
 	language=Python3;
 }
 
-@lexer::members {
-def emit(self):
-    tk = self.type
-    result = super().emit()
-    if tk == self.UNCLOSE_STRING:       
-        raise UncloseString(result.text)
-    elif tk == self.ILLEGAL_ESCAPE:
-        raise IllegalEscape(result.text)
-    elif tk == self.ERROR_CHAR:
-        raise ErrorToken(result.text)
-    elif tk == self.UNTERMINATED_COMMENT:
-        raise UnterminatedComment()
-    else:
-        return result;
-}
-
-program  		:STRINGLIT;// classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
+program  		: FLOATLIT EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
 
 mptype			: INTTYPE | VOIDTYPE 				;
 
@@ -33,7 +17,7 @@ body			: funcall SEMI						;
 //exp				: funcall | INTLIT 				;
 
 funcall			: ID LB exp? RB 					;
-classdcls       : classdcl classdcls| classdcl;
+classdcls       : classdcl classdcls| classdcl      ;
 classdcl		: CLASS ID memBlock
 				| CLASS ID EXTEND ID  memBlock  	;
 
@@ -67,7 +51,7 @@ attri			: ID ASG exp
 //METHOD DECLR
 methodDeclare	: methodType returnType ID paramList stmBlock
 				| constructor						;
-constructor		: ID paramDeclare stmBlock	;
+constructor		: ID paramDeclare stmBlock	        ;
 methodType		: STATIC|							;
 returnType		: vartype							;
 stmBlock	    : LP stmList RP
@@ -85,11 +69,11 @@ idList      	: ID COMMA idList
 
 
 //ARRAY DCLR
-arraytype			: primtype '[' size ']'			;
+arraytype		: primtype '[' size ']'			    ;
 arrayLit		: LP elemList RP					;
 elemList		: elem COMMA elemList
 				| elem 								;
-elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT;
+elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT ;
 size            : INTLIT                            ;
 //assign problem
 
@@ -121,7 +105,7 @@ exp4			: exp5 DOT ID                           //member access
                 | exp5                             ;
 	//khong biet lam dot
 exp5			: NEW ID explist                        //Object creation
-				| operand							;
+				| operand						    ;
 operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit//operand value
 				| 'this' | 'nil'
 				| ID                                ;
@@ -150,6 +134,18 @@ lhs             : ID | ID '.' ID
 
 
 
+ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
+INTLIT		: [0-9]+	                ;
+BOOLLIT		: 'true'|'false'            ;
+FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
+fragment IntegerPart :  [0-9]+			;
+fragment DecimalPart : 	'.'[0-9]*		;
+fragment ExponentPart:	[Ee][+-]?[0-9]+	;
+STRINGLIT	: '"'Char*?'"'              ;
+fragment Char: SpecialChar | InnerString;
+fragment SpecialChar:~["\t\f\r\n\\]        ;
+fragment InnerString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
+
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;
 NEW			: 'new'		;
@@ -176,18 +172,6 @@ BREAK		: 'break'	;
 CONT		: 'continue';
 RETURN		: 'return'	;
 
-ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
-INTLIT		: [0-9]+	                ;
-BOOLLIT		: 'true'|'false'            ;
-FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
-fragment IntegerPart :  [0-9]+			;
-fragment DecimalPart : 	'.'[0-9]*		;
-fragment ExponentPart:	[Ee][+-]?[0-9]+	;
-STRINGLIT	: '"'Char*?'"'              ;
-fragment Char: SpecialChar | SpecialString;
-fragment SpecialChar:~["\t\f\r\n\\]        ;
-fragment SpecialString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
-
 LB			: '(' 		;
 RB			: ')' 		;
 LP			: '{'		;
@@ -197,7 +181,7 @@ COLON		: ':'		;
 COMMA		: ','		;
 DOT			: '.'		;
 
-ASG			: '='		;
+ASG			: '='		;                   //:=
 ADD			: '+'		;
 SUB			: '-'		;
 MUL			: '*'		;
@@ -215,11 +199,15 @@ AND			: '&&'		;
 NOT			: '!'		;
 CON			: '^'		;
 
-LINECMT		: '#' .*? '\n' 	            -> skip	;
+LINECMT		: '#' .*? ('\n'|EOF) 	    -> skip	;
 BLOCKCMT	: '/*'.*?'*/'	            -> skip	;
 WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
 
-
-ERROR_CHAR: .;
-UNCLOSE_STRING: .;
-ILLEGAL_ESCAPE: .;
+ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfrnt"\\]
+                    {raise IllegalEscape(self.text)};
+UNCLOSE_STRING  :   '"' Char*
+                    {raise UncloseString(self.text)};
+ERROR_CHAR      :	.
+                    {raise ErrorToken(self.text)};
+UNTERMINATED_COMMENT: '/*'.*? EOF
+                    {raise UnterminatedComment()};

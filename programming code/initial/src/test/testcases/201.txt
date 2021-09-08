@@ -1,1 +1,4 @@
-Var: x;
+float goo (float a, b) {
+   return 1 - foo(1, a, b);
+}
+c=5;

@@ -5,53 +5,53 @@ from TestUtils import TestParser
 class ParserSuite(unittest.TestCase):
     def test_simple_program(self):
         """Simple program: 1 stm """
-        input = """int main(){}"""
+        input = """class A{int main(){}}"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 201))
-        input = """int main(){
-  return 0;
+        input = """class A{int main(){
+  return 0;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 202))
-        input = """int main(){
-  float number, root;
+        input = """class A{int main(){
+  float number, root;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 203))
-        input = """
+        input = """class A{
 int main(){
-  final float number = 7.0, root=2.3;
+  final float number = 7.0, root=2.3;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 204))
-        input = """int main(){
-  static float number=9.0; int root;
+        input = """class A{int main(){
+  static float number=9.0; int root;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 205))
-        input = """int main(){
-  float number=7.3, root;
+        input = """class A{int main(){
+  float number=7.3, root;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 206))
-        input = """int main(){
-  float number = root;
+        input = """class A{int main(){
+  float number = root;}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 207))
-        input = """int main(){
-  io.writeFloat(root);
+        input = """class A{int main(){
+  io.writeFloat(root);}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 208))
-        input = """int main(){
-  io.writeFloat(7*9-10);
+        input = """class A{int main(){
+  io.writeFloat(7*9-10);}
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 209))
-        input = """int main(){
+        input = """class A{int main(){
         #This is a line cmt
-}"""
+}}"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 210))
 
@@ -116,7 +116,7 @@ int main(){
 
     def test_wrong_miss_close(self):
         """Bracket close"""
-        input = """int main(){"""
+        input = """class A{int main(){}"""
         expect = "Unclose parenthesis"
         self.assertTrue(TestParser.test(input, expect, 221))
         input = """class exp{
@@ -128,7 +128,7 @@ int main(){
         void print(){"""
         expect = "Unclose parenthesis"
         self.assertTrue(TestParser.test(input, expect, 223))
-        input = """int main(){ m.print(;}"""
+        input = """class A{int main(){ m.print(;}}"""
         expect = "Unclosed bracket"
         self.assertTrue(TestParser.test(input, expect, 224))
         input = """class X{
@@ -150,7 +150,7 @@ int main(){
         void X(){ this.a=((5*8)-123;}"""
         expect = "unclosed bracket"
         self.assertTrue(TestParser.test(input, expect, 228))
-        input = """classX{
+        input = """class X{
         void print(string str){io.writeString(str);}
         void main(){this.print(\"str\");}}"""
         expect = "successful"

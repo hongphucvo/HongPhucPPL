@@ -8,7 +8,7 @@ options{
 	language=Python3;
 }
 
-program  		: FLOATLIT EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
+program  		: classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
 
 mptype			: INTTYPE | VOIDTYPE 				;
 
@@ -132,20 +132,6 @@ scala_var       : ID                                ;
 lhs             : ID | ID '.' ID
                 | exp '.' ID | exp '[' exp ']'      ;
 
-
-
-ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
-INTLIT		: [0-9]+	                ;
-BOOLLIT		: 'true'|'false'            ;
-FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
-fragment IntegerPart :  [0-9]+			;
-fragment DecimalPart : 	'.'[0-9]*		;
-fragment ExponentPart:	[Ee][+-]?[0-9]+	;
-STRINGLIT	: '"'Char*?'"'              ;
-fragment Char: SpecialChar | InnerString;
-fragment SpecialChar:~["\t\f\r\n\\]        ;
-fragment InnerString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
-
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;
 NEW			: 'new'		;
@@ -171,6 +157,20 @@ DO			: 'do'		;
 BREAK		: 'break'	;
 CONT		: 'continue';
 RETURN		: 'return'	;
+
+ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
+INTLIT		: [0-9]+	                ;
+BOOLLIT		: 'true'|'false'            ;
+FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
+fragment IntegerPart :  [0-9]+			;
+fragment DecimalPart : 	'.'[0-9]*		;
+fragment ExponentPart:	[Ee][+-]?[0-9]+	;
+STRINGLIT	: '"'Char*?'"'              ;
+fragment Char: SpecialChar | InnerString;
+fragment SpecialChar:~["\t\f\r\n\\]        ;
+fragment InnerString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
+a:'class';
+
 
 LB			: '(' 		;
 RB			: ')' 		;

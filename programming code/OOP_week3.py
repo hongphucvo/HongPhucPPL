@@ -16,8 +16,8 @@ class BinExp(Exp):
             return self.operand1.eval()/self.operand2.eval()
         else:
             return self.operand1.eval()*self.operand2.eval()
-    def printPrefix():
-        operand1.printPrefix()+" "+operator+" "+operand2.printPrefix()
+    def printPrefix(self):
+        return(self.operator+" "+self.operand1.printPrefix()+self.operand2.printPrefix())
 class UnExp(Exp):
     def __init__(self, operator, operand):
         self.operator=operator
@@ -26,28 +26,28 @@ class UnExp(Exp):
         if(self.operator=="+"):
             return self.operand.eval()
         else: return -self.operand.eval()
-    def printPrefix():
-        operand1.printPrefix()+" "+operator+". "+operand2.printPrefix()
+    def printPrefix(self):
+        return self.operator+". "+self.operand.printPrefix()
 class IntLit(Exp):
     def __init__(self, value):
         self.number=value   
     def eval(self):
         return int(self.number)
     def printPrefix(self):
-        print(self.number)
+        return str(self.number)+" "
 class FloatLit(Exp):
     def __init__(self,value):
         self.number=value
     def eval(self):
         return float(self.number)
     def printPrefix(self):
-        print(self.number)
+        return str(self.number)+" "
 x1 = IntLit(1)
+x1.printPrefix()
 x2 = FloatLit(2.0)
-x3 = BinExp(x1,"+",x1)
-x3.printPrefix()
+x2.printPrefix()
 x4 = UnExp("-",x1)
-
-print(x4.eval())
+x4.printPrefix()
+x3 = BinExp(x1,"+",x1)
+print(x3.printPrefix())
 x5 = BinExp(x4,"+",BinExp(IntLit(4),"*",x2))
-print(x5.eval())

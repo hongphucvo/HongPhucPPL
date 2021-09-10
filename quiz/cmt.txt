@@ -76,3 +76,8 @@ DIVOP       :   '/';
 SEMI        :   ';';
 COLON       :   ':';
 WS          :   [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+
+fragment Lit: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT;
+fragment Elem: Lit COMMA;
+ARRAYLIT: '{' Elem*? Lit '}';
+a:ARRAYLIT;

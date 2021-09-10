@@ -1,3 +1,8 @@
+/*
+ Student name: Vo Hong Phuc
+ Student Id: 1911881
+ */
+
 grammar BKOOL;
 
 @lexer::header {
@@ -8,7 +13,7 @@ options{
 	language=Python3;
 }
 
-program  		: classdcls EOF;//VOIDTYPE 'main' LB RB stmBlock EOF ;
+program  		: classdcls EOF                     ;
 
 mptype			: INTTYPE | VOIDTYPE 				;
 
@@ -28,15 +33,12 @@ memList			: classMember memList
 classMember 	: attributeDeclare
                 | methodDeclare			    		;
 
-
-
-//ATTRIBUTE DCL
-attributes		: attributeDeclare attributes
-				|									;
-attributeDeclare: attribute_type vartype attributeList SEMI;
+//Attribute Declaration
+//attributes		: attributeDeclare attributes|	;
+attributeDeclare: attribute_type vartype attributeList SEMI ;
 attribute_type	: STATIC MUTABLE
 				| MUTABLE STATIC
-				| (STATIC | MUTABLE)
+				| STATIC | MUTABLE
 				|									;
 vartype			: primtype | arraytype | classtype  ;
 primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
@@ -46,7 +48,6 @@ attributeList	: attri COMMA attributeList
 				| attri 							;
 attri			: ID ASG exp	
 				| ID								;
-
 
 //METHOD DECLR
 methodDeclare	: methodType returnType ID paramList stmBlock
@@ -65,9 +66,6 @@ idList      	: ID COMMA idList
             	| ID                      			;
 //param được gán assign không??? được thì dùng attri=idlist
 
-
-
-
 //ARRAY DCLR
 arraytype		: primtype '[' size ']'			    ;
 arrayLit		: LP elemList RP					;
@@ -76,10 +74,6 @@ elemList		: elem COMMA elemList
 elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT ;
 size            : INTLIT                            ;
 //assign problem
-
-
-
-
 
 //EXPRESSION
 explist			: LB exps RB | LB RB				;
@@ -93,25 +87,26 @@ exp1            : exp2 (AND|OR) exp1				    //boolean expression
 				| exp2 (MUL|FLOATDIV|INTDIV|MOD) exp1   //arithemic expression
 				| exp2 CON exp1 					    //string expression
 				| exp2								;
-exp2			: NOT exp3
-				| ADD|SUB exp3						    //sign expression
+exp2			: NOT exp2
+				| (ADD|SUB) exp2						    //sign expression
 				| exp3								;
-exp3			: exp4 '[' exps ']'                     //index
+exp3			: exp3 '[' exp ']'                     //index
 				| exp4								;
-exp4			: exp5 DOT ID                           //member access
-                | ID DOT ID
-                | exp5 DOT ID explist
+exp4			: ID DOT ID
+                | exp4 DOT ID explist
                 | ID DOT ID explist
-                | exp5                             ;
-	//khong biet lam dot
+                | exp4 DOT ID                           //member access
+                | exp5                              ;
 exp5			: NEW ID explist                        //Object creation
 				| operand						    ;
-operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit//operand value
+operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT //operand value
 				| 'this' | 'nil'
-				| ID                                ;
+				| ID | subexp                       ;
+subexp          : LB exp RB                         ;
 
 
 stmList	        : variables stms
+                | variables
 		        | stms							    ;
 variables	    : variable SEMI variables
 		        | variable SEMI                     ;
@@ -119,17 +114,17 @@ variable	    : (MUTABLE)? vartype idList             //SEMI gom lại hay tách 
 			    |								    ;
 //idlist hay attributes
 stms		    : stm SEMI stms
-			    | stm SEMI						    ;
-stm			    : lhs ':=' exp
+			    | stm SEMI 						    ;
+stm			    : lhs ASGOP exp
 			    | IF exp THEN stm
 			    | IF exp THEN stm SEMI ELSE stm
-			    | FOR scala_var ':=' exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
+			    | FOR scala_var ASGOP exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
 			    | BREAK
 			    | CONT
 			    | RETURN exp
 			    | ID DOT ID explist                 ;   //method invoke 5.6
 scala_var       : ID                                ;
-lhs             : ID | ID '.' ID
+lhs             : ID
                 | exp '.' ID | exp '[' exp ']'      ;
 
 CLASS		: 'class'	;
@@ -158,19 +153,6 @@ BREAK		: 'break'	;
 CONT		: 'continue';
 RETURN		: 'return'	;
 
-ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
-INTLIT		: [0-9]+	                ;
-BOOLLIT		: 'true'|'false'            ;
-FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
-fragment IntegerPart :  [0-9]+			;
-fragment DecimalPart : 	'.'[0-9]*		;
-fragment ExponentPart:	[Ee][+-]?[0-9]+	;
-STRINGLIT	: '"'Char*?'"'              ;
-fragment Char: SpecialChar | InnerString;
-fragment SpecialChar:~["\t\f\r\n\\]        ;
-fragment InnerString:'\\'[bfrnt\\] | '\\"' Char*? '\\"'   ;
-a:'class';
-
 
 LB			: '(' 		;
 RB			: ')' 		;
@@ -180,7 +162,7 @@ SEMI		: ';' 		;
 COLON		: ':'		;
 COMMA		: ','		;
 DOT			: '.'		;
-
+ASGOP       : ':='      ;
 ASG			: '='		;                   //:=
 ADD			: '+'		;
 SUB			: '-'		;
@@ -199,15 +181,31 @@ AND			: '&&'		;
 NOT			: '!'		;
 CON			: '^'		;
 
+
 LINECMT		: '#' .*? ('\n'|EOF) 	    -> skip	;
 BLOCKCMT	: '/*'.*?'*/'	            -> skip	;
 WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
 
-ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfrnt"\\]
+
+fragment IntegerPart :  [0-9]+			;
+fragment DecimalPart : 	'.'[0-9]*		;
+fragment ExponentPart:	[Ee][+-]?[0-9]+	;
+fragment Char		: ~["\\\r\n]  | EscapeStr;
+fragment EscapeStr :  '\\'["bfrnt\\] ;
+FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
+STRINGLIT	: '"'Char*?'"'
+               {self.text=self.text[1:-1]}              ;
+ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
+INTLIT		: [0-9]+	                ;
+BOOLLIT		: 'true'|'false'            ;
+
+
+
+
+
+ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfnrt"\\]
                     {raise IllegalEscape(self.text)};
-UNCLOSE_STRING  :   '"' Char*
-                    {raise UncloseString(self.text)};
+UNCLOSE_STRING  :   '"' Char* ([\n\r]|EOF)
+                    {raise UncloseString(self.text[1:])};
 ERROR_CHAR      :	.
                     {raise ErrorToken(self.text)};
-UNTERMINATED_COMMENT: '/*'.*? EOF
-                    {raise UnterminatedComment()};

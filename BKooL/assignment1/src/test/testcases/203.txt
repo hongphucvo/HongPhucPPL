@@ -1,1 +1,4 @@
-int main( {}
+class A{int main(){
+  float number, root;
+  }
+}

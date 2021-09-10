@@ -88,9 +88,9 @@ exp1            : exp2 (AND|OR) exp1				    //boolean expression
 				| exp2 CON exp1 					    //string expression
 				| exp2								;
 exp2			: NOT exp2
-				| (ADD|SUB) exp2						    //sign expression
+				| (ADD|SUB) exp2					    //sign expression
 				| exp3								;
-exp3			: exp3 '[' exp ']'                     //index
+exp3			: exp3 '[' exp ']'                      //index
 				| exp4								;
 exp4			: ID DOT ID
                 | exp4 DOT ID explist
@@ -188,13 +188,12 @@ WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
 
 
 fragment IntegerPart :  [0-9]+			;
-fragment DecimalPart : 	'.'[0-9]*		;
+fragment DecimalPart : 	'.'[0-9]+		;
 fragment ExponentPart:	[Ee][+-]?[0-9]+	;
 fragment Char		: ~["\\\r\n]  | EscapeStr;
 fragment EscapeStr :  '\\'["bfrnt\\] ;
 FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
-STRINGLIT	: '"'Char*?'"'
-               {self.text=self.text[1:-1]}              ;
+STRINGLIT	: '"'Char*?'"'              ;
 ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
 INTLIT		: [0-9]+	                ;
 BOOLLIT		: 'true'|'false'            ;
@@ -206,6 +205,6 @@ BOOLLIT		: 'true'|'false'            ;
 ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfnrt"\\]
                     {raise IllegalEscape(self.text)};
 UNCLOSE_STRING  :   '"' Char* ([\n\r]|EOF)
-                    {raise UncloseString(self.text[1:])};
+                    {raise UncloseString(self.text)};
 ERROR_CHAR      :	.
                     {raise ErrorToken(self.text)};

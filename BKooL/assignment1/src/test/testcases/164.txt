@@ -1,0 +1,1 @@
+/* This block cmt is followed by*/ #An inline cmt

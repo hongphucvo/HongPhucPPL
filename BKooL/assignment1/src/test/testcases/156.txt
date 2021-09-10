@@ -1,1 +1,1 @@
-\*This is a block cmt*\ 
+/*This is a block cmt*/ 

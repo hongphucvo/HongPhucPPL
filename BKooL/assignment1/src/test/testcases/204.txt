@@ -1,0 +1,4 @@
+class A{
+int main(){
+final float number = 7.0, root=2.3;}
+}

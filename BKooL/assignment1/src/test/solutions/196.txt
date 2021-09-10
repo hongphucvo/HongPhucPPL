@@ -1,0 +1,1 @@
+class,X,{,void,print,(,int,a,;,float,b,{,},},<EOF>

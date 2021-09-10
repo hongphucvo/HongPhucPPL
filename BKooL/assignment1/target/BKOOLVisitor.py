@@ -54,11 +54,6 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKOOLParser#attributes.
-    def visitAttributes(self, ctx:BKOOLParser.AttributesContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKOOLParser#attributeDeclare.
     def visitAttributeDeclare(self, ctx:BKOOLParser.AttributeDeclareContext):
         return self.visitChildren(ctx)
@@ -206,6 +201,11 @@ class BKOOLVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by BKOOLParser#operand.
     def visitOperand(self, ctx:BKOOLParser.OperandContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#subexp.
+    def visitSubexp(self, ctx:BKOOLParser.SubexpContext):
         return self.visitChildren(ctx)
 
 

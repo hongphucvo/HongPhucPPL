@@ -1,0 +1,1 @@
+/* a block cmt /*cover a block cmt*/ */

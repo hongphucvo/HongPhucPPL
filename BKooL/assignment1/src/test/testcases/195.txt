@@ -1,0 +1,4 @@
+class X{
+        int[2]m;
+         void X(){
+         m:={1,2};}}

@@ -1,1 +1,1 @@
-\\A line cmt \\contains a line cmt\n
+#A line cmt #contains a line cmt/n

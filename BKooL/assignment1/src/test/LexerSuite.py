@@ -54,20 +54,20 @@ class LexerSuite(unittest.TestCase):
 
     def test_string_escape(self):
         """test strings with escape"""
-        self.assertTrue(TestLexer.test(""" "This is a string containing tab \t" """ ,"""This is a string containing tab \t,<EOF>""" ,141))
-        self.assertTrue(TestLexer.test(""" "He asked me: \\\"Where is John?\\\"" ""","""He asked me: \\\"Where is John?\\\",<EOF>"""    ,142))
-        self.assertTrue(TestLexer.test(""" "My name is Hong Phuc Vo!" ""","""My name is Hong Phuc Vo!,<EOF>"""           ,143))
-        self.assertTrue(TestLexer.test(""" "This string contains new line\n" ""","""Unclosed String: This string contains new line\n""",144))
-        self.assertTrue(TestLexer.test(""" "This is the new line char \\n " ""","""This is the new line char \\n ,<EOF>""",145))
-        self.assertTrue(TestLexer.test(""" "This is backspace \b " ""","""This is backspace \b ,<EOF>""",146))
-        self.assertTrue(TestLexer.test(""" "The  \\\\ " ""","""The  \\\\ ,<EOF>""",147))
-        self.assertTrue(TestLexer.test(""" "He asked me: \\"Where is John?\\" " ""","""He asked me: \\"Where is John?\\" ,<EOF>""",148))
-        self.assertTrue(TestLexer.test(""" "head \t tail " ""","""head \t tail ,<EOF>""",149))
-        self.assertTrue(TestLexer.test(""" "New line is saved as \\n. " ""","""New line is saved as \\n. ,<EOF>""",150))
+        self.assertTrue(TestLexer.test(""" "This is a string containing tab \t" """ ,""""This is a string containing tab \t",<EOF>""" ,141))
+        self.assertTrue(TestLexer.test(""" "He asked me: \\\"Where is John?\\\"" """,""""He asked me: \\\"Where is John?\\\"",<EOF>"""    ,142))
+        self.assertTrue(TestLexer.test(""" "My name is Hong Phuc Vo!" """,""""My name is Hong Phuc Vo!",<EOF>"""           ,143))
+        self.assertTrue(TestLexer.test(""" "This string contains new line\n" ""","""Unclosed String: \"This string contains new line\n""",144))
+        self.assertTrue(TestLexer.test(""" "This is the new line char \\n " """,""""This is the new line char \\n ",<EOF>""",145))
+        self.assertTrue(TestLexer.test(""" "This is backspace \b " """,""""This is backspace \b ",<EOF>""",146))
+        self.assertTrue(TestLexer.test(""" "The  \\\\ " """,""""The  \\\\ ",<EOF>""",147))
+        self.assertTrue(TestLexer.test(""" "He asked me: \\"Where is John?\\" " """,""""He asked me: \\"Where is John?\\" ",<EOF>""",148))
+        self.assertTrue(TestLexer.test(""" "head \t tail " """,""""head \t tail ",<EOF>""",149))
+        self.assertTrue(TestLexer.test(""" "New line is saved as \\n. " """,""""New line is saved as \\n. ",<EOF>""",150))
     def test_inline_cmt(self):
         """test lines with inline cmts"""
         self.assertTrue(TestLexer.test("#This is a line cmt  ","<EOF>",151))
-        self.assertTrue(TestLexer.test("""\"This string contains #.\"""","""This string contains #.,<EOF>""",152))
+        self.assertTrue(TestLexer.test("""\"This string contains #.\"""",""""This string contains #.",<EOF>""",152))
         self.assertTrue(TestLexer.test("""#An inline cmt with escape \t""","<EOF>",153))
         self.assertTrue(TestLexer.test("""#An inline cmt ends with at \n #This is the second cmt""","<EOF>",154))
     def test_block_cmt(self):
@@ -90,8 +90,10 @@ class LexerSuite(unittest.TestCase):
 
     def test_illegal_str(self):
         """illegal char, unclose, escape"""
-        self.assertTrue(TestLexer.test(""" \"Open the string""","""Unclosed String: Open the string""",166))
-
+        self.assertTrue(TestLexer.test(""" \"Open the string""","""Unclosed String: \"Open the string""",166))
+        self.assertTrue(TestLexer.test(""""a\b b"  """,""""a\b b",<EOF>""",167))
+        self.assertTrue(TestLexer.test(""" \"Open the string \h \"""","""Illegal Escape In String: \"Open the string \h""",168))
+        self.assertTrue(TestLexer.test(""" \"Open the string \n\"""","""Unclosed String: \"Open the string \n""",169))
 
     def test_keyword(self):
         """keyword list"""
@@ -120,7 +122,7 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("123class","123,class,<EOF>",189))
         self.assertTrue(TestLexer.test("12.5_count","12.5,_count,<EOF>",190))
         self.assertTrue(TestLexer.test("$no idea","Error Token $",191))
-        self.assertTrue(TestLexer.test("""string str:=\"content\"""","""string,str,:=,content,<EOF>""",192))
+        self.assertTrue(TestLexer.test("""string str:=\"content\"""","""string,str,:=,\"content\",<EOF>""",192))
 
     def test_prog(self):
         """a full program"""
@@ -153,7 +155,7 @@ class LexerSuite(unittest.TestCase):
         input = """classX{
         void print(string str){io.writeString(str);}
         void main(){this.print("");}}"""
-        expect = """classX,{,void,print,(,string,str,),{,io,.,writeString,(,str,),;,},void,main,(,),{,this,.,print,(,,),;,},},<EOF>"""
+        expect = """classX,{,void,print,(,string,str,),{,io,.,writeString,(,str,),;,},void,main,(,),{,this,.,print,(,"",),;,},},<EOF>"""
         self.assertTrue(TestLexer.test(input, expect, 198))
         input = """class A{int b;}
         class B extends A{ int d;}"""

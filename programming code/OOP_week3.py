@@ -1,6 +1,6 @@
 class Exp:
-    def eval():pass
-    def printPrefix():pass
+    def eval(self):pass
+    def printPrefix(self):pass
 
 class BinExp(Exp):
     def __init__(self, operand1, operator, operand2):
@@ -51,3 +51,4 @@ x4.printPrefix()
 x3 = BinExp(x1,"+",x1)
 print(x3.printPrefix())
 x5 = BinExp(x4,"+",BinExp(IntLit(4),"*",x2))
+

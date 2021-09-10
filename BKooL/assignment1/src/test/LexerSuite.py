@@ -55,7 +55,7 @@ class LexerSuite(unittest.TestCase):
     def test_string_escape(self):
         """test strings with escape"""
         self.assertTrue(TestLexer.test(""" "This is a string containing tab \t" """ ,""""This is a string containing tab \t",<EOF>""" ,141))
-        self.assertTrue(TestLexer.test(""" "He asked me: \\\"Where is John?\\\"" """,""""He asked me: \\\"Where is John?\\\"",<EOF>"""    ,142))
+        self.assertTrue(TestLexer.test(""" "He asked me: \\"Where is John?\\"" """,""""He asked me: \\"Where is John?\\"",<EOF>"""    ,142))
         self.assertTrue(TestLexer.test(""" "My name is Hong Phuc Vo!" """,""""My name is Hong Phuc Vo!",<EOF>"""           ,143))
         self.assertTrue(TestLexer.test(""" "This string contains new line\n" ""","""Unclosed String: \"This string contains new line\n""",144))
         self.assertTrue(TestLexer.test(""" "This is the new line char \\n " """,""""This is the new line char \\n ",<EOF>""",145))

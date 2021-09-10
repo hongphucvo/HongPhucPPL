@@ -99,7 +99,7 @@ exp4			: ID DOT ID
                 | exp5                              ;
 exp5			: NEW ID explist                        //Object creation
 				| operand						    ;
-operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT //operand value
+operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit //operand value
 				| 'this' | 'nil'
 				| ID | subexp                       ;
 subexp          : LB exp RB                         ;
@@ -107,22 +107,24 @@ subexp          : LB exp RB                         ;
 
 stmList	        : variables stms
                 | variables
-		        | stms							    ;
+		        | stms | 						    ;
 variables	    : variable SEMI variables
 		        | variable SEMI                     ;
 variable	    : (MUTABLE)? vartype idList             //SEMI gom lại hay tách riêng
 			    |								    ;
 //idlist hay attributes
-stms		    : stm SEMI stms
-			    | stm SEMI 						    ;
-stm			    : lhs ASGOP exp
-			    | IF exp THEN stm
-			    | IF exp THEN stm SEMI ELSE stm
-			    | FOR scala_var ASGOP exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm SEMI)
-			    | BREAK
-			    | CONT
-			    | RETURN exp
-			    | ID DOT ID explist                 ;   //method invoke 5.6
+stms		    : stm stms
+			    | stm   						    ;
+stm			    : lhs ASGOP exp SEMI
+			    | IF exp THEN stm SEMI
+			    | IF exp THEN stm SEMI ELSE stm SEMI
+			    | FOR scala_var ASGOP exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm)
+			    | BREAK SEMI
+			    | CONT SEMI
+			    | RETURN exp SEMI
+			    | exp5 DOT ID explist SEMI
+                | ID DOT ID explist SEMI
+                | exp DOT ID SEMI                  ;   //method invoke 5.6
 scala_var       : ID                                ;
 lhs             : ID
                 | exp '.' ID | exp '[' exp ']'      ;

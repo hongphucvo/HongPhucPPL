@@ -1,0 +1,6 @@
+class A{
+        void main(){
+        bool x;
+        if x then for i:=1 to 2 do io.writeInt(i);
+        else io.writeInt(2);
+        }}

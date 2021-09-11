@@ -1,0 +1,7 @@
+class A{
+        int main(){
+        string x;
+        io.readString(x);
+        io.writeString("Your name is");
+        io.writeString(x);
+        }}

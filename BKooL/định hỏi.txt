@@ -1,0 +1,27 @@
+Thưa thầy, giả sử ta có 2 class:
+
+ class A{
+
+int a;
+
+void func(){}
+
+}
+
+class B {
+
+A[3] x;
+
+void main(){
+
+b:B;
+
+#exp
+
+}
+
+}
+
+và đối tượng b có kiểu là B.
+
+Expression nào sẽ cho phép ta lấy được giá trị a x[3] thuộc về b ạ?

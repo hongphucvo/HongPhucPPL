@@ -1,0 +1,4 @@
+class Lit{
+        void main(){
+        int[2] A;
+        A:={1.2,6};}}

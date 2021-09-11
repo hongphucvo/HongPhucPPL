@@ -52,7 +52,7 @@ attri			: ID ASG exp
 //METHOD DECLR
 methodDeclare	: methodType returnType ID paramList stmBlock
 				| constructor						;
-constructor		: ID paramDeclare stmBlock	        ;
+constructor		: ID paramList stmBlock	        ;
 methodType		: STATIC|							;
 returnType		: vartype							;
 stmBlock	    : LP stmList RP
@@ -127,7 +127,7 @@ stm			    : lhs ASGOP exp SEMI
 			    | methodInvoke SEMI;   //method invoke 5.6
 scala_var       : ID                                ;
 lhs             : ID
-                | exp '.' ID | exp '[' exp ']'      ;
+                | attriAccess | exp '[' exp ']'      ;
 
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;

@@ -101,38 +101,6 @@ input = """class A{
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 280))
 
-    def test_mixed_statement(self):
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 281))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 282))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 283))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 284))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 285))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 286))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 287))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 288))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 289))
-        input = """"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 290))
-
     def test_sample(self):
         """C++ to BKOOL"""
         """find the first repeating element in an array"""

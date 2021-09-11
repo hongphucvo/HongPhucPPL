@@ -1,0 +1,5 @@
+class A{
+        int var;
+        void main(){float m;
+        m:=    var*9-7     ;
+        }}

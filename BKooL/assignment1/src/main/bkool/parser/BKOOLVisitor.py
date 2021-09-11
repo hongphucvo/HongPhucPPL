@@ -209,6 +209,26 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKOOLParser#methodInvoke.
+    def visitMethodInvoke(self, ctx:BKOOLParser.MethodInvokeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#methodRecur.
+    def visitMethodRecur(self, ctx:BKOOLParser.MethodRecurContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#attriAccess.
+    def visitAttriAccess(self, ctx:BKOOLParser.AttriAccessContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#attriRecur.
+    def visitAttriRecur(self, ctx:BKOOLParser.AttriRecurContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by BKOOLParser#stmList.
     def visitStmList(self, ctx:BKOOLParser.StmListContext):
         return self.visitChildren(ctx)

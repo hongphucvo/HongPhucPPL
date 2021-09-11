@@ -1,0 +1,4 @@
+class Lit{
+        void main(){
+        string A;
+        A:="He asked me: \"Where is John?\"";}}

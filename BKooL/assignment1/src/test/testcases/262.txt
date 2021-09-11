@@ -1,0 +1,7 @@
+class A{
+        int[100]k;
+        void main(){
+        for i:= 1 to 100 do {
+        k[i]:=i;
+        }
+        }}

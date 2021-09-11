@@ -1,0 +1,4 @@
+class A{
+        void main(){float m;
+        m:=   x.m(b[1*3+4-9*1.3]) - this.kd      ;
+        }}

@@ -1,0 +1,3 @@
+class exp{
+        int a;
+        void print(){

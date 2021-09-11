@@ -1,0 +1,7 @@
+class A{
+        void main(){
+        for i:= 1 to 100 do {
+        io.writeInt(i);
+            break;
+        }
+        }}

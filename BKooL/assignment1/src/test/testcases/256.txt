@@ -1,0 +1,4 @@
+class A{
+        void main(){float m;
+        m:=   (1*7)-(5*9)+1.6*50.1      ;
+        }}

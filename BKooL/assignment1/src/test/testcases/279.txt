@@ -1,0 +1,5 @@
+class A{
+        void main(){
+        bool x;
+        if x then io.readInt(x);
+        }}

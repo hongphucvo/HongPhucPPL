@@ -1,0 +1,5 @@
+class A{
+        void main(){
+        boolean x;
+        if x then if x then if m==6 then m:=1000;
+        }}

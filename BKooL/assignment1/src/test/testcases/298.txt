@@ -1,0 +1,6 @@
+class A{
+        int main(){
+        int x;
+        io.readInt(x);
+        io.writeInt(x%3);
+        }}

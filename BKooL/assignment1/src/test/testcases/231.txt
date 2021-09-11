@@ -1,0 +1,4 @@
+class Lit{
+        void main(){
+        string A;
+        A:="my name";}}

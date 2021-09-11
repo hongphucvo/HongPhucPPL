@@ -92,17 +92,19 @@ exp2			: NOT exp2
 				| exp3								;
 exp3			: exp3 '[' exp ']'                      //index
 				| exp4								;
-exp4			: ID DOT ID
-                | exp4 DOT ID explist
-                | ID DOT ID explist
-                | exp4 DOT ID                           //member access
-                | exp5                              ;
+exp4			: methodInvoke | attriAccess | exp5 ;
 exp5			: NEW ID explist                        //Object creation
 				| operand						    ;
 operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit //operand value
 				| 'this' | 'nil'
 				| ID | subexp                       ;
 subexp          : LB exp RB                         ;
+methodInvoke    : attriAccess DOT ID explist methodRecur
+                | (exp5|ID) DOT ID explist methodRecur;
+methodRecur     : DOT ID explist methodRecur |              ;
+attriAccess     : (exp5|ID) DOT ID explist methodRecur DOT ID attriRecur
+                | (exp5|ID) DOT ID attriRecur;
+attriRecur      : DOT ID attriRecur|DOT ID explist methodRecur DOT ID attriRecur|                ;
 
 
 stmList	        : variables stms
@@ -116,15 +118,13 @@ variable	    : (MUTABLE)? vartype idList             //SEMI gom lại hay tách 
 stms		    : stm stms
 			    | stm   						    ;
 stm			    : lhs ASGOP exp SEMI
-			    | IF exp THEN stm SEMI
-			    | IF exp THEN stm SEMI ELSE stm SEMI
+			    | IF exp THEN stm
+			    | IF exp THEN stm ELSE stm
 			    | FOR scala_var ASGOP exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm)
 			    | BREAK SEMI
 			    | CONT SEMI
 			    | RETURN exp SEMI
-			    | exp5 DOT ID explist SEMI
-                | ID DOT ID explist SEMI
-                | exp DOT ID SEMI                  ;   //method invoke 5.6
+			    | methodInvoke SEMI;   //method invoke 5.6
 scala_var       : ID                                ;
 lhs             : ID
                 | exp '.' ID | exp '[' exp ']'      ;

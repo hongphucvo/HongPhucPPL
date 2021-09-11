@@ -346,9 +346,10 @@ float number=7.3, root;}
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 261))
         input = """class A{
+        int[100]k;
         void main(){
         for i:= 1 to 100 do {
-        
+        k[i]:=i;
         }
         }}"""
         expect = "successful"
@@ -356,7 +357,9 @@ float number=7.3, root;}
         input = """class A{
         void main(){
         for i:= 1 to 100 do {
-        
+        #a line cmt
+        /*i:=1000*/
+        i:=i+1;
         }
         }}"""
         expect = "successful"
@@ -364,7 +367,7 @@ float number=7.3, root;}
         input = """class A{
         void main(){
         for i:= 1 to 100 do {
-        
+            if i%2==0 then i:=i*2;
         }
         }}"""
         expect = "successful"
@@ -372,7 +375,9 @@ float number=7.3, root;}
         input = """class A{
         void main(){
         for i:= 1 to 100 do {
-        
+        i:=1000;
+        io.writeInt(i);
+        break;
         }
         }}"""
         expect = "successful"
@@ -395,8 +400,11 @@ float number=7.3, root;}
         expect = """Error on line 4 col 16: \"123\""""
         self.assertTrue(TestParser.test(input, expect, 267))
         input = """class A{
+        int m(){}
         void main(){
+        A x;
         for i:= 1 downto 100 do {
+            x.m();
             continue;
         }
         }}"""
@@ -411,10 +419,245 @@ float number=7.3, root;}
         self.assertTrue(TestParser.test(input, expect, 269))
         input = """class A{
         void main(){
-        for i:= 1 to 100.6 do i:=100;
+        for i:= 1 to 100.6 do;
+        }}"""
+        expect = "Error on line 3 col 29: ;"
+        self.assertTrue(TestParser.test(input, expect, 270))
+
+    def test_if_else(self):
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then x:=True;
         }}"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 270))
+        self.assertTrue(TestParser.test(input, expect, 271))
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then io.writeInt(100);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 272))
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then if x then if m==6 then m:=1000;
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 273))
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then if y x:=False;
+        else x:=True;
+        }}"""
+        expect = "Error on line 4 col 23: x"
+        self.assertTrue(TestParser.test(input, expect, 274))
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then if(this.m==7)then x:=True;
+        else io.writeInt(100);
+        else io.writeInt(1);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 275))
+        input = """class A{
+        void main(){
+        bool x;
+        if x then for i:=1 to 2 do io.writeInt(i);
+        else io.writeInt(2);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 276))
+        input = """class A{
+        void main(){
+        boolean x;
+        if x then x.m(5);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 277))
+        input = """class A{
+        void main(){
+        bool x;
+        if x then x:={1,2,3};
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 278))
+        input = """class A{
+        void main(){
+        bool x;
+        if x then io.readInt(x);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 279))
+        input = """class A{
+        void main(){
+        bool x;
+        if x then io.readBool(x);
+        else io.writeBool(x);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 280))
+
+
+
+    def test_mixed_statement(self):
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 281))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 282))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 283))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 284))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 285))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 286))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 287))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 288))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 289))
+        input = """"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 290))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def test_sample(self):
+        """C++ to BKOOL"""
+        """find the first repeating element in an array"""
+        input = """
+        class X{
+        int main(){
+  int[100] arr, n, i;
+  io.writeString( "Enter number of elements: ");
+  io.readInt(n);
+  for i := 0 to  n do
+    io.readInt(arr[i]);
+  for i := 0 to  n do
+    for j := i+1 to  n do
+      if arr[i] == arr[j]{
+        io.writeString("First repeating integer is ");
+         io.writeInt(arr[i]);
+      }
+}}"""
+        expect = "Error on line 11 col 25: {"
+        self.assertTrue(TestParser.test(input, expect, 291))
+        """P of triangle"""
+        input = """class A{
+        int main(){
+        io.writeInt(io.readInt(x)+io.readInt(x)+io.readInt(x));
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 292))
+
+        """Sum of n"""
+        input = """class A{
+        int main(){
+        int x,sum;
+        sum:=0;
+        io.readInt(x);
+        for i:=1 to x do sum:=sum+i;
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 293))
+        """sum of two ints"""
+        input = """class A{
+        int main(){
+        int x,y;
+        io.readInt(x);
+        io.readInt(y);
+        io.writeInt(x+y);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 294))
+        """cmt in main"""
+        input = """class A{
+        int main(){
+        int x,y;
+        io.readInt(x);
+        io.readInt(y);
+        # this is a line cmt
+        /* and an unterminated cmt
+        }}"""
+        expect = "Error on line 7 col 8: /"
+        self.assertTrue(TestParser.test(input, expect, 295))
+        """array to int"""
+        input = """class A{
+        int main(){
+        int[3] x;
+        int sum; sum:=0;
+        for i:=1 to n do sum := sum*10+io.readInt(x[i]);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 296))
+        """flip sign"""
+        input = """class A{
+        int main(){
+        int x;
+        io.readInt(x);
+        io.writeInt(-x);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 297))
+        """mod 3"""
+        input = """class A{
+        int main(){
+        int x;
+        io.readInt(x);
+        io.writeInt(x%3);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 298))
+        """rec class"""
+        input = """class rec{
+        int w,b;
+        int main(){
+        io.readInt(this.w);
+        io.readInt(this.b);
+        io.writeInt(w*b);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 299))
+        """write your name"""
+        input = """class A{
+        int main(){
+        string x;
+        io.readString(x);
+        io.writeString(\"Your name is\");
+        io.writeString(x);
+        }}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 300))
+
+
 
 
 

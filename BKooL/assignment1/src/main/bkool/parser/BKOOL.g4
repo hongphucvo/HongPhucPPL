@@ -34,7 +34,7 @@ classMember 	: attributeDeclare
                 | methodDeclare			    		;
 
 //Attribute Declaration
-//attributes		: attributeDeclare attributes|	;
+//attributes	: attributeDeclare attributes|	;
 attributeDeclare: attribute_type vartype attributeList SEMI ;
 attribute_type	: STATIC MUTABLE
 				| MUTABLE STATIC
@@ -52,7 +52,7 @@ attri			: ID ASG exp
 //METHOD DECLR
 methodDeclare	: methodType returnType ID paramList stmBlock
 				| constructor						;
-constructor		: ID paramList stmBlock	        ;
+constructor		: ID paramList stmBlock	            ;
 methodType		: STATIC|							;
 returnType		: vartype							;
 stmBlock	    : LP stmList RP
@@ -110,11 +110,11 @@ attriRecur      : DOT ID attriRecur|DOT ID explist methodRecur DOT ID attriRecur
 stmList	        : variables stms
                 | variables
 		        | stms | 						    ;
-variables	    : variable SEMI variables
-		        | variable SEMI                     ;
-variable	    : (MUTABLE)? vartype idList             //SEMI gom lại hay tách riêng
-			    |								    ;
+variables	    : variable variables
+		        | variable                          ;
+variable	    : (MUTABLE)? vartype attributeList SEMI ;
 //idlist hay attributes
+
 stms		    : stm stms
 			    | stm   						    ;
 stm			    : lhs ASGOP exp SEMI
@@ -124,10 +124,10 @@ stm			    : lhs ASGOP exp SEMI
 			    | BREAK SEMI
 			    | CONT SEMI
 			    | RETURN exp SEMI
-			    | methodInvoke SEMI;   //method invoke 5.6
+			    | methodInvoke SEMI                 ;   //method invoke 5.6
 scala_var       : ID                                ;
 lhs             : ID
-                | attriAccess | exp '[' exp ']'      ;
+                | attriAccess | exp4 '[' exp ']'    ;
 
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;
@@ -202,11 +202,12 @@ BOOLLIT		: 'true'|'false'            ;
 
 
 
-
-
 ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfnrt"\\]
-                    {raise IllegalEscape(self.text)};
+                    {raise IllegalEscape(self.text[0:])};
 UNCLOSE_STRING  :   '"' Char* ([\n\r]|EOF)
-                    {raise UncloseString(self.text)};
+                    {
+                    if self.text[-1] in ["\n","\r"] :
+                        raise UncloseString(self.text[0:-1])
+                    else: raise UncloseString(self.text[0:])};
 ERROR_CHAR      :	.
                     {raise ErrorToken(self.text)};

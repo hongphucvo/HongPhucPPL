@@ -1,3 +1,5 @@
 class A{int main(){
-  float number = root;}
+  final float number = root;
+  root:=5;
+final x;}
 }

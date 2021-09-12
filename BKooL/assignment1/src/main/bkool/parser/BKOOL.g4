@@ -190,15 +190,15 @@ WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
 
 
 fragment IntegerPart :  [0-9]+			;
-fragment DecimalPart : 	'.'[0-9]+		;
+fragment DecimalPart : 	'.'[0-9]*		;
 fragment ExponentPart:	[Ee][+-]?[0-9]+	;
 fragment Char		: ~["\\\r\n]  | EscapeStr;
 fragment EscapeStr :  '\\'["bfrnt\\] ;
 FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
 STRINGLIT	: '"'Char*?'"'              ;
-ID			: [a-zA-Z|_][a-zA-Z0-9|_]* 	;
-INTLIT		: [0-9]+	                ;
+INTLIT		: IntegerPart	                ;
 BOOLLIT		: 'true'|'false'            ;
+ID			: [a-zA-Z_][a-zA-Z0-9_]* 	;
 
 
 

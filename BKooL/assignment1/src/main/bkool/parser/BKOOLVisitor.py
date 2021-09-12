@@ -99,16 +99,6 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKOOLParser#methodType.
-    def visitMethodType(self, ctx:BKOOLParser.MethodTypeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKOOLParser#returnType.
-    def visitReturnType(self, ctx:BKOOLParser.ReturnTypeContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKOOLParser#stmBlock.
     def visitStmBlock(self, ctx:BKOOLParser.StmBlockContext):
         return self.visitChildren(ctx)

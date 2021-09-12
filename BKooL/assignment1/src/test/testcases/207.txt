@@ -1,5 +1,5 @@
 class A{int main(){
   final float number = root;
-  root:=5;
+  this.root:=5;
 final x;}
 }

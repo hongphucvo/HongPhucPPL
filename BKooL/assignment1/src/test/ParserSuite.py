@@ -4,6 +4,7 @@ from TestUtils import TestParser
 
 
 class ParserSuite(unittest.TestCase):
+
     def test_simple_program(self):
         """Simple program: 1 stm """
         input = """class A{int main(){}}"""
@@ -11,6 +12,8 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input, expect, 201))
     def test_simple_test1(self):
         input = """class A{int main(){
+        int b;
+        {int a;}
   return 0;}
 }"""
         expect = "successful"
@@ -18,6 +21,7 @@ class ParserSuite(unittest.TestCase):
     def test_simple_test2(self):
         input = """class A{int main(){
   float number, root;
+  {}
   }
 }"""
         expect = "successful"
@@ -25,9 +29,10 @@ class ParserSuite(unittest.TestCase):
     def test_simple_test3(self):
         input = """class A{
 int main(){
+{}
 final float number = 7.0, root=2.3;}
 }"""
-        expect = "Error on line 3 col 19: ="
+        expect = "Error on line 4 col 0: final"
         self.assertTrue(TestParser.test(input, expect, 204))
     def test_simple_test4(self):
         input = """class A{int main(){
@@ -37,15 +42,17 @@ static float number=9.0; int root;}
         self.assertTrue(TestParser.test(input, expect, 205))
     def test_simple_test5(self):
         input = """class A{static int main(){
-float number=7.3, root;}
+float number=7.3; root;}
 }"""
-        expect = "Error on line 2 col 12: ="
+        expect = "Error on line 2 col 22: ;"
         self.assertTrue(TestParser.test(input, expect, 206))
     def test_simple_test6(self):
         input = """class A{int main(){
-  float number = root;}
+  final float number = root;
+  this.root:=5;
+final x;}
 }"""
-        expect = "Error on line 2 col 15: ="
+        expect = "Error on line 4 col 0: final"
         self.assertTrue(TestParser.test(input, expect, 207))
     def test_simple_test7(self):
         input = """class A{int main(){
@@ -119,10 +126,10 @@ float number=7.3, root;}
         input = """class School{
         int id;
         void print(){
-        int a=100;
+        static int a=100;
         io.writeInt(a);}
         }"""
-        expect = "Error on line 4 col 13: ="
+        expect = "Error on line 4 col 8: static"
         self.assertTrue(TestParser.test(input, expect, 219))
     def test_class_dcl10(self):
         input = """class School{
@@ -232,7 +239,7 @@ float number=7.3, root;}
         void main(){
         string[1] A;
         A:={"A\n"};}}"""
-        expect = "\"A\n"
+        expect = "\"A"
         self.assertTrue(TestParser.test(input, expect, 236))
     def test_literal7(self):
         input = """class Lit{
@@ -396,7 +403,7 @@ float number=7.3, root;}
         """test the loop components"""
         input = """class A{
         void main(){
-        for i:= 1 to 100 do {
+        for i:= 1 to 100 +j*5/4do {
         
         }
         }}"""
@@ -406,7 +413,7 @@ float number=7.3, root;}
         input = """class A{
         int[100]k;
         void main(){
-        for i:= 1 to 100 do {
+        for i:= a||b to 100-56*1 do {
         k[i]:=i;
         }
         }}"""
@@ -415,7 +422,7 @@ float number=7.3, root;}
     def test_for_to_do_break3(self):
         input = """class A{
         void main(){
-        for i:= 1 to 100 do {
+        for i:= a==t to 100 do {
         #a line cmt
         /*i:=1000*/
         i:=i+1;
@@ -426,7 +433,7 @@ float number=7.3, root;}
     def test_for_to_do_break4(self):
         input = """class A{
         void main(){
-        for i:= 1 to 100 do {
+        for i:= a.k[3] to 100 do {
             if i%2==0 then i:=i*2;
         }
         }}"""
@@ -435,13 +442,13 @@ float number=7.3, root;}
     def test_for_to_do_break5(self):
         input = """class A{
         void main(){
-        for i:= 1 to 100 do {
+        for i:= 1 to a.[3] do {
         i:=1000;
         io.writeInt(i);
         break;
         }
         }}"""
-        expect = "successful"
+        expect = "Error on line 3 col 23: ["
         self.assertTrue(TestParser.test(input, expect, 265))
     def test_for_to_do_break6(self):
         input = """class A{

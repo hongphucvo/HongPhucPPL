@@ -1,6 +1,6 @@
 class A{
         void main(){
-        for i:= 1 to 100 do {
+        for i:= 1 to a.[3] do {
         i:=1000;
         io.writeInt(i);
         break;

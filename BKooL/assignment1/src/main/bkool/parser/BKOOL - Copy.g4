@@ -1,3 +1,8 @@
+/*
+    Huynh Nhat Nam
+    1810739
+*/
+
 grammar BKOOL;
 
 @lexer::header {
@@ -8,157 +13,267 @@ options{
 	language=Python3;
 }
 
-@lexer::members {
-def emit(self):
-    tk = self.type
-    result = super().emit()
-    if tk == self.UNCLOSE_STRING:       
-        raise UncloseString(result.text)
-    elif tk == self.ILLEGAL_ESCAPE:
-        raise IllegalEscape(result.text)
-    elif tk == self.ERROR_CHAR:
-        raise ErrorToken(result.text)
-    elif tk == self.UNTERMINATED_COMMENT:
-        raise UnterminatedComment()
-    else:
-        return result;
-}
+/*-----------------------------------------------------------------------*/
+/*------------------------------- Parser --------------------------------*/
+/*-----------------------------------------------------------------------*/
 
-program  		: mptype 'main' LB RB LP body? RP EOF ;
+//syntax
 
-mptype			: INTTYPE | VOIDTYPE 				;
+program         :   class_declare+ EOF
+                ;
 
-body			: funcall SEMI						;
+class_declare   :   CLASS ID (EXTENDS ID)? LP members_declare* RP
+                ;
 
-exp				: funcall | INTLIT 					;
+members_declare :   attributes
+                |   methods
+                ;
+ 
 
-funcall			: ID LB exp? RB 					;
+attributes	    :   STATIC ? FINAL ? type_Type ID CONST? exp (COMMA ID CONST exp)* SEMICOLON
+            	|   FINAL ? STATIC ? type_Type ID CONST? exp (COMMA ID CONST exp)* SEMICOLON
+            	;
 
-classdcl		: CLASS ID LP memlist RP
-				| CLASS ID EXTEND ID LP memlist RP	;
+methods     	:   STATIC ? type_Type ? ID parameter_list block_statement
+	            ;
 
-memlist			: mems 
-				|									;
-mems			: mem mems
-				| mem								;
-mem 			: attribute|method					;
+parameter_list  :   LB para_list (SEMICOLON para_list)* RB
+                |   LB RB
+                ;
 
-attribute		: attribute_type vartype attrilist SEMI;
-attribute_type	: STATIC MUTABLE
-				| MUTABLE STATIC
-				| (STATIC | MUTABLE)
-				|									;
-vartype			: primtype | array | CLASSTYPE ;
-primtype		:INTTYPE|VOIDTYPE|FLOATTYPE|STRINGTYPE|BOOLTYPE;
-array			: primtype LSB INTLIT RSB			;
-attrilist		: attri COMMA attrilist
-				| attri 							;
-attri			: ID ASG exp	
-				| ID								;
+para_list       :   type_Type id_list
+                ;
 
-method			: method_type return_type ID paramdcl block	
-				| constructor						;
-constructor		: ID paramdcl block					; 
-method_type		: STATIC|							;
-return_type		:;// section4							;
-block			:;// section6							;
-paramdcl    	: LB paramlist RB                 
-            	| LB RB                   		;
-paramlist   	: params SEMI paramlist
-            	| params                  		;
-params      	: vartype idlist             		;
-idlist      	: ID COMMA idlist
-            	| ID                      		;
-//param được gán assign không??? được thì dùng attri=idlist
+id_list         :   ID (COMMA ID)*
+                ;
 
-cmt				: blockcmt | linecmt				;
-linecmt			: '#' cmttext '\n'					;
-blockcmt		: '/*' cmttext '*/'					;
-cmttext			: .*								;
+block_statement :   LP attributes* statements* RP
+                ;
+
+type_Type       :   primitive_type
+                |   array_type
+                |   class_type
+                ;
+
+primitive_type  :   INT | BOOLEAN | FLOAT | STRING
+                ;
+
+array_type      :   (primitive_type | class_type) LSB INTLIT RSB
+                ;
+
+class_type      :   ID
+                ;
+
+// --------------------- Expressions -------------------- //
+
+exp             :   exp1 (LESS_THAN | GREATER_THAN | LESS_THAN_EQ | GREATER_THAN_EQ) exp1
+                |   exp1
+                ;
+
+exp1            :   exp2 (NOT_EQUAL | EQUAL) exp2
+                |   exp2
+                ;
+
+exp2            :   exp2 AND exp3
+                |   exp2 OR exp3
+                |   exp3
+                ;
+
+exp3            :   exp3 (ADD | SUB) exp4
+                |   exp4
+                ;
+
+exp4            :   exp4 (MUL | I_DIV | F_DIV | MOD) exp5
+                |   exp5
+                ;
+
+exp5            :   exp5 CONCAT exp6
+                |   exp6
+                ;
+
+exp6            :   NOT exp6
+                |   exp7
+                ;
+
+exp7            :   ADD exp7
+                |   SUB exp7
+                |   exp8
+                ;
+
+exp8            :   exp9 LSB exp RSB
+                |   exp9
+                ;
+
+exp9            :   exp9 DOT ID LB exp_list RB
+                |   exp9 DOT ID LB RB
+                |   exp9 DOT ID
+                |   exp10
+                ;
+
+exp10           :   NEW ID LB exp_list? RB
+                |   exp11
+                ;
+
+exp11           :   THIS | NIL | literal | ID
+                |   LB exp RB
+                ;
+
+exp_list        :   exp (COMMA exp)*
+                ;
+
+literal         :   INTLIT | BOOLEANLIT | STRINGLIT | FLOATLIT | arraylit
+                ;
+
+// ---------------------- Statements ------------------------//
+
+statements      :   block_statement | assign_stmt | if_stmt | for_stmt | break_stmt | continue_stmt
+                |   return_stmt | method_stmt
+                ;
+
+assign_stmt     :   lhs ASSIGN exp SEMICOLON
+                ;
+lhs             :   ID
+                |   exp DOT ID
+                |   ID DOT ID
+                |   exp LSB exp LSB
+                ;
+
+if_stmt         :   IF exp THEN statements (ELSE statements)?
+                ;
+
+for_stmt        :   FOR ID ASSIGN exp (TO | DOWNTO) exp DO statements
+                ;
+
+break_stmt      :   BREAK SEMICOLON
+                ;
+
+continue_stmt   :   CONTINUE SEMICOLON
+                ;
+
+return_stmt     :   RETURN exp? SEMICOLON
+                ;
+
+method_stmt     :   exp DOT ID LB exp_list? RB SEMICOLON
+                ;
+
+/*-----------------------------------------------------------------------*/
+/*------------------------------- Lexer ---------------------------------*/
+/*-----------------------------------------------------------------------*/
+
+// Separators
+LP          : '{';
+RP          : '}';
+LSB         : '[';
+RSB         : ']';
+LB          : '(';
+RB          : ')';
+SEMICOLON   : ';';
+COLON       : ':';
+COMMA       : ',';
+DOT         : '.';
+
+//	LEXER
+ASSIGN			: ':=';
+CONST			: '=';
+
+// Keywords
+BOOLEAN		: 'boolean';
+BREAK 		: 'break';
+CLASS		: 'class';
+CONTINUE	: 'continue';
+DO 			: 'do';
+ELSE		: 'else';
+EXTENDS		: 'extends';
+FLOAT 		: 'float';
+IF			: 'if';
+INT         : 'int';
+NEW 		: 'new';
+STRING 		: 'string';
+THEN		: 'then';
+FOR 		: 'for';
+RETURN		: 'return';
+TRUE		: 'true';
+FALSE		: 'false';
+VOID 		: 'void';
+NIL 		: 'nil';
+THIS 		: 'this';
+FINAL 		: 'final';
+STATIC 		: 'static';
+TO 			: 'to';
+DOWNTO 		: 'downto';
+
+//SHAPE       : 'Shape';
+
+// Operators
+ADD                 : '+' ;
+SUB                 : '-' ;
+MUL                 : '*' ;
+I_DIV               : '\\' ;
+MOD  		        : '%' ;
+F_DIV               : '/' ;
+
+NOT                 : '!' ;
+AND                 : '&&' ;
+OR   	            : '||' ;
+
+EQUAL               : '==' ;
+NOT_EQUAL           : '!=' ;
+LESS_THAN           : '<' ;
+GREATER_THAN        : '>' ;
+LESS_THAN_EQ        : '<=' ;
+GREATER_THAN_EQ     : '>=' ;
+CONCAT 				: '^' ;
 
 
-/*
-memstatic	: STATIC memmutable
-			| memmutable			;		;
-memmutable	: FINAL mem3			
-			| mem3					;
-mem3		:						;
+// Integer literal
+INTLIT                  : [0-9]+;
 
-*/
+// Float literal
+FLOATLIT                : [0-9]+ (DecimalPart | DecimalPart? ExponentPart)
+	                    ;
+fragment DecimalPart    : DOT [0-9]*
+	                    ;
+fragment ExponentPart   : [Ee][+-]?[0-9]+
+	                    ;
 
+// Boolean literal
+BOOLEANLIT              : TRUE
+                        | FALSE
+                        ;
 
-
-
-
-
-
-
-
-
-CLASS		: 'class'	;
-EXTEND		: 'extends'	;
-NEW			: 'new'		;
-SELF		: 'this'	;
-
-STATIC		: 'static'	;
-MUTABLE		: 'final'	;
-
-INTTYPE		: 'int' 	;
-VOIDTYPE	: 'void'  	;
-FLOATTYPE	: 'float'	;
-BOOLTYPE	: 'boolean'	;
-STRINGTYPE	: 'string'	;
+// array literal
+arraylit                :   LP exp_list RP
+                        ;
 
 
-IF			: 'if'		;
-ELSE		: 'else'	;
-THEN		: 'then'	;
-FOR			: 'for'		;
-TO			: 'to'		;
-DOWNTO		: 'downto'	;
-DO			: 'do'		;
-BREAK		: 'break'	;
-CONT		: 'continue';
-RETURN		: 'return'	;
+// String literal
+STRINGLIT           :   '"' GET_STR* '"' {
+                    self.text = self.text[1:-1]
+};
 
-ID			: [a-zA-Z|_][a-zA-Z0-9|_]* ;
-INTLIT		: [0-9]+	;
-FLOATLIT	: [+-]?		;
-BOOLLIT		: 'true'|'false';
-STRINGLIT	: '"'.*'"'	;
-ARRLIT		: LP (INTLIT+|FLOATLIT+|BOOLLIT+|STRINGLIT+) RB;
+    
+UNCLOSED_STRING     : '"' GET_STR* {
+                    raise uncloseString(self.text[1:])
+};
 
-LB			: '(' 		;
-RB			: ')' 		;
-LP			: '{'		;
-RP			: '}'		;
-LSB			: '['		;
-RSB			: ']'		;
-SEMI		: ';' 		;
-COLON		: ':'		;
-COMMA		: ','		;
-DOT			: '.'		;
+ILLEGAL_ESCAPE      : '"' GET_STR* ESC_ILLEGAL {
+                    raise IllegalEscape(self.text[1:])
+};
 
-ASG			: '='		;
-ADD			: '+'		;
-SUB			: '-'		;
-MUL			: '*'		;
-FLOATDIV	: '/'		;
-INTDIV		: '\\'		;
-MOD			: '%'		;
-INEQ		: '!='		;
-EQ			: '=='		;
-LT			: '<'		;
-GT			: '>'		;
-LEQ			: '<='		;
-GEQ			: '>='		;
-OR			: '||'		;
-AND			: '&'		;
-NOT			: '!'		;
-CON			: '^'		;
-WS 			: [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+fragment GET_STR    : ~[\b\f\n\r\t"\\] | ('\\' [bfrnt"\\]);
+fragment ESC_ILLEGAL:'\\' ~[bfrnt"\\] | '\\' ;
 
+// Skip tokens
+WS                  : [ \t\f\r\n]+                 -> skip; // skip spaces, tabs, newlines
+BLOCK_CMT           : '/*' .*? '*/'                -> skip;
+LINE_CMT            : '#' .*? ([\n] | EOF)         -> skip;
+NEWLINE             : '\n'                         -> skip;
 
-ERROR_CHAR: .;
-UNCLOSE_STRING: .;
-ILLEGAL_ESCAPE: .;
+// Identifers
+ID	:	[a-zA-Z_][a-zA-Z0-9_]*
+    ;
+
+ERROR_CHAR          : .{
+                    raise ErrorToken(self.text)
+};
+

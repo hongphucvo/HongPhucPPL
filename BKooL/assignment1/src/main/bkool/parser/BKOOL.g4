@@ -1,12 +1,11 @@
-/*
- Student name: Vo Hong Phuc
- Student Id: 1911881
- */
+/*---1911881------------------*/
+/*---Vo Hong Phuc-------------*/
 
 grammar BKOOL;
 
 @lexer::header {
 from lexererr import *
+
 }
 
 options{
@@ -22,55 +21,43 @@ body			: funcall SEMI						;
 //exp				: funcall | INTLIT 				;
 
 funcall			: ID LB exp? RB 					;
-classdcls       : classdcl classdcls| classdcl      ;
-classdcl		: CLASS ID memBlock
-				| CLASS ID EXTEND ID  memBlock  	;
+classdcls       : classdcl (classdcls|)             ;
+classdcl		: CLASS ID (EXTEND ID|) memBlock    ;
 
 memBlock		: LP memList RP
 				| LP RP								;
-memList			: classMember memList
-				| classMember						;
+memList			: classMember (memList|)            ;
 classMember 	: attributeDeclare
                 | methodDeclare			    		;
 
 //Attribute Declaration
 //attributes	: attributeDeclare attributes|	;
 attributeDeclare: attribute_type vartype attributeList SEMI ;
-attribute_type	: STATIC MUTABLE
-				| MUTABLE STATIC
-				| STATIC | MUTABLE
-				|									;
+attribute_type	: (STATIC|) (MUTABLE|) | MUTABLE STATIC;
 vartype			: primtype | arraytype | classtype  ;
 primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
                 | STRINGTYPE | BOOLTYPE             ;
 classtype       : ID                                ;
-attributeList	: attri COMMA attributeList
-				| attri 							;
-attri			: ID ASG exp	
-				| ID								;
+attributeList	: attri (COMMA attributeList|)      ;
+attri			: ID (ASG exp|)                     ;
 
 //METHOD DECLR
-methodDeclare	: methodType returnType ID paramList stmBlock
+methodDeclare	: (STATIC|) vartype ID paramList stmBlock
 				| constructor						;
 constructor		: ID paramList stmBlock	            ;
-methodType		: STATIC|							;
-returnType		: vartype							;
 stmBlock	    : LP stmList RP
 				| LP RP								;
 paramList   	: LB paramDeclare RB
             	| LB RB                   			;
-paramDeclare   	: param SEMI paramDeclare
-            	| param                  			;
+paramDeclare   	: param (SEMI paramDeclare|)        ;
 param      	    : vartype idList             		;
-idList      	: ID COMMA idList
-            	| ID                      			;
+idList      	: ID (COMMA idList|)                ;
 //param được gán assign không??? được thì dùng attri=idlist
 
 //ARRAY DCLR
 arraytype		: primtype '[' size ']'			    ;
 arrayLit		: LP elemList RP					;
-elemList		: elem COMMA elemList
-				| elem 								;
+elemList		: elem (COMMA elemList|)            ;
 elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT ;
 size            : INTLIT                            ;
 //assign problem
@@ -78,7 +65,7 @@ size            : INTLIT                            ;
 //EXPRESSION
 explist			: LB exps RB | LB RB				;
 exps			: exp COMMA exps
-				|exp								;
+				| exp								;
 exp				: exp1 (GT|LT|LEQ|GEQ) exp1			    //relational expression
                 | exp1 (EQ|NEQ) exp1				    //relational expression
                 | exp1                              ;
@@ -97,37 +84,31 @@ exp5			: NEW ID explist                        //Object creation
 				| operand						    ;
 operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit //operand value
 				| 'this' | 'nil'
-				| ID | subexp                       ;
+                | ID | subexp                       ;
 subexp          : LB exp RB                         ;
-methodInvoke    : attriAccess DOT ID explist methodRecur
-                | (exp5|ID) DOT ID explist methodRecur;
-methodRecur     : DOT ID explist methodRecur |              ;
-attriAccess     : (exp5|ID) DOT ID explist methodRecur DOT ID attriRecur
-                | (exp5|ID) DOT ID attriRecur;
-attriRecur      : DOT ID attriRecur|DOT ID explist methodRecur DOT ID attriRecur|                ;
 
 
-stmList	        : variables stms
-                | variables
-		        | stms | 						    ;
-variables	    : variable variables
-		        | variable                          ;
-variable	    : (MUTABLE)? vartype attributeList SEMI ;
+methodInvoke    : (attriAccess|exp5|ID) DOT ID explist methodRecur;
+methodRecur     : DOT ID explist methodRecur |                      ;
+attriAccess     : (exp5|ID) methodRecur DOT ID attriRecur;
+attriRecur      : methodRecur DOT ID attriRecur|                ;
+
+
+stmList	        : (variables|) (stms|)              ;
+variables	    : variable (variables|)             ;
+variable	    : (MUTABLE|) vartype attributeList SEMI ;
 //idlist hay attributes
 
-stms		    : stm stms
-			    | stm   						    ;
-stm			    : lhs ASGOP exp SEMI
-			    | IF exp THEN stm
-			    | IF exp THEN stm ELSE stm
-			    | FOR scala_var ASGOP exp1 (TO|DOWNTO) exp2 DO (stmBlock|stm)
-			    | BREAK SEMI
-			    | CONT SEMI
+stms		    : stm (stms|)                       ;
+stm			    : stmBlock
+                | lhs ASGOP exp SEMI
+			    | IF exp THEN stm (ELSE stm|)
+			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
+			    | (BREAK|CONT) SEMI
 			    | RETURN exp SEMI
 			    | methodInvoke SEMI                 ;   //method invoke 5.6
 scala_var       : ID                                ;
-lhs             : ID
-                | attriAccess | exp4 '[' exp ']'    ;
+lhs             : ID | attriAccess | exp4 '[' exp ']';
 
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;
@@ -165,7 +146,7 @@ COLON		: ':'		;
 COMMA		: ','		;
 DOT			: '.'		;
 ASGOP       : ':='      ;
-ASG			: '='		;                   //:=
+ASG			: '='		;
 ADD			: '+'		;
 SUB			: '-'		;
 MUL			: '*'		;
@@ -186,7 +167,7 @@ CON			: '^'		;
 
 LINECMT		: '#' .*? ('\n'|EOF) 	    -> skip	;
 BLOCKCMT	: '/*'.*?'*/'	            -> skip	;
-WS 			: [ \t\r\n]+ 	            -> skip ; // skip spaces, tabs, newlines
+WS 			: [ \t\r\n\f]+ 	            -> skip ; // skip spaces, tabs, newlines
 
 
 fragment IntegerPart :  [0-9]+			;
@@ -196,7 +177,7 @@ fragment Char		: ~["\\\r\n]  | EscapeStr;
 fragment EscapeStr :  '\\'["bfrnt\\] ;
 FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
 STRINGLIT	: '"'Char*?'"'              ;
-INTLIT		: IntegerPart	                ;
+INTLIT		: IntegerPart	            ;
 BOOLLIT		: 'true'|'false'            ;
 ID			: [a-zA-Z_][a-zA-Z0-9_]* 	;
 

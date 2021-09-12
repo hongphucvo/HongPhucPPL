@@ -20,13 +20,13 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("_count total","_count,total,<EOF>",105))
     def test_lowercase_identifier6(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("_count 123total","_count,123,total,<EOF>",106))
+        self.assertTrue(TestLexer.test("_count 123total||x","_count,123,total,||,x,<EOF>",106))
     def test_lowercase_identifier7(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("$count total","Error Token $",107))
+        self.assertTrue(TestLexer.test("$count total&&5","Error Token $",107))
     def test_lowercase_identifier8(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("_count x1","_count,x1,<EOF>",108))
+        self.assertTrue(TestLexer.test("_count x1&7","_count,x1,Error Token &",108))
     def test_lowercase_identifier9(self):
         """test identifiers"""
         self.assertTrue(TestLexer.test("_count_id","_count_id,<EOF>",109))
@@ -141,7 +141,7 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(""" "My name is Hong Phuc Vo!" """,""""My name is Hong Phuc Vo!",<EOF>"""           ,143))
     def test_string_escape4(self):
         """test strings with escape"""
-        self.assertTrue(TestLexer.test(""" "This string contains new line\n" ""","""Unclosed String: \"This string contains new line\n""",144))
+        self.assertTrue(TestLexer.test(""" "This string contains new line\n" ""","""Unclosed String: \"This string contains new line""",144))
     def test_string_escape5(self):
         """test strings with escape"""
         self.assertTrue(TestLexer.test(""" "This is the new line char \\n " """,""""This is the new line char \\n ",<EOF>""",145))
@@ -223,7 +223,7 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(""" \"Open the string \h \"""","""Illegal Escape In String: \"Open the string \h""",168))
     def test_illegal_str4(self):
         """illegal char, unclose, escape"""
-        self.assertTrue(TestLexer.test(""" \"Open the string \n\"""","""Unclosed String: \"Open the string \n""",169))
+        self.assertTrue(TestLexer.test(""" \"Open the string \n\"""","""Unclosed String: \"Open the string """,169))
 
     def test_keyword1(self):
         """keyword list"""

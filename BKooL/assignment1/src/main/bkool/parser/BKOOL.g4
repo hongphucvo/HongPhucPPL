@@ -55,10 +55,10 @@ idList      	: ID (COMMA idList|)                ;
 //param được gán assign không??? được thì dùng attri=idlist
 
 //ARRAY DCLR
-arraytype		: primtype '[' size ']'			    ;
+arraytype		: (primtype|classtype) '[' size ']'			    ;
 arrayLit		: LP elemList RP					;
 elemList		: elem (COMMA elemList|)            ;
-elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT ;
+elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT|ID ;//consider in ass2
 size            : INTLIT                            ;
 //assign problem
 

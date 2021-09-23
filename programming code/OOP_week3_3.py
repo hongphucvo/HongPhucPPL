@@ -69,3 +69,56 @@ x2 = FloatLit(2.0)
 x3 = BinExp(x1,"+",x1)
 x4 = UnExp("-",x1)
 x5 = BinExp(x4,"+",BinExp(IntLit(4),"*",x2))
+
+
+
+
+class Eval(ABC):
+    def visit(self, exp) :
+        return exp.accept(self)
+    def visitBinExp(self,exp):
+        o1=self.visit(exp.left)
+        o2=self.visit(exp.right)
+        if(exp.op=='+'): return o1+o2
+        elif(exp.op=='-'):return o1-o2
+        elif(exp.op=='/'):return o1/o2
+        elif(exp.op=='*'):return o1*o2
+    def visitUnExp(self,exp):
+        o1=self.visit(exp.operand)
+        if(exp.op=='+'): return o1
+        else: return -o1
+    def visitIntLit(self,exp):
+        return exp.value
+    def visitFloatLit(self,exp):
+        return exp.value
+        
+class PrintPrefix(ABC):
+    def visit(self, exp) :
+        return exp.accept(self)
+    def visitBinExp(self,exp):
+        o1=self.visit(exp.left)
+        o2=self.visit(exp.right)
+        return exp.op +" "+ str(o1)+str(o2)
+    def visitUnExp(self,exp):
+        o1=self.visit(exp.operand)
+        return exp.op+". " +str(o1)
+    def visitIntLit(self,exp):
+        return str(exp.value)+" "
+    def visitFloatLit(self,exp):
+        return str(exp.value)+" "
+        
+class PrintPostfix(ABC):
+    def visit(self, exp) :
+        return exp.accept(self)
+    def visitBinExp(self,exp):
+        o1=self.visit(exp.left)
+        o2=self.visit(exp.right)
+        return exp.op +" "+ str(o2)+str(o1)
+    def visitUnExp(self,exp):    
+        o1=self.visit(exp.operand)
+        return exp.op+". " +o1
+    def visitIntLit(self,exp):
+        return str(exp.value)+" "
+    def visitFloatLit(self,exp):
+        return str(exp.value)+" "
+

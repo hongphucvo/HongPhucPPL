@@ -1,1 +1,1 @@
-class A{int main(){(a < 5)[5] := 5; }}
+class A{int main(){}}

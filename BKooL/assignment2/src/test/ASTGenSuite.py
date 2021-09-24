@@ -12,7 +12,7 @@ class ASTGenSuite(unittest.TestCase):
     def test_class_with_one_decl_program(self):
         """More complex program"""
         input = """class main {
-            a:integer;
+            int a;
         }"""
         expect = str(Program([ClassDecl(Id("main"),[AttributeDecl(Instance(),VarDecl(Id("a"),IntType()))])]))
         self.assertTrue(TestAST.test(input,expect,301))
@@ -20,8 +20,8 @@ class ASTGenSuite(unittest.TestCase):
     def test_class_with_two_decl_program(self):
         """More complex program"""
         input = """class main {
-            a:integer;
-            b:integer;
+            int a;
+            int b;
         }"""
         expect = str(Program([ClassDecl(Id("main"),
             [AttributeDecl(Instance(),VarDecl(Id("a"),IntType())),

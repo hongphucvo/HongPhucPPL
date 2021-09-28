@@ -121,42 +121,6 @@ class ASTGeneration(BKOOLVisitor):
         elif ctx.RETURN():
             return Return(self.visit(ctx.exp()))
         return self.visit(ctx.methodInvoke())
-       
-    '''
-    def visitStmBlock(self,ctx:BKOOLParser.StmBlockContext):
-        var=self.visit(ctx.stmList)#have 2 component
-        return Block(var[0],var[1])
-    def visitStmlist(self,ctx:BKOOLParser.StmlistContext):  
-        first=self.visit(ctx.variables())if(ctx.variables())else None
-        second=self.visit(ctx.stms())if ctx.stm()else None
-        return [first,second] 
-    def visitVariables(self,ctx:BKOOLParser.VariablesContext):
-        tail=self.visit(ctx.variables()) if ctx.variables() else []
-        return self.visit(ctx.variable())+tail
-    def visitVariable(self,ctx:BKOOLParser.Context):
-        mute=(ctx.MUTABLE())
-        typ=self.visit(ctx.vartype())
-        attributeList=self.visit(ctx.attributeList())
-        #1 list attribute đc assign???
-        return [VarDecl()]
-        #ID lấy từ attri
-        #type lấy từ typ
-        #varInit lấy từ attri có thể bằng none
-    def attrilist():pass'''
-
-    '''
-    def visitConst(self,ctx:BKOOLParser.ConstContext):
-        return ConstDecl(ctx.ID().getText(),ctx.varType(),ctx.Lit())#local constant
-
-
-
-
-    def visitClassdcl(self,ctx:BKOOLParser.ClassdclContext):
-        memlist=self.visit(ctx.memBlock())#List
-        return ClassDecl(Id(ctx.ID().getText()),[self.visit(x) for x in ctx.memdecl()])
-    def visitmemBlock(self, ctx:BKOOLParser.MemListContext):
-        return self.visit(ctx.memList())
-    '''
     def visitExplist(self, ctx:BKOOLParser.ExplistContext):
         return self.visit(ctx.exps()) if ctx.exps() else []
     def visitExps(self, ctx:BKOOLParser.ExpsContext):
@@ -249,39 +213,6 @@ class ASTGeneration(BKOOLVisitor):
         if ctx.getChildCount()==0:
             return []
         return [self.visit(ctx.methodRecur()),ctx.ID().getText(), self.visit(ctx.attriRecur())]
-
-    def visitMethodInvoke(self,ctx:BKOOLParser.MethodInvokeContext):
-        if ctx.attriAccess():
-            obj=self.visit(ctx.attriAccess())
-        elif ctx.exp5():
-            obj=self.visit(ctx.exp5())
-        else: obj=Id(ctx.ID(0).getText())
-        #chưa handle 2 ID
-        last=1
-        method=Id(ctx.ID(last).getText())
-        param=self.visit(ctx.explist)
-        tail=self.visit(ctx.methodRecur())
-    def visitMethodRecur(self,ctx:BKOOLParser.MethodRecurContext):
-        if ctx.getChildCount()==0:
-            return 
-        return [ctx.ID().getText(),self.visit(ctx.explist()),self.visit(ctx.methodRecur())]
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def visitScala_var(self, ctx:BKOOLParser.Scala_varContext):
         return Id(ctx.ID().getText())

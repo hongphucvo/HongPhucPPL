@@ -1,4 +1,5 @@
-from BKooL.assignment2.src.main.bkool.utils.AST import ArrayCell, ArrayType, AttributeDecl, BinaryOp, BoolType, BooleanLiteral, CallStmt, ClassDecl, ClassType, ConstDecl, FieldAccess, FloatLiteral, FloatType, Instance, IntLiteral, MethodDecl, NewExpr, NullLiteral, SelfLiteral, StoreDecl, StringLiteral, StringType, UnaryOp, VarDecl, VoidType
+from typing import Any
+from BKooL.assignment2.src.main.bkool.utils.AST import ArrayCell, ArrayType, AttributeDecl, BinaryOp, BoolType, BooleanLiteral, CallExpr, CallStmt, ClassDecl, ClassType, ConstDecl, FieldAccess, FloatLiteral, FloatType, Instance, IntLiteral, MethodDecl, NewExpr, NullLiteral, SelfLiteral, StoreDecl, StringLiteral, StringType, UnaryOp, VarDecl, VoidType
 from BKOOLVisitor import BKOOLVisitor
 from BKOOLParser import BKOOLParser
 from AST import *
@@ -12,7 +13,8 @@ class ASTGeneration(BKOOLVisitor):
     
     def visitMemdecl(self,ctx:BKOOLParser.MemdeclContext):
         return AttributeDecl(Instance(),VarDecl(Id(ctx.ID().getText()),self.visit(ctx.bkooltype())))
-
+    def a():
+        pass
     
 
 
@@ -206,17 +208,80 @@ class ASTGeneration(BKOOLVisitor):
         elif ctx.exp5():
             obj=self.visit(ctx.exp5())
         else: obj=Id(ctx.ID(0).getText())
+        #chưa handle 2 ID
+        last=1
+        method=Id(ctx.ID(last).getText())
+        param=self.visit(ctx.explist)
         tail=self.visit(ctx.methodRecur())
-
-        return (self.visit)#kho qua di
-    def visitMethodRecur(self,ctx:BKOOLParser.MethodRecurContext):
         
-        return CallStmt(self.visit)
+        inner = CallExpr(obj,method,param)#kho qua di
+        outer=tail[2]
+        while(outer!=[]):
+            inner=CallExpr(inner,outer[0],outer[1])
+            outer=outer[2]
+        return inner
+    def visitMethodRecur(self,ctx:BKOOLParser.MethodRecurContext):
+        if ctx.getChildCount()==0:
+            return []
+        return [ctx.ID().getText(),self.visit(ctx.explist()),self.visit(ctx.methodRecur())]
+    def visitAttriAccess(self, ctx:BKOOLParser.AttriAccessContext):
+        obj=self.visit(ctx.exp5()) if ctx.exp5() else Id(ctx.ID(0).getText())
+        head_=self.visit(ctx.methodRecur())
+        last=2
+        fieldname=ctx.ID(last).getText()
+        while(head_!=[]):
+            obj=CallExpr(obj,head_[0],head_[1])
+            head_=head_[2]
 
-    def visitAttriAccess(self,ctx:BKOOLParser.AttriAccessContext):
-        return (self.visit)
+        tail_=self.visit(ctx.attriRecur())
+        inner=FieldAccess(obj,fieldname)
+        outer=tail_[2]
+        while(outer!=[]):
+            #handle inner into method recur bằng while
+            x=outer[0]
+            while(x!=[]):
+                inner=CallExpr(inner,x[0],x[1])
+                x=x[2]
+            inner=FieldAccess(inner,outer[1])
+            outer=outer[2]
+        return inner
     def visitAttriRecur(self,ctx:BKOOLParser.AttriRecurContext):
-        return FieldAccess()
+        if ctx.getChildCount()==0:
+            return []
+        return [self.visit(ctx.methodRecur()),ctx.ID().getText(), self.visit(ctx.attriRecur())]
+
+    def visitMethodInvoke(self,ctx:BKOOLParser.MethodInvokeContext):
+        if ctx.attriAccess():
+            obj=self.visit(ctx.attriAccess())
+        elif ctx.exp5():
+            obj=self.visit(ctx.exp5())
+        else: obj=Id(ctx.ID(0).getText())
+        #chưa handle 2 ID
+        last=1
+        method=Id(ctx.ID(last).getText())
+        param=self.visit(ctx.explist)
+        tail=self.visit(ctx.methodRecur())
+    def visitMethodRecur(self,ctx:BKOOLParser.MethodRecurContext):
+        if ctx.getChildCount()==0:
+            return 
+        return [ctx.ID().getText(),self.visit(ctx.explist()),self.visit(ctx.methodRecur())]
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def visitScala_var(self, ctx:BKOOLParser.Scala_varContext):
         return Id(ctx.ID().getText())

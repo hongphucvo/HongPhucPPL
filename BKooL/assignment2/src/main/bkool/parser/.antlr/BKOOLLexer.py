@@ -23,9 +23,9 @@ def serializedATN():
         buf.write("\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\4\63\t\63\4\64")
         buf.write("\t\64\4\65\t\65\4\66\t\66\4\67\t\67\48\t8\49\t9\4:\t:")
         buf.write("\4;\t;\4<\t<\4=\t=\4>\t>\4?\t?\4@\t@\4A\tA\4B\tB\4C\t")
-        buf.write("C\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5")
-        buf.write("\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3")
-        buf.write("\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n")
+        buf.write("C\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5")
+        buf.write("\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3")
+        buf.write("\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n")
         buf.write("\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3")
         buf.write("\f\3\r\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3")
         buf.write("\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\20")
@@ -71,8 +71,8 @@ def serializedATN():
         buf.write("\3\2\2\2\2g\3\2\2\2\2i\3\2\2\2\2k\3\2\2\2\2w\3\2\2\2\2")
         buf.write("y\3\2\2\2\2{\3\2\2\2\2}\3\2\2\2\2\177\3\2\2\2\2\u0081")
         buf.write("\3\2\2\2\2\u0083\3\2\2\2\2\u0085\3\2\2\2\3\u0087\3\2\2")
-        buf.write("\2\5\u0089\3\2\2\2\7\u008b\3\2\2\2\t\u008f\3\2\2\2\13")
-        buf.write("\u0095\3\2\2\2\r\u009d\3\2\2\2\17\u00a1\3\2\2\2\21\u00a6")
+        buf.write("\2\5\u0089\3\2\2\2\7\u008b\3\2\2\2\t\u0091\3\2\2\2\13")
+        buf.write("\u0099\3\2\2\2\r\u009d\3\2\2\2\17\u00a2\3\2\2\2\21\u00a6")
         buf.write("\3\2\2\2\23\u00ad\3\2\2\2\25\u00b3\3\2\2\2\27\u00b7\3")
         buf.write("\2\2\2\31\u00bc\3\2\2\2\33\u00c2\3\2\2\2\35\u00ca\3\2")
         buf.write("\2\2\37\u00d1\3\2\2\2!\u00d4\3\2\2\2#\u00d9\3\2\2\2%\u00de")
@@ -91,15 +91,15 @@ def serializedATN():
         buf.write("\2\2\2}\u0199\3\2\2\2\177\u019b\3\2\2\2\u0081\u01a2\3")
         buf.write("\2\2\2\u0083\u01ad\3\2\2\2\u0085\u01b9\3\2\2\2\u0087\u0088")
         buf.write("\7]\2\2\u0088\4\3\2\2\2\u0089\u008a\7_\2\2\u008a\6\3\2")
-        buf.write("\2\2\u008b\u008c\7p\2\2\u008c\u008d\7k\2\2\u008d\u008e")
-        buf.write("\7n\2\2\u008e\b\3\2\2\2\u008f\u0090\7e\2\2\u0090\u0091")
-        buf.write("\7n\2\2\u0091\u0092\7c\2\2\u0092\u0093\7u\2\2\u0093\u0094")
-        buf.write("\7u\2\2\u0094\n\3\2\2\2\u0095\u0096\7g\2\2\u0096\u0097")
-        buf.write("\7z\2\2\u0097\u0098\7v\2\2\u0098\u0099\7g\2\2\u0099\u009a")
-        buf.write("\7p\2\2\u009a\u009b\7f\2\2\u009b\u009c\7u\2\2\u009c\f")
-        buf.write("\3\2\2\2\u009d\u009e\7p\2\2\u009e\u009f\7g\2\2\u009f\u00a0")
-        buf.write("\7y\2\2\u00a0\16\3\2\2\2\u00a1\u00a2\7v\2\2\u00a2\u00a3")
-        buf.write("\7j\2\2\u00a3\u00a4\7k\2\2\u00a4\u00a5\7u\2\2\u00a5\20")
+        buf.write("\2\2\u008b\u008c\7e\2\2\u008c\u008d\7n\2\2\u008d\u008e")
+        buf.write("\7c\2\2\u008e\u008f\7u\2\2\u008f\u0090\7u\2\2\u0090\b")
+        buf.write("\3\2\2\2\u0091\u0092\7g\2\2\u0092\u0093\7z\2\2\u0093\u0094")
+        buf.write("\7v\2\2\u0094\u0095\7g\2\2\u0095\u0096\7p\2\2\u0096\u0097")
+        buf.write("\7f\2\2\u0097\u0098\7u\2\2\u0098\n\3\2\2\2\u0099\u009a")
+        buf.write("\7p\2\2\u009a\u009b\7g\2\2\u009b\u009c\7y\2\2\u009c\f")
+        buf.write("\3\2\2\2\u009d\u009e\7v\2\2\u009e\u009f\7j\2\2\u009f\u00a0")
+        buf.write("\7k\2\2\u00a0\u00a1\7u\2\2\u00a1\16\3\2\2\2\u00a2\u00a3")
+        buf.write("\7p\2\2\u00a3\u00a4\7k\2\2\u00a4\u00a5\7n\2\2\u00a5\20")
         buf.write("\3\2\2\2\u00a6\u00a7\7u\2\2\u00a7\u00a8\7v\2\2\u00a8\u00a9")
         buf.write("\7c\2\2\u00a9\u00aa\7v\2\2\u00aa\u00ab\7k\2\2\u00ab\u00ac")
         buf.write("\7e\2\2\u00ac\22\3\2\2\2\u00ad\u00ae\7h\2\2\u00ae\u00af")
@@ -214,11 +214,11 @@ class BKOOLLexer(Lexer):
 
     T__0 = 1
     T__1 = 2
-    T__2 = 3
-    CLASS = 4
-    EXTEND = 5
-    NEW = 6
-    SELF = 7
+    CLASS = 3
+    EXTEND = 4
+    NEW = 5
+    SELF = 6
+    NIL = 7
     STATIC = 8
     MUTABLE = 9
     INTTYPE = 10
@@ -279,7 +279,7 @@ class BKOOLLexer(Lexer):
     modeNames = [ "DEFAULT_MODE" ]
 
     literalNames = [ "<INVALID>",
-            "'['", "']'", "'nil'", "'class'", "'extends'", "'new'", "'this'", 
+            "'['", "']'", "'class'", "'extends'", "'new'", "'this'", "'nil'", 
             "'static'", "'final'", "'int'", "'void'", "'float'", "'boolean'", 
             "'string'", "'if'", "'else'", "'then'", "'for'", "'to'", "'downto'", 
             "'do'", "'break'", "'continue'", "'return'", "'('", "')'", "'{'", 
@@ -288,16 +288,17 @@ class BKOOLLexer(Lexer):
             "'>='", "'||'", "'&&'", "'!'", "'^'" ]
 
     symbolicNames = [ "<INVALID>",
-            "CLASS", "EXTEND", "NEW", "SELF", "STATIC", "MUTABLE", "INTTYPE", 
-            "VOIDTYPE", "FLOATTYPE", "BOOLTYPE", "STRINGTYPE", "IF", "ELSE", 
-            "THEN", "FOR", "TO", "DOWNTO", "DO", "BREAK", "CONT", "RETURN", 
-            "LB", "RB", "LP", "RP", "SEMI", "COLON", "COMMA", "DOT", "ASGOP", 
-            "ASG", "ADD", "SUB", "MUL", "FLOATDIV", "INTDIV", "MOD", "NEQ", 
-            "EQ", "LT", "GT", "LEQ", "GEQ", "OR", "AND", "NOT", "CON", "LINECMT", 
-            "BLOCKCMT", "WS", "FLOATLIT", "STRINGLIT", "INTLIT", "BOOLLIT", 
-            "ID", "ILLEGAL_ESCAPE", "UNCLOSE_STRING", "ERROR_CHAR" ]
+            "CLASS", "EXTEND", "NEW", "SELF", "NIL", "STATIC", "MUTABLE", 
+            "INTTYPE", "VOIDTYPE", "FLOATTYPE", "BOOLTYPE", "STRINGTYPE", 
+            "IF", "ELSE", "THEN", "FOR", "TO", "DOWNTO", "DO", "BREAK", 
+            "CONT", "RETURN", "LB", "RB", "LP", "RP", "SEMI", "COLON", "COMMA", 
+            "DOT", "ASGOP", "ASG", "ADD", "SUB", "MUL", "FLOATDIV", "INTDIV", 
+            "MOD", "NEQ", "EQ", "LT", "GT", "LEQ", "GEQ", "OR", "AND", "NOT", 
+            "CON", "LINECMT", "BLOCKCMT", "WS", "FLOATLIT", "STRINGLIT", 
+            "INTLIT", "BOOLLIT", "ID", "ILLEGAL_ESCAPE", "UNCLOSE_STRING", 
+            "ERROR_CHAR" ]
 
-    ruleNames = [ "T__0", "T__1", "T__2", "CLASS", "EXTEND", "NEW", "SELF", 
+    ruleNames = [ "T__0", "T__1", "CLASS", "EXTEND", "NEW", "SELF", "NIL", 
                   "STATIC", "MUTABLE", "INTTYPE", "VOIDTYPE", "FLOATTYPE", 
                   "BOOLTYPE", "STRINGTYPE", "IF", "ELSE", "THEN", "FOR", 
                   "TO", "DOWNTO", "DO", "BREAK", "CONT", "RETURN", "LB", 

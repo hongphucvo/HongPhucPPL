@@ -1,20 +1,271 @@
+from BKooL.assignment2.src.main.bkool.utils.AST import ArrayCell, ArrayType, AttributeDecl, BinaryOp, BoolType, BooleanLiteral, CallStmt, ClassDecl, ClassType, ConstDecl, FieldAccess, FloatLiteral, FloatType, Instance, IntLiteral, MethodDecl, NewExpr, NullLiteral, SelfLiteral, StoreDecl, StringLiteral, StringType, UnaryOp, VarDecl, VoidType
 from BKOOLVisitor import BKOOLVisitor
 from BKOOLParser import BKOOLParser
 from AST import *
 
 class ASTGeneration(BKOOLVisitor):
 
-    def visitProgram(self,ctx:BKOOLParser.ProgramContext):
-        return Program([self.visit(x) for x in ctx.classdecl()])
+    def visitProgram(self, ctx:BKOOLParser.ProgramContext):
+        classdcls=self.visit(ctx.classdcls)
+        return Program(classdcls)
 
-    def visitClassdecl(self,ctx:BKOOLParser.ClassdeclContext):
-        return ClassDecl(Id(ctx.ID().getText()),[self.visit(x) for x in ctx.memdecl()])
-
+    
     def visitMemdecl(self,ctx:BKOOLParser.MemdeclContext):
         return AttributeDecl(Instance(),VarDecl(Id(ctx.ID().getText()),self.visit(ctx.bkooltype())))
 
-    def visitBkooltype(self,ctx:BKOOLParser.BkooltypeContext):
-        return IntType() if ctx.INTTYPE() else VoidType()
+    
+
+
+
+
+
+
+
+    def visitClassdcls(self, ctx:BKOOLParser.ClassdclsContext):
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.classdcls(0))
+        return [self.visit(ctx.classdcl())]+tail
+    def visitClassdcl(self, ctx:BKOOLParser.ClassdclContext):
+        memList=self.visit(ctx.memBlock())
+        return ClassDecl(ctx.ID(0).getText(), memList,ctx.ID(1).getText())
+    def visitMemBlock(self, ctx:BKOOLParser.MemBlockContext):
+        if ctx.memList(): return self.visit(ctx.memList())
+        return []
+    def visitMemList(self, ctx:BKOOLParser.MemListContext):
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.memList(0))
+        return [self.visit(ctx.classMember())]+tail
+    def visitClassMember(self, ctx:BKOOLParser.ClassMemberContext):
+        if ctx.attributeDeclare(): return self.visit(ctx.attributeDeclare())
+        return self.visit(ctx.methodDeclare())
+ 
+    def visitAttributeDeclare(self, ctx:BKOOLParser.AttributeDeclareContext):
+        kind=Static() if ctx.STATIC() else Instance()
+        vartyp=self.visit(ctx.vartype())
+        attributeList=[self.visit(ctx.attributeList())]
+        decls=[VarDecl(vartyp,x[0],x[1]) for x in attributeList] if ctx.MUTABLE() else [ConstDecl(x[0],vartyp,x[1]) for x in attributeList]
+        return [AttributeDecl(kind, x) for x in decls]
+    def visitAttributeList(self, ctx:BKOOLParser.AttributeListContext):
+        if ctx.getChildCount()==1:
+            return [self.visit(ctx.attri)]
+        tail=self.visit(ctx.getChild(2))
+        return [self.visit(ctx.attri)]+tail
+    def visitAttri(self, ctx:BKOOLParser.AttriContext):
+        if ctx.exp():
+            return [ctx.ID().getText(), self.visit(ctx.exp())]
+        return [ctx.ID().getText()]
+    
+    def visitMethodDeclare(self, ctx:BKOOLParser.MethodDeclareContext):
+        if ctx.getChildCount()==1: return self.visit(ctx.constructor)
+        kind=Static() if ctx.STATIC() else Instance()
+        name=ctx.ID().getText()
+        param=self.visit(ctx.paramList)
+        returnType=self.visit(ctx.vartype()) if ctx.vartype() else VoidType()
+        body=self.visit(ctx.stmBlock)
+        return MethodDecl(kind,name,param,returnType,body)
+    def visitParamList(self, ctx:BKOOLParser.ParamListContext):
+        if ctx.getChildCount()==3:
+            return self.visit(ctx.paramDeclare())
+        return[]
+    def visitParamDeclare(self, ctx:BKOOLParser.ParamDeclareContext):
+        tail=self.visit(ctx.paramDeclare())if ctx.paramDeclare() else []
+        return [self.visit(ctx.param())]+tail
+    def visitParam(self, ctx:BKOOLParser.ParamContext):
+        ids=self.visit(ctx.idList())
+        vartype=self.visit(ctx.vartype())
+        return [VarDecl(x,vartype,None).toParam()for x in ids]
+######## ids=self.visit(ctx.attributeList()) return [[a],[b,7]]
+######## return [VarDecl(x[0],vartype,x[1]).toParam()for x in ids]
+    
+    
+    def visitStmBlock(self, ctx:BKOOLParser.StmBlockContext):
+        return self.visit(ctx.stmList()) if ctx.getChildCount()==3 else []
+    def visitStmList(self, ctx:BKOOLParser.StmListContext):
+        var=self.visit(ctx.variables()) if ctx.variables() else []
+        stms=self.visit(ctx.stms()) if ctx.stms() else []
+        return var+stms
+    def visitVariables(self, ctx:BKOOLParser.VariablesContext):
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.variables())
+        return [self.visit(ctx.variable())]+tail
+
+    # Visit a parse tree produced by BKOOLParser#variable.
+    def visitVariable(self, ctx:BKOOLParser.VariableContext):
+        #kind=Instance()
+        vartyp=self.visit(ctx.vartype())
+        attributeList=[self.visit(ctx.attributeList())]
+        if ctx.MUTABLE():
+            return[VarDecl(vartyp,x[0],x[1]) for x in attributeList] 
+        return [ConstDecl(x[0],vartyp,x[1]) for x in attributeList]
+          
         
+    def visitStms(self,ctx:BKOOLParser.StmsContext):
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.stms(0))
+        return [self.visit(ctx.stm(0))]+tail
+        #trả về list thì [] không thì None
+
+    def visitStm(self,ctx:BKOOLParser.StmtContext):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.stmBlock())
+        elif ctx.lhs():
+            return Assign(self.visit(ctx.lhs()),self.visit(ctx.exp()))
+        elif ctx.IF():
+            return If(self.visit(ctx.exp()),ctx.stm(0),ctx.stm(1))
+        elif ctx.FOR():
+            id=self.visit(ctx.scala_var())
+            up=bool(ctx.TO())
+            return For(id, self.visit(ctx.exp(0)), self.visit(ctx.exp(1)), up, self.visit(ctx.stm()))
+        elif ctx.BREAK():
+            return Break()
+        elif ctx.CONT():
+            return Continue()
+        elif ctx.RETURN():
+            return Return(self.visit(ctx.exp()))
+        return self.visit(ctx.methodInvoke())
+       
+    '''
+    def visitStmBlock(self,ctx:BKOOLParser.StmBlockContext):
+        var=self.visit(ctx.stmList)#have 2 component
+        return Block(var[0],var[1])
+    def visitStmlist(self,ctx:BKOOLParser.StmlistContext):  
+        first=self.visit(ctx.variables())if(ctx.variables())else None
+        second=self.visit(ctx.stms())if ctx.stm()else None
+        return [first,second] 
+    def visitVariables(self,ctx:BKOOLParser.VariablesContext):
+        tail=self.visit(ctx.variables()) if ctx.variables() else []
+        return self.visit(ctx.variable())+tail
+    def visitVariable(self,ctx:BKOOLParser.Context):
+        mute=(ctx.MUTABLE())
+        typ=self.visit(ctx.vartype())
+        attributeList=self.visit(ctx.attributeList())
+        #1 list attribute đc assign???
+        return [VarDecl()]
+        #ID lấy từ attri
+        #type lấy từ typ
+        #varInit lấy từ attri có thể bằng none
+    def attrilist():pass'''
+
+    '''
+    def visitConst(self,ctx:BKOOLParser.ConstContext):
+        return ConstDecl(ctx.ID().getText(),ctx.varType(),ctx.Lit())#local constant
+
+
+
+
+    def visitClassdcl(self,ctx:BKOOLParser.ClassdclContext):
+        memlist=self.visit(ctx.memBlock())#List
+        return ClassDecl(Id(ctx.ID().getText()),[self.visit(x) for x in ctx.memdecl()])
+    def visitmemBlock(self, ctx:BKOOLParser.MemListContext):
+        return self.visit(ctx.memList())
+    '''
+    def visitExplist(self, ctx:BKOOLParser.ExplistContext):
+        return self.visit(ctx.exps()) if ctx.exps() else []
+    def visitExps(self, ctx:BKOOLParser.ExpsContext):
+        tail=self.visit(ctx.exps()) if ctx.exps() else []
+        return [self.visit(ctx.exp)]+tail
+    def visitExp(self, ctx:BKOOLParser.ExpContext):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp1())
+        return BinaryOp(ctx.getChid(1).getText(),self.visit(ctx.exp1(0)),self.visit(ctx.exp1(1)))
+    def visitExp1(self, ctx:BKOOLParser.Exp1Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp2())
+        return BinaryOp(ctx.getChid(1).getText(),self.visit(ctx.exp2()),self.visit(ctx.exp1()))
+    
+    def visitExp2(self, ctx:BKOOLParser.Exp2Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp3())
+        return UnaryOp(ctx.getChild(0).getText(),ctx.exp2())
+    def visitExp3(self, ctx:BKOOLParser.Exp3Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp4())
+        return ArrayCell(self.visit(ctx.exp3()),self.visit(ctx.exp()))
+    def visitExp4(self, ctx:BKOOLParser.Exp4Context):
+        if ctx.exp5():
+            return self.visit(ctx.exp5())
+        elif ctx.methodInvoke():
+            return self.visit(ctx.methodInvoke())
+        return self.visit(ctx.attriAccess())
+    def visitExp5(self, ctx:BKOOLParser.Exp5Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.operand())
+        return NewExpr(ctx.ID().getText(),self.visit(ctx.explist()))
+    def visitOperand(self, ctx:BKOOLParser.OperandContext):
+        if ctx.arrayLit():
+            return self.visit(ctx.arrayLit())
+        elif ctx.elem():
+            return self.visit(ctx.elem())
+        elif ctx.SELF():
+            return SelfLiteral()
+        elif ctx.NIL():
+            return NullLiteral()
+        return self.visit(ctx.subexp())
+    def visitSubexp(self, ctx:BKOOLParser.SubexpContext):
+        return self.visit(ctx.exp())
+
+    def visitMethodInvoke(self,ctx:BKOOLParser.MethodInvokeContext):
+        if ctx.attriAccess():
+            obj=self.visit(ctx.attriAccess())
+        elif ctx.exp5():
+            obj=self.visit(ctx.exp5())
+        else: obj=Id(ctx.ID(0).getText())
+        tail=self.visit(ctx.methodRecur())
+
+        return (self.visit)#kho qua di
+    def visitMethodRecur(self,ctx:BKOOLParser.MethodRecurContext):
+        
+        return CallStmt(self.visit)
+
+    def visitAttriAccess(self,ctx:BKOOLParser.AttriAccessContext):
+        return (self.visit)
+    def visitAttriRecur(self,ctx:BKOOLParser.AttriRecurContext):
+        return FieldAccess()
+
+    def visitScala_var(self, ctx:BKOOLParser.Scala_varContext):
+        return Id(ctx.ID().getText())
+    def visitLhs(self, ctx:BKOOLParser.LhsContext):
+        if ctx.ID():
+            return Id(ctx.ID().getText())
+        elif ctx.exp4():
+            return ArrayCell(self.visit(ctx.exp4()),self.visit(ctx.exp()))
+            #chỗ này nó có nhầm lần exp4 với exp đc k -> nhẩm thì thành exp(1)
+        else:
+            return self.visit(ctx.attriAccess())
 
     
+    def visitVartype(self,ctx:BKOOLParser.VartypeContext):
+        if ctx.primtype():
+            return self.visit(ctx.primtype())
+        elif ctx.arraytype():
+            return self.visit(ctx.arraytype())
+        return self.visit(ctx.classtype())
+    
+    def visitPrimtype(self,ctx:BKOOLParser.PrimtypeContext):
+        if ctx.INTTYPE():
+            return IntType()
+        elif ctx.FLOATTYPE():
+            return FloatType()
+        elif ctx.BOOLTYPE():
+            return BoolType()
+        elif ctx.STRINGTYPE():
+            return StringType()
+        return VoidType()
+    def visitClasstype(self,ctx:BKOOLParser.ClasstypeContext):
+        return ClassType(ctx.ID().getText())
+    def visitArraytype(self,ctx:BKOOLParser.ArraytypeContext):
+        type=self.visit(ctx.primtype()) if ctx.primtype() else self.visit(ctx.classtype())
+        return ArrayType(self.visit(ctx.size()),type)
+    def visitSize(self, ctx:BKOOLParser.SizeContext):
+        return IntLiteral(ctx.INTLIT().getInt())
+    def visitArrayLit(self, ctx:BKOOLParser.ArrayLitContext):
+        return self.visit(ctx.elemList())
+    def visitElemList(self, ctx:BKOOLParser.ElemListContext):
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.elemList())
+        return [self.visit(ctx.elem)]+tail
+    def visitElem(self, ctx:BKOOLParser.ElemContext):
+        if ctx.INTLIT():
+            return IntLiteral(ctx.INTLIT().getInt())
+        elif ctx.FLOATLIT():
+            return FloatLiteral(ctx.FLOATLIT().getText())
+        elif ctx.BOOLLIT():
+            return BooleanLiteral(ctx.BOOLLIT().getText())
+        elif ctx.STRINGLIT():
+            return StringLiteral(ctx.STRINGLIT().getText())
+        return ID(ctx.ID().getText())

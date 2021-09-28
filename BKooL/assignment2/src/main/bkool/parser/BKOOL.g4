@@ -13,14 +13,6 @@ options{
 }
 
 program  		: classdcls EOF                     ;
-
-mptype			: INTTYPE | VOIDTYPE 				;
-
-body			: funcall SEMI						;
-
-//exp				: funcall | INTLIT 				;
-
-funcall			: ID LB exp? RB 					;
 classdcls       : classdcl (classdcls|)             ;
 classdcl		: CLASS ID (EXTEND ID|) memBlock    ;
 
@@ -32,8 +24,7 @@ classMember 	: attributeDeclare
 
 //Attribute Declaration
 //attributes	: attributeDeclare attributes|	;
-attributeDeclare: attribute_type vartype attributeList SEMI ;
-attribute_type	: (STATIC|) (MUTABLE|) | MUTABLE STATIC;
+attributeDeclare: ((STATIC|) (MUTABLE|) | MUTABLE STATIC) vartype attributeList SEMI ;
 vartype			: primtype | arraytype | classtype  ;
 primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
                 | STRINGTYPE | BOOLTYPE             ;
@@ -42,17 +33,17 @@ attributeList	: attri (COMMA attributeList|)      ;
 attri			: ID (ASG exp|)                     ;
 
 //METHOD DECLR
-methodDeclare	: (STATIC|) vartype ID paramList stmBlock
-				| constructor						;
-constructor		: ID paramList stmBlock	            ;
-stmBlock	    : LP stmList RP
-				| LP RP								;
+methodDeclare	: ((STATIC|) vartype|) ID paramList stmBlock;
 paramList   	: LB paramDeclare RB
             	| LB RB                   			;
 paramDeclare   	: param (SEMI paramDeclare|)        ;
 param      	    : vartype idList             		;
+//param:vartyep attributeList;
 idList      	: ID (COMMA idList|)                ;
+
 //param được gán assign không??? được thì dùng attri=idlist
+stmBlock	    : LP stmList RP
+				| LP RP								;
 
 //ARRAY DCLR
 arraytype		: (primtype|classtype) '[' size ']'	;
@@ -82,9 +73,8 @@ exp3			: exp3 '[' exp ']'                      //index
 exp4			: methodInvoke | attriAccess | exp5 ;
 exp5			: NEW ID explist                        //Object creation
 				| operand						    ;
-operand			: INTLIT | FLOATLIT |STRINGLIT | BOOLLIT | arrayLit //operand value
-				| 'this' | 'nil'
-                | ID | subexp                       ;
+operand			: arrayLit|elem  //operand value
+				| SELF | NIL| subexp                       ;
 subexp          : LB exp RB                         ;
 
 
@@ -114,7 +104,7 @@ CLASS		: 'class'	;
 EXTEND		: 'extends'	;
 NEW			: 'new'		;
 SELF		: 'this'	;
-
+NIL			: 'nil'		;
 STATIC		: 'static'	;
 MUTABLE		: 'final'	;
 

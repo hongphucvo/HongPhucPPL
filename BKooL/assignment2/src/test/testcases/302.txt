@@ -1,4 +1,4 @@
 class main {
-            a:integer;
-            b:integer;
+            int a;
+            int b;
         }

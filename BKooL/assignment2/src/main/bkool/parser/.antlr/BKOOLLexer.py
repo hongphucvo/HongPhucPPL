@@ -220,7 +220,7 @@ class BKOOLLexer(Lexer):
     SELF = 6
     NIL = 7
     STATIC = 8
-    MUTABLE = 9
+    IMMUTABLE = 9
     INTTYPE = 10
     VOIDTYPE = 11
     FLOATTYPE = 12
@@ -288,7 +288,7 @@ class BKOOLLexer(Lexer):
             "'>='", "'||'", "'&&'", "'!'", "'^'" ]
 
     symbolicNames = [ "<INVALID>",
-            "CLASS", "EXTEND", "NEW", "SELF", "NIL", "STATIC", "MUTABLE", 
+            "CLASS", "EXTEND", "NEW", "SELF", "NIL", "STATIC", "IMMUTABLE", 
             "INTTYPE", "VOIDTYPE", "FLOATTYPE", "BOOLTYPE", "STRINGTYPE", 
             "IF", "ELSE", "THEN", "FOR", "TO", "DOWNTO", "DO", "BREAK", 
             "CONT", "RETURN", "LB", "RB", "LP", "RP", "SEMI", "COLON", "COMMA", 
@@ -299,7 +299,7 @@ class BKOOLLexer(Lexer):
             "ERROR_CHAR" ]
 
     ruleNames = [ "T__0", "T__1", "CLASS", "EXTEND", "NEW", "SELF", "NIL", 
-                  "STATIC", "MUTABLE", "INTTYPE", "VOIDTYPE", "FLOATTYPE", 
+                  "STATIC", "IMMUTABLE", "INTTYPE", "VOIDTYPE", "FLOATTYPE", 
                   "BOOLTYPE", "STRINGTYPE", "IF", "ELSE", "THEN", "FOR", 
                   "TO", "DOWNTO", "DO", "BREAK", "CONT", "RETURN", "LB", 
                   "RB", "LP", "RP", "SEMI", "COLON", "COMMA", "DOT", "ASGOP", 

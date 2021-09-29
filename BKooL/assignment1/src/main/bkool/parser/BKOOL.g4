@@ -24,7 +24,7 @@ classMember 	: attributeDeclare
 
 //Attribute Declaration
 //attributes	: attributeDeclare attributes|	;
-attributeDeclare: ((STATIC|) (MUTABLE|) | MUTABLE STATIC) vartype attributeList SEMI ;
+attributeDeclare: ((STATIC|) (IMMUTABLE|) | IMMUTABLE STATIC) vartype attributeList SEMI ;
 vartype			: primtype | arraytype | classtype  ;
 primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
                 | STRINGTYPE | BOOLTYPE             ;
@@ -86,7 +86,7 @@ attriRecur      : methodRecur DOT ID attriRecur|    ;
 
 stmList	        : (variables|) (stms|)              ;
 variables	    : variable (variables|)             ;
-variable	    : (MUTABLE|) vartype attributeList SEMI ;
+variable	    : (IMMUTABLE|) vartype attributeList SEMI ;
 //idlist hay attributes
 
 stms		    : stm (stms|)                       ;
@@ -106,7 +106,7 @@ NEW			: 'new'		;
 SELF		: 'this'	;
 NIL			: 'nil'		;
 STATIC		: 'static'	;
-MUTABLE		: 'final'	;
+IMMUTABLE	: 'final'	;
 
 INTTYPE		: 'int' 	;
 VOIDTYPE	: 'void'  	;

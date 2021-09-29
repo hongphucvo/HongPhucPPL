@@ -1,0 +1,3 @@
+class A{int main(){
+  io.writeFloat(root);}
+}

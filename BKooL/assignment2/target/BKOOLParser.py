@@ -223,7 +223,7 @@ class BKOOLParser ( Parser ):
                      "'!'", "'^'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "CLASS", "EXTEND", 
-                      "NEW", "SELF", "NIL", "STATIC", "MUTABLE", "INTTYPE", 
+                      "NEW", "SELF", "NIL", "STATIC", "IMMUTABLE", "INTTYPE", 
                       "VOIDTYPE", "FLOATTYPE", "BOOLTYPE", "STRINGTYPE", 
                       "IF", "ELSE", "THEN", "FOR", "TO", "DOWNTO", "DO", 
                       "BREAK", "CONT", "RETURN", "LB", "RB", "LP", "RP", 
@@ -298,7 +298,7 @@ class BKOOLParser ( Parser ):
     SELF=6
     NIL=7
     STATIC=8
-    MUTABLE=9
+    IMMUTABLE=9
     INTTYPE=10
     VOIDTYPE=11
     FLOATTYPE=12
@@ -635,7 +635,7 @@ class BKOOLParser ( Parser ):
             self.state = 116
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [BKOOLParser.STATIC, BKOOLParser.MUTABLE, BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
+            if token in [BKOOLParser.STATIC, BKOOLParser.IMMUTABLE, BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
                 self.state = 114
                 self.memList()
                 pass
@@ -728,8 +728,8 @@ class BKOOLParser ( Parser ):
         def SEMI(self):
             return self.getToken(BKOOLParser.SEMI, 0)
 
-        def MUTABLE(self):
-            return self.getToken(BKOOLParser.MUTABLE, 0)
+        def IMMUTABLE(self):
+            return self.getToken(BKOOLParser.IMMUTABLE, 0)
 
         def STATIC(self):
             return self.getToken(BKOOLParser.STATIC, 0)
@@ -763,7 +763,7 @@ class BKOOLParser ( Parser ):
                     self.state = 122
                     self.match(BKOOLParser.STATIC)
                     pass
-                elif token in [BKOOLParser.MUTABLE, BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
+                elif token in [BKOOLParser.IMMUTABLE, BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
                     pass
                 else:
                     raise NoViableAltException(self)
@@ -771,9 +771,9 @@ class BKOOLParser ( Parser ):
                 self.state = 128
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
-                if token in [BKOOLParser.MUTABLE]:
+                if token in [BKOOLParser.IMMUTABLE]:
                     self.state = 126
-                    self.match(BKOOLParser.MUTABLE)
+                    self.match(BKOOLParser.IMMUTABLE)
                     pass
                 elif token in [BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
                     pass
@@ -784,7 +784,7 @@ class BKOOLParser ( Parser ):
 
             elif la_ == 2:
                 self.state = 130
-                self.match(BKOOLParser.MUTABLE)
+                self.match(BKOOLParser.IMMUTABLE)
                 self.state = 131
                 self.match(BKOOLParser.STATIC)
                 pass
@@ -2964,8 +2964,8 @@ class BKOOLParser ( Parser ):
         def SEMI(self):
             return self.getToken(BKOOLParser.SEMI, 0)
 
-        def MUTABLE(self):
-            return self.getToken(BKOOLParser.MUTABLE, 0)
+        def IMMUTABLE(self):
+            return self.getToken(BKOOLParser.IMMUTABLE, 0)
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_variable
@@ -2988,9 +2988,9 @@ class BKOOLParser ( Parser ):
             self.state = 361
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [BKOOLParser.MUTABLE]:
+            if token in [BKOOLParser.IMMUTABLE]:
                 self.state = 359
-                self.match(BKOOLParser.MUTABLE)
+                self.match(BKOOLParser.IMMUTABLE)
                 pass
             elif token in [BKOOLParser.INTTYPE, BKOOLParser.VOIDTYPE, BKOOLParser.FLOATTYPE, BKOOLParser.BOOLTYPE, BKOOLParser.STRINGTYPE, BKOOLParser.ID]:
                 pass

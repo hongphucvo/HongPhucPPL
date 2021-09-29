@@ -14,21 +14,6 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKOOLParser#mptype.
-    def visitMptype(self, ctx:BKOOLParser.MptypeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKOOLParser#body.
-    def visitBody(self, ctx:BKOOLParser.BodyContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKOOLParser#funcall.
-    def visitFuncall(self, ctx:BKOOLParser.FuncallContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKOOLParser#classdcls.
     def visitClassdcls(self, ctx:BKOOLParser.ClassdclsContext):
         return self.visitChildren(ctx)
@@ -56,11 +41,6 @@ class BKOOLVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by BKOOLParser#attributeDeclare.
     def visitAttributeDeclare(self, ctx:BKOOLParser.AttributeDeclareContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKOOLParser#attribute_type.
-    def visitAttribute_type(self, ctx:BKOOLParser.Attribute_typeContext):
         return self.visitChildren(ctx)
 
 
@@ -94,16 +74,6 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKOOLParser#constructor.
-    def visitConstructor(self, ctx:BKOOLParser.ConstructorContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKOOLParser#stmBlock.
-    def visitStmBlock(self, ctx:BKOOLParser.StmBlockContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKOOLParser#paramList.
     def visitParamList(self, ctx:BKOOLParser.ParamListContext):
         return self.visitChildren(ctx)
@@ -121,6 +91,11 @@ class BKOOLVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by BKOOLParser#idList.
     def visitIdList(self, ctx:BKOOLParser.IdListContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#stmBlock.
+    def visitStmBlock(self, ctx:BKOOLParser.StmBlockContext):
         return self.visitChildren(ctx)
 
 

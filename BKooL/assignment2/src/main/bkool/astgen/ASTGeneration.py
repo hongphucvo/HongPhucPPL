@@ -98,12 +98,13 @@ class ASTGeneration(BKOOLVisitor):
         vartyp=self.visit(ctx.vartype())
         attributeList=[self.visit(ctx.attributeList())]
         if ctx.IMMUTABLE():
-            return list(map(lambda x:VarDecl(x[0],vartyp,x[1]) if len(x)==2 else VarDecl(x[0],vartyp), attributeList))
-        return list(map(lambda x:ConstDecl(x[0],vartyp) if len(x)==2 else ConstDecl(x[0],vartyp,x[1]),attributeList]
-          
+            return list(map(lambda x:ConstDecl(x[0],vartyp,None) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
+        return list(map(lambda x:VarDecl(x[0],vartyp,x[1]) if len(x)==2 else VarDecl(x[0],vartyp), attributeList))
+        #return list(map(lambda x:ConstDecl(x[0],vartyp) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
+         
         
     def visitStms(self,ctx:BKOOLParser.StmsContext):
-        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.stms(0))
+        tail=[] if ctx.getChildCount()==1 else self.visit(ctx.stms())
         return [self.visit(ctx.stm())]+tail
         #trả về list thì [] không thì None
 
@@ -129,15 +130,15 @@ class ASTGeneration(BKOOLVisitor):
         return self.visit(ctx.exps()) if ctx.exps() else []
     def visitExps(self, ctx:BKOOLParser.ExpsContext):
         tail=self.visit(ctx.exps()) if ctx.exps() else []
-        return [self.visit(ctx.exp)]+tail
+        return [self.visit(ctx.exp())]+tail
     def visitExp(self, ctx:BKOOLParser.ExpContext):
         if ctx.getChildCount()==1:
             return self.visit(ctx.getChild(0))
-        return BinaryOp(ctx.getChid(1).getText(),self.visit(ctx.exp1(0)),self.visit(ctx.exp1(1)))
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp1(0)),self.visit(ctx.exp1(1)))
     def visitExp1(self, ctx:BKOOLParser.Exp1Context):
         if ctx.getChildCount()==1:
             return self.visit(ctx.exp2())
-        return BinaryOp(ctx.getChid(1).getText(),self.visit(ctx.exp2()),self.visit(ctx.exp1()))
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp2()),self.visit(ctx.exp1()))
     
     def visitExp2(self, ctx:BKOOLParser.Exp2Context):
         if ctx.getChildCount()==1:
@@ -177,7 +178,7 @@ class ASTGeneration(BKOOLVisitor):
             obj=self.visit(ctx.exp5())
         else: obj=Id(ctx.ID(0).getText())
         method=Id(ctx.ID(1).getText())if ctx.ID(1) else Id(ctx.ID(0).getText())
-        param=self.visit(ctx.explist)
+        param=self.visit(ctx.explist())
         tail=self.visit(ctx.methodRecur())
         outer=tail
         call=bool(ctx.getParent().getRuleIndex()!=0)
@@ -208,11 +209,11 @@ class ASTGeneration(BKOOLVisitor):
             obj=self.visit(ctx.exp5()) """    
         while(head_!=[]):
             obj=CallExpr(obj,head_[0],head_[1])
-            head_=head_[2]
+            head_=head_[2] if len(head_)==3 else []
 
         tail_=self.visit(ctx.attriRecur())
         inner=FieldAccess(obj,fieldname)
-        outer=tail_[2]
+        outer=tail_[2] if len(tail_)==3 else []
         while(outer!=[]):
             #handle inner into method recur bằng while
             x=outer[0]
@@ -220,7 +221,7 @@ class ASTGeneration(BKOOLVisitor):
                 inner=CallExpr(inner,x[0],x[1])
                 x=x[2]
             inner=FieldAccess(inner,outer[1])
-            outer=outer[2]
+            outer=outer[2] if len(outer)==3 else []
         return inner
     def visitAttriRecur(self,ctx:BKOOLParser.AttriRecurContext):
         if ctx.getChildCount()==0:

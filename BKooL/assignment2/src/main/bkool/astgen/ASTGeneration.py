@@ -109,10 +109,10 @@ class ASTGeneration(BKOOLVisitor):
         #trả về list thì [] không thì None
 
     def visitStm(self,ctx:BKOOLParser.StmContext):
-        if ctx.getChildCount()==1:
+        if ctx.stmBlock()==1:
             return self.visit(ctx.stmBlock())
         elif ctx.lhs():
-            return Assign(self.visit(ctx.lhs()),self.visit(ctx.exp()))
+            return Assign(self.visit(ctx.lhs()),self.visit(ctx.exp(0)))
         elif ctx.IF():
             return If(self.visit(ctx.exp()),ctx.stm(0),ctx.stm(1))
         elif ctx.FOR():
@@ -124,8 +124,9 @@ class ASTGeneration(BKOOLVisitor):
         elif ctx.CONT():
             return Continue()
         elif ctx.RETURN():
-            return Return(self.visit(ctx.exp()))
-        return self.visit(ctx.methodInvoke())
+            return Return(self.visit(ctx.exp(0)))
+        elif ctx.methodCall():
+            return self.visit(ctx.methodCall())
     def visitExplist(self, ctx:BKOOLParser.ExplistContext):
         return self.visit(ctx.exps()) if ctx.exps() else []
     def visitExps(self, ctx:BKOOLParser.ExpsContext):
@@ -181,13 +182,24 @@ class ASTGeneration(BKOOLVisitor):
         param=self.visit(ctx.explist())
         tail=self.visit(ctx.methodRecur())
         outer=tail
-        call=bool(ctx.getParent().getRuleIndex()!=0)
-        if outer == [] and call:
-            inner: CallStmt(obj,method,param)
-        else: 
-            inner=CallExpr(obj,method,param)#kho qua di
+        inner=CallExpr(obj,method,param)#kho qua di
         while(outer!=[]):
-            if outer[2] == [] and call:
+            inner=CallExpr(inner,outer[0],outer[1])#kho qua di
+            outer=outer[2]
+        return inner
+    def visitMethodCall(self,ctx:BKOOLParser.MethodCallContext):
+        if ctx.attriAccess():
+            obj=self.visit(ctx.attriAccess())
+        elif ctx.exp5():
+            obj=self.visit(ctx.exp5())
+        else: obj=Id(ctx.ID(0).getText())
+        method=Id(ctx.ID(1).getText())if ctx.ID(1) else Id(ctx.ID(0).getText())
+        param=self.visit(ctx.explist())
+        tail=self.visit(ctx.methodRecur())
+        outer=tail
+        inner= CallStmt(obj,method,param) if len(outer) == 0 else CallExpr(obj,method,param)#kho qua di
+        while(outer!=[]):
+            if outer[2] == []:
                 inner= CallStmt(inner,outer[0],outer[1])
             else: 
                 inner=CallExpr(inner,outer[0],outer[1])#kho qua di

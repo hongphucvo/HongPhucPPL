@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([[ConstDecl(constant=[Id(name='number'), Id(name='root')], constType=<AST.FloatType object at 0x00000201D7AACE20>, value=None)]],[AssignStmt(FieldAccess(Self(),Id(root)),IntLit(5))]))])])

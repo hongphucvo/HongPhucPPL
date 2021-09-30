@@ -1,4 +1,4 @@
-class A{int main(){
-  final float number = root;
-  this.root:=5;}
-}
+class School{
+        int id;
+        void print(){}}
+        class Faculty{int id;}

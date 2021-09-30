@@ -1,3 +1,5 @@
-class A{static int main(){
-float number=7.3, root;}
-}
+class School{
+        int id;
+        void print(){io.writeInt(this.id);}
+        class Faculty{int id;}
+        

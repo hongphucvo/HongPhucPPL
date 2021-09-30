@@ -96,7 +96,9 @@ stm			    : stmBlock
 			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
 			    | (BREAK|CONT) SEMI
 			    | RETURN exp SEMI
-			    | methodInvoke SEMI                 ;   //method invoke 5.6
+			    | methodCall                ;   //method invoke 5.6
+methodCall		: (attriAccess|exp5|ID) DOT ID explist methodRecur SEMI;
+
 scala_var       : ID                                ;
 lhs             : ID | attriAccess | exp4 '[' exp ']';
 

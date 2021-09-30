@@ -1,1 +1,0 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([[VarDecl(variable=[Id(name='number'), FloatLiteral(value='9.0')], varType=<AST.FloatType object at 0x000001BAE60F5520>, varInit=None)],[VarDecl(variable=[Id(name='root')], varType=<AST.IntType object at 0x000001BAE60F5400>, varInit=None)]],[]))])])

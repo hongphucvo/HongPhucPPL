@@ -1,0 +1,6 @@
+class School{
+        int _id;
+        void print(){
+        io.writeInt(this.id);
+        int a;}
+        }

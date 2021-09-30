@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([[VarDecl(variable=[Id(name='number')], varType=<AST.FloatType object at 0x000001BAE60F7130>, varInit=[Id(name='root')])]],[Block([],[])]))])])
+Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])

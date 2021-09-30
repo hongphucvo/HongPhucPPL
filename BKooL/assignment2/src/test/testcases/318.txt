@@ -1,3 +1,5 @@
-class A{int main(){
-  io.writeFloat(root);}
-}
+class School{
+        int id;
+        void print(){io.writeInt(this.id);}
+        }
+        class Faculty{int id; void main(){return 0;}}

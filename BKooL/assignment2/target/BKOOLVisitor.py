@@ -219,6 +219,11 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKOOLParser#methodCall.
+    def visitMethodCall(self, ctx:BKOOLParser.MethodCallContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by BKOOLParser#scala_var.
     def visitScala_var(self, ctx:BKOOLParser.Scala_varContext):
         return self.visitChildren(ctx)

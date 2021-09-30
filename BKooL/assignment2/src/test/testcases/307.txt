@@ -1,0 +1,3 @@
+class A{int main(){
+ float number=9.0; int root;}
+}

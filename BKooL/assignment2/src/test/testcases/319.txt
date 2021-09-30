@@ -1,6 +1,6 @@
 class School{
-        int id;
+        static int id;
         void print(){
-        static int a=100;
+        int a=100;
         io.writeInt(a);}
         }

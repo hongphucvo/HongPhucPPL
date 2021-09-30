@@ -36,10 +36,11 @@ class ASTGenSuite(unittest.TestCase):
     
     
     def test_simple_test1(self):
-        input = """class A{int main(){
+        input = """class A{
+        int main(){
         int b;
         {int a;}
-  return 0;}
+        return 0;}
 }"""
         expect = '''Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([VarDecl(Id("b"),IntType())],[Block([VarDecl(Id("a"),IntType())],[]),Return(IntLit(0))]))])])'''
         self.assertTrue(TestAST.test(input, expect, 304))
@@ -100,43 +101,43 @@ float number=7.3, root;}
     def test_class_dcl1(self):
         """only class declaration"""
         input = """class School{ int longitude,latitude;}"""
-        expect = "successful"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(longitude),IntType)),AttributeDecl(Instance,VarDecl(Id(latitude),IntType))])])"""
         self.assertTrue(TestAST.test(input, expect, 311))
     def test_class_dcl2(self):
-        input = """class School{ int longitude,latitude;"""
+        input = """class School{ int longitude,latitude;}"""
         expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(longitude),IntType)),AttributeDecl(Instance,VarDecl(Id(latitude),IntType))])])"""
         self.assertTrue(TestAST.test(input, expect, 312))
     def test_class_dcl3(self):
         input = """class School{int id;}
         class Faculty { int id;}"""
-        expect = "successful"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])"""
         self.assertTrue(TestAST.test(input, expect, 313))
     def test_class_dcl4(self):
         input = """class School{
         int id;
-        void print(){io.writeInt(this.id);}"""
-        expect = "Error on line 3 col 43: <EOF>"
+        void print(){io.writeInt(this.id);}}"""
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 314))
     def test_class_dcl5(self):
         input = """class School{
-        int 0id;
-        void print(){io.writeInt(this.id);}"""
-        expect = "Error on line 2 col 12: 0"
+        int id;
+        void print(){io.writeInt(this.id);}}"""
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 315))
     def test_class_dcl6(self):
         input = """class School{
         int id;
-        void print(){io.writeInt(this.id);}
+        void print(){io.writeInt(this.id);}}
         class Faculty{int id;}
         """
-        expect = "Error on line 4 col 8: class"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])"""
         self.assertTrue(TestAST.test(input, expect, 316))
     def test_class_dcl7(self):
         input = """class School{
         int id;
         void print(){}}
         class Faculty{int id;}"""
-        expect = "successful"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[]))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])"""
         self.assertTrue(TestAST.test(input, expect, 317))
     def test_class_dcl8(self):
         input = """class School{
@@ -144,13 +145,13 @@ float number=7.3, root;}
         void print(){io.writeInt(this.id);}
         }
         class Faculty{int id; void main(){return 0;}}"""
-        expect = "successful"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(main(<init>)),Static,[],VoidType,Block([],[Return(IntLit(0))]))])])"""
         self.assertTrue(TestAST.test(input, expect, 318))
     def test_class_dcl9(self):
         input = """class School{
-        int id;
+        static int id;
         void print(){
-        static int a=100;
+        int a=100;
         io.writeInt(a);}
         }"""
         expect = "Error on line 4 col 8: static"
@@ -159,8 +160,9 @@ float number=7.3, root;}
         input = """class School{
         int _id;
         void print(){
+        int a;
         io.writeInt(this.id);
-        int a;}
+        }
         }"""
         expect = "Error on line 5 col 8: int"
         self.assertTrue(TestAST.test(input, expect, 320))

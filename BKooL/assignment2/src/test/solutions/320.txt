@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(_id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([[VarDecl(variable=[Id(name='a')], varType=<AST.IntType object at 0x00000176803A9610>, varInit=None)]],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])

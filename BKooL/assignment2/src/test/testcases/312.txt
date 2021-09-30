@@ -1,1 +1,1 @@
-class School{ int longitude,latitude;
+class School{ int longitude,latitude;}

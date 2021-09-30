@@ -1,3 +1,3 @@
 class School{
         int id;
-        void print(){io.writeInt(this.id);}
+        void print(){io.writeInt(this.id);}}

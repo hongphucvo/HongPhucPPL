@@ -87,7 +87,8 @@ attriRecur      : methodRecur DOT ID attriRecur|    ;
 
 stmList	        : (variables|) (stms|)              ;
 variables	    : variable (variables|)             ;
-variable	    : (IMMUTABLE|) vartype attributeList SEMI ;
+variable	    : vartype attributeList SEMI 
+				| IMMUTABLE vartype assignList SEMI;
 //idlist hay attributes
 
 stms		    : stm (stms|)                       ;

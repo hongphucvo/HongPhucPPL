@@ -30,7 +30,7 @@ class ASTGenSuite(unittest.TestCase):
     def test_simple_program(self):
         """Simple program: 1 stm """
         input = """class A{int main(){}}"""
-        expect = '''Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([],[]))])])'''
+        expect = '''Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([],[]))])])'''
         self.assertTrue(TestAST.test(input, expect, 303))
     
     
@@ -42,7 +42,7 @@ class ASTGenSuite(unittest.TestCase):
         {int a;}
         return 0;}
 }"""
-        expect = '''Program([ClassDecl(Id(A),[MethodDecl(Id(main(<init>)),Static,[],IntType,Block([VarDecl(Id("b"),IntType())],[Block([VarDecl(Id("a"),IntType())],[]),Return(IntLit(0))]))])])'''
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(b),IntType)],[Block([VarDecl(Id(a),IntType)],[]),Return(IntLit(0))]))])])"""
         self.assertTrue(TestAST.test(input, expect, 304))
     def test_simple_test2(self):
         input = """class A{int main(){
@@ -50,7 +50,7 @@ class ASTGenSuite(unittest.TestCase):
   {}
   }
 }"""
-        expect = "successful"
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(number),FloatType),VarDecl(Id(root),FloatType)],[Block([],[])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 305))
     def test_simple_test3(self):
         input = """class A{
@@ -58,26 +58,26 @@ class ASTGenSuite(unittest.TestCase):
     float number = 7.0, root=2.3;
     {}}
 }"""
-        expect = ""
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(7.0)),VarDecl(Id(root),FloatType,FloatLit(2.3))],[Block([],[])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 306))
     def test_simple_test4(self):
         input = """class A{int main(){
  float number=9.0; int root;}
 }"""
-        expect = ""
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(9.0)),VarDecl(Id(root),IntType)],[]))])])"""
         self.assertTrue(TestAST.test(input, expect, 307))
     def test_simple_test5(self):
         input = """class A{static int main(){
 float number=7.3, root;}
 }"""
-        expect = ""
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Static,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(7.3)),VarDecl(Id(root),FloatType)],[]))])])"""
         self.assertTrue(TestAST.test(input, expect, 308))
     def test_simple_test6(self):
         input = """class A{int main(){
   final float number = root;
   this.root:=5;}
 }"""
-        expect = ""
+        expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([ConstDecl(Id(number),FloatType,Id(root))],[AssignStmt(FieldAccess(Self(),Id(root)),IntLit(5))]))])])"""
         self.assertTrue(TestAST.test(input, expect, 309))
     '''def test_simple_test7(self):
         input = """class A{int main(){
@@ -145,7 +145,7 @@ float number=7.3, root;}
         void print(){io.writeInt(this.id);}
         }
         class Faculty{int id; void main(){return 0;}}"""
-        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(main(<init>)),Static,[],VoidType,Block([],[Return(IntLit(0))]))])])"""
+        expect = '''Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(main),Instance,[],VoidType,Block([],[Return(IntLit(0))]))])])'''
         self.assertTrue(TestAST.test(input, expect, 318))
     def test_class_dcl9(self):
         input = """class School{
@@ -154,7 +154,7 @@ float number=7.3, root;}
         int a=100;
         io.writeInt(a);}
         }"""
-        expect = "Error on line 4 col 8: static"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Static,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([VarDecl(Id(a),IntType,IntLit(100))],[Call(Id(io),Id(writeInt),[Id(a)])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 319))
     def test_class_dcl10(self):
         input = """class School{
@@ -164,5 +164,5 @@ float number=7.3, root;}
         io.writeInt(this.id);
         }
         }"""
-        expect = "Error on line 5 col 8: int"
+        expect = """Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(_id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([VarDecl(Id(a),IntType)],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 320))

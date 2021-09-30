@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Static,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([[VarDecl(variable=[Id(name='a'), IntLiteral(value='100')], varType=<AST.IntType object at 0x000001768036BB80>, varInit=None)]],[Call(Id(io),Id(writeInt),[Id(a)])]))])])
+Program([ClassDecl(Id(School),[AttributeDecl(Static,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([VarDecl(Id(a),IntType,IntLit(100))],[Call(Id(io),Id(writeInt),[Id(a)])]))])])

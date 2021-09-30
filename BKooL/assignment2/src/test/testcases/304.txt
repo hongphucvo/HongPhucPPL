@@ -1,5 +1,6 @@
-class A{int main(){
+class A{
+        int main(){
         int b;
         {int a;}
-  return 0;}
+        return 0;}
 }

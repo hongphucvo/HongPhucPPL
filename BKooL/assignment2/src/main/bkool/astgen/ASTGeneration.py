@@ -28,19 +28,24 @@ class ASTGeneration(BKOOLVisitor):
     def visitClassMember(self, ctx:BKOOLParser.ClassMemberContext):
         if ctx.attributeDeclare(): return self.visit(ctx.attributeDeclare())
         return self.visit(ctx.methodDeclare())
- 
+    ###TODO
     def visitAttributeDeclare(self, ctx:BKOOLParser.AttributeDeclareContext):
         kind=Static() if ctx.STATIC() else Instance()
         vartyp=self.visit(ctx.vartype())
-        attributeList=self.visit(ctx.attributeList())
         #trick: append 1 more index = None instead of fin missing and fill
         #attributeList=list(map(lambda x:x.append(None),attributeList))
+        
         if ctx.IMMUTABLE():
             #add x1 in to declr if there is value,x[1]
-            decls=list(map(lambda x:ConstDecl(x[0],vartyp) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
-        else: decls=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
+            assignList=self.visit(ctx.assignList())
+            decls=list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) ,assignList))
+            
+        else: 
+            attributeList=self.visit(ctx.attributeList())
+            decls=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
         #return AttributeDecl(kind,decls[0])
         return list(map(lambda x:AttributeDecl(kind, x),decls))
+        #reduce(lambda acc,ele: acc+AttributeDecl(kind, ele),decls,[])
     def visitAttributeList(self, ctx:BKOOLParser.AttributeListContext):
         if ctx.getChildCount()==1:
             return [self.visit(ctx.attri())]
@@ -50,7 +55,10 @@ class ASTGeneration(BKOOLVisitor):
         if ctx.exp():
             return [Id(ctx.ID().getText()), self.visit(ctx.exp())]
         return [Id(ctx.ID().getText())]
-    
+    def visitAssignList(self, ctx:BKOOLParser.AssignListContext):
+        tail=self.visit(ctx.assignList()) if ctx.assignList() else []
+        return [[Id(ctx.ID().getText()),self.visit(ctx.exp())]]+tail
+            
     def visitMethodDeclare(self, ctx:BKOOLParser.MethodDeclareContext):
         name=Id(ctx.ID().getText())
         if ctx.STATIC():
@@ -93,16 +101,37 @@ class ASTGeneration(BKOOLVisitor):
         return Block(var,stms)
     def visitVariables(self, ctx:BKOOLParser.VariablesContext):
         tail=[] if ctx.getChildCount()==1 else self.visit(ctx.variables())
-        return [self.visit(ctx.variable())]+tail
+        return self.visit(ctx.variable())+tail
     def visitVariable(self, ctx:BKOOLParser.VariableContext):
         #kind=Instance()
         vartyp=self.visit(ctx.vartype())
-        attributeList=[self.visit(ctx.attributeList())]
         if ctx.IMMUTABLE():
-            return list(map(lambda x:ConstDecl(x[0],vartyp,None) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
-        return list(map(lambda x:VarDecl(x[0],vartyp,x[1]) if len(x)==2 else VarDecl(x[0],vartyp), attributeList))
+            assignList=self.visit(ctx.assignList())
+            return list(map(lambda x:ConstDecl(x[0],vartyp,x[1]),assignList))
+        else:
+            attributeList=self.visit(ctx.attributeList())
+            return list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
+        
+        #return list(map(lambda x:VarDecl(x[0],vartyp,x[1]) if len(x)==2 else VarDecl(x[0],vartyp), attributeList))
         #return list(map(lambda x:ConstDecl(x[0],vartyp) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
          
+
+        #kind=Static() if ctx.STATIC() else Instance()
+        #trick: append 1 more index = None instead of fin missing and fill
+        #attributeList=list(map(lambda x:x.append(None),attributeList))
+        """
+        if ctx.IMMUTABLE():
+            #add x1 in to declr if there is value,x[1]
+            assignList=self.visit(ctx.assignList())
+            decls=list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) ,assignList))
+            
+        else: 
+            attributeList=self.visit(ctx.attributeList())
+            decls=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
+        #return AttributeDecl(kind,decls[0])
+        return list(map(lambda x:AttributeDecl(kind, x),decls))
+        #reduce(lambda acc,ele: acc+AttributeDecl(kind, ele),decls,[])
+    """
         
     def visitStms(self,ctx:BKOOLParser.StmsContext):
         tail=[] if ctx.getChildCount()==1 else self.visit(ctx.stms())
@@ -110,7 +139,7 @@ class ASTGeneration(BKOOLVisitor):
         #trả về list thì [] không thì None
 
     def visitStm(self,ctx:BKOOLParser.StmContext):
-        if ctx.stmBlock()==1:
+        if ctx.stmBlock():
             return self.visit(ctx.stmBlock())
         elif ctx.lhs():
             return Assign(self.visit(ctx.lhs()),self.visit(ctx.exp(0)))

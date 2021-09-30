@@ -63,9 +63,10 @@ class ASTGeneration(BKOOLVisitor):
             else:
                 name=Id(ctx.ID().getText()+str('''(<init>)'''))
                 returnType= VoidType()
+        """
         if ctx.ID().getText()=="main":
             kind=Static()
-            name=Id('''main(<init>)''')
+            name=Id('''main(<init>)''')"""
         param=self.visit(ctx.paramList())
         body=self.visit(ctx.stmBlock())
         return [MethodDecl(kind,name,param,returnType,body)]
@@ -79,7 +80,7 @@ class ASTGeneration(BKOOLVisitor):
     def visitParam(self, ctx:BKOOLParser.ParamContext):
         ids=self.visit(ctx.idList())
         vartype=self.visit(ctx.vartype())
-        return [VarDecl(x,vartype,None).toParam()for x in ids]
+        return list(map(lambda x:VarDecl(x,vartype).toParam(),ids))
 ######## ids=self.visit(ctx.attributeList()) return [[a],[b,7]]
 ######## return [VarDecl(x[0],vartype,x[1]).toParam()for x in ids]
     

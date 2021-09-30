@@ -24,14 +24,16 @@ classMember 	: attributeDeclare
 
 //Attribute Declaration
 //attributes	: attributeDeclare attributes|	;
-attributeDeclare: ((STATIC|) (IMMUTABLE|) | IMMUTABLE STATIC) vartype attributeList SEMI ;
+attributeDeclare: (IMMUTABLE(STATIC|)|STATIC IMMUTABLE) vartype assignList SEMI
+				| (STATIC|) vartype attributeList SEMI;
 vartype			: primtype | arraytype | classtype  ;
 primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
                 | STRINGTYPE | BOOLTYPE             ;
 classtype       : ID                                ;
 attributeList	: attri (COMMA attributeList|)      ;
 attri			: ID (ASG exp|)                     ;
-
+idList      	: ID (COMMA idList|)                ;
+assignList		: ID ASG exp (COMMA assignList|);
 //METHOD DECLR
 methodDeclare	: ((STATIC|) vartype|) ID paramList stmBlock;
 paramList   	: LB paramDeclare RB
@@ -39,7 +41,6 @@ paramList   	: LB paramDeclare RB
 paramDeclare   	: param (SEMI paramDeclare|)        ;
 param      	    : vartype idList             		;
 //param:vartyep attributeList;
-idList      	: ID (COMMA idList|)                ;
 
 //param được gán assign không??? được thì dùng attri=idlist
 stmBlock	    : LP stmList RP

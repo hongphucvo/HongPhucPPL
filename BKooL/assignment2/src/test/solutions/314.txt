@@ -1,1 +1,0 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])

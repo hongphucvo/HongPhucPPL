@@ -1,1 +1,0 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])

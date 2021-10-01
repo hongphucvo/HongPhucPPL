@@ -1,1 +1,0 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(9.0)),VarDecl(Id(root),IntType)],[]))])])

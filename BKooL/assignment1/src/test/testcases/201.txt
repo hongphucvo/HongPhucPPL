@@ -1,1 +1,7 @@
-class A{int main(){}}
+class X{
+            int main(){
+            boolean _=true||false;
+            int a=+1-5;
+            boolean  e= _;
+            }
+            }

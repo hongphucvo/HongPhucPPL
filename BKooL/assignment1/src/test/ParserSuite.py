@@ -5,11 +5,7 @@ from TestUtils import TestParser
 
 class ParserSuite(unittest.TestCase):
 
-    def test_simple_program(self):
-        """Simple program: 1 stm """
-        input = """class A{int main(){}}"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 201))
+
     def test_simple_test1(self):
         input = """class A{int main(){
         int b;

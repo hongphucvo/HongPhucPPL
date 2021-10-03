@@ -1,1 +1,4 @@
-int main() {foo();}
+
+        class Example {
+            b a = nil;
+        }

@@ -1,5 +1,8 @@
 class School{
         int id;
-        void print(){io.writeInt(this.id);}}
-        class Faculty{int id;}
+        void print(){io.writeInt(5+7-9*88);}}
+        class Faculty{int id;
+        void Faculty(){
+            this.id:=1911881;
+        }}
         

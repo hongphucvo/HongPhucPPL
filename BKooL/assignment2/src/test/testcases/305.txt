@@ -1,5 +1,6 @@
-class A{int main(){
-  float number, root;
-  {}
-  }
-}
+class A{
+        int main(){
+          float number, root;
+          {}
+          }
+        }

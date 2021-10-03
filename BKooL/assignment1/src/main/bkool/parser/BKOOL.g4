@@ -31,7 +31,7 @@ primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
 classtype       : ID                                ;
 attributeList	: attri (COMMA attributeList|)      ;
 attri			: ID (ASG exp|)                     ;
-
+idList      	: ID (COMMA idList|)                ;
 //METHOD DECLR
 methodDeclare	: ((STATIC|) vartype|) ID paramList stmBlock;
 paramList   	: LB paramDeclare RB
@@ -39,7 +39,6 @@ paramList   	: LB paramDeclare RB
 paramDeclare   	: param (SEMI paramDeclare|)        ;
 param      	    : vartype idList             		;
 //param:vartyep attributeList;
-idList      	: ID (COMMA idList|)                ;
 
 //param được gán assign không??? được thì dùng attri=idlist
 stmBlock	    : LP stmList RP
@@ -47,9 +46,7 @@ stmBlock	    : LP stmList RP
 
 //ARRAY DCLR
 arraytype		: (primtype|classtype) '[' size ']'	;
-arrayLit		: LP elemList RP					;
-elemList		: elem (COMMA elemList|)            ;
-elem			: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT|ID ;//consider in ass2
+arrayLit		: LP exps RP					;
 size            : INTLIT                            ;
 //assign problem
 
@@ -57,36 +54,36 @@ size            : INTLIT                            ;
 explist			: LB exps RB | LB RB				;
 exps			: exp COMMA exps
 				| exp								;
-exp				: exp1 (GT|LT|LEQ|GEQ) exp1			    //relational expression
-                | exp1 (EQ|NEQ) exp1				    //relational expression
-                | exp1                              ;
-exp1            : exp2 (AND|OR) exp1				    //boolean expression
-				| exp2 (ADD|SUB) exp1				    //arithemic expression
-				| exp2 (MUL|FLOATDIV|INTDIV|MOD) exp1   //arithemic expression
-				| exp2 CON exp1 					    //string expression
-				| exp2								;
-exp2			: NOT exp2
-				| (ADD|SUB) exp2					    //sign expression
-				| exp3								;
-exp3			: exp3 '[' exp ']'                      //index
-				| exp4								;
-exp4			: methodInvoke | attriAccess | exp5 ;
-exp5			: NEW ID explist                        //Object creation
+exp				: exp1 (GT|LT|LEQ|GEQ) exp1|exp1	;		    //relational expression
+exp1            : exp2 (EQ|NEQ) exp2| exp2  				;    //relational expression
+
+exp2            : exp2 (AND|OR) exp3|exp3				 ;   //boolean expression
+exp3			: exp3 CON exp4	|exp4				    ;//string expression
+exp4			: exp4 (MUL|FLOATDIV|INTDIV|MOD) exp5   //arithemic expression
+				| exp5								;
+exp5			: exp5 (ADD|SUB) exp6|exp6			 ;   //arithemic expression
+exp6			: NOT exp7|exp7                     ;
+exp7			: (ADD|SUB) exp8					    //sign expression
+				| exp8								;
+exp8			: exp8 '[' exp ']'                      //index
+				| exp9								;
+exp9			: methodInvoke | attriAccess | exp10 ;
+exp10			: NEW ID explist                        //Object creation
 				| operand						    ;
-operand			: arrayLit|elem  //operand value
+operand			: arrayLit|INTLIT|FLOATLIT|BOOLLIT|STRINGLIT|ID  //operand value
 				| SELF | NIL| subexp                       ;
 subexp          : LB exp RB                         ;
 
 
-methodInvoke    : (attriAccess|exp5|ID) DOT ID explist methodRecur;
+methodInvoke    : (attriAccess|exp10|ID) DOT ID explist methodRecur;
 methodRecur     : DOT ID explist methodRecur |      ;
-attriAccess     : (exp5|ID) methodRecur DOT ID attriRecur;
+attriAccess     : (exp10|ID) methodRecur DOT ID attriRecur;
 attriRecur      : methodRecur DOT ID attriRecur|    ;
 
 
 stmList	        : (variables|) (stms|)              ;
 variables	    : variable (variables|)             ;
-variable	    : (IMMUTABLE|) vartype attributeList SEMI ;
+variable	    : (IMMUTABLE|) vartype attributeList SEMI;
 //idlist hay attributes
 
 stms		    : stm (stms|)                       ;
@@ -96,9 +93,11 @@ stm			    : stmBlock
 			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
 			    | (BREAK|CONT) SEMI
 			    | RETURN exp SEMI
-			    | methodInvoke SEMI                 ;   //method invoke 5.6
+			    | methodCall                ;   //method invoke 5.6
+methodCall		: (attriAccess|exp10|ID) DOT ID explist methodRecur SEMI;
+
 scala_var       : ID                                ;
-lhs             : ID | attriAccess | exp4 '[' exp ']';
+lhs             : ID | attriAccess | exp9 '[' exp ']';
 
 CLASS		: 'class'	;
 EXTEND		: 'extends'	;

@@ -1,3 +1,7 @@
 class School{
         int id;
-        void print(){io.writeInt(this.id);}}
+        void print(){io.writeInt(this.id);}
+        int go(int a,b;float d){
+            io.writeInt(0);
+        }
+        }

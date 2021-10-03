@@ -2,3 +2,6 @@ class School{
         int id;
         void print(){}}
         class Faculty{int id;}
+        class Student extends School{
+            int id;
+            }

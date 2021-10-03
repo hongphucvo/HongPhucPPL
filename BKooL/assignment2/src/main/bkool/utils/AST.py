@@ -155,7 +155,7 @@ class For(Stmt):
     up: bool #True => increase; False => decrease
     loop:Stmt  
     def __str__(self):
-        return "For(" + str(self.id) + "," + str(self.expr1) + "," + str(self.expr2) + "," + str(self.up) + ',' + str(self.loop)  + "])"
+        return "For(" + str(self.id) + "," + str(self.expr1) + "," + str(self.expr2) + "," + str(self.up) + ',' + str(self.loop)  + ")"
 
 class Break(Stmt):
     def __str__(self):

@@ -28,24 +28,24 @@ class ASTGeneration(BKOOLVisitor):
     def visitClassMember(self, ctx:BKOOLParser.ClassMemberContext):
         if ctx.attributeDeclare(): return self.visit(ctx.attributeDeclare())
         return self.visit(ctx.methodDeclare())
-    ###TODO
     def visitAttributeDeclare(self, ctx:BKOOLParser.AttributeDeclareContext):
         kind=Static() if ctx.STATIC() else Instance()
         vartyp=self.visit(ctx.vartype())
-        #trick: append 1 more index = None instead of fin missing and fill
-        #attributeList=list(map(lambda x:x.append(None),attributeList))
+        attributeList=self.visit(ctx.attributeList())
+        if ctx.IMMUTABLE():
+            decl = list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) if len(x)==2 else ConstDecl(x[0],vartyp,None),attributeList))
+        else: 
+            decl=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
+        return list(map(lambda x:AttributeDecl(kind, x),decl))
         
+        '''
         if ctx.IMMUTABLE():
             #add x1 in to declr if there is value,x[1]
             assignList=self.visit(ctx.assignList())
             decls=list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) ,assignList))
             
         else: 
-            attributeList=self.visit(ctx.attributeList())
-            decls=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
-        #return AttributeDecl(kind,decls[0])
-        return list(map(lambda x:AttributeDecl(kind, x),decls))
-        #reduce(lambda acc,ele: acc+AttributeDecl(kind, ele),decls,[])
+            '''
     def visitAttributeList(self, ctx:BKOOLParser.AttributeListContext):
         if ctx.getChildCount()==1:
             return [self.visit(ctx.attri())]
@@ -55,10 +55,14 @@ class ASTGeneration(BKOOLVisitor):
         if ctx.exp():
             return [Id(ctx.ID().getText()), self.visit(ctx.exp())]
         return [Id(ctx.ID().getText())]
+    """
     def visitAssignList(self, ctx:BKOOLParser.AssignListContext):
         tail=self.visit(ctx.assignList()) if ctx.assignList() else []
-        return [[Id(ctx.ID().getText()),self.visit(ctx.exp())]]+tail
-            
+        return [[Id(ctx.ID().getText()),self.visit(ctx.exp())]]+tail"""
+    def visitIdList(self, ctx:BKOOLParser.IdListContext):
+        tail=self.visit(ctx.idList()) if ctx.idList() else []
+        return [Id(ctx.ID().getText())]+tail
+
     def visitMethodDeclare(self, ctx:BKOOLParser.MethodDeclareContext):
         name=Id(ctx.ID().getText())
         if ctx.STATIC():
@@ -69,8 +73,8 @@ class ASTGeneration(BKOOLVisitor):
             if ctx.vartype():
                 returnType=self.visit(ctx.vartype())
             else:
-                name=Id(ctx.ID().getText()+str('''(<init>)'''))
-                returnType= VoidType()
+                name=Id(str("<init>"))
+                returnType= None
         """
         if ctx.ID().getText()=="main":
             kind=Static()
@@ -84,11 +88,11 @@ class ASTGeneration(BKOOLVisitor):
         return[]
     def visitParamDeclare(self, ctx:BKOOLParser.ParamDeclareContext):
         tail=self.visit(ctx.paramDeclare())if ctx.paramDeclare() else []
-        return [self.visit(ctx.param())]+tail
+        return self.visit(ctx.param())+tail
     def visitParam(self, ctx:BKOOLParser.ParamContext):
         ids=self.visit(ctx.idList())
         vartype=self.visit(ctx.vartype())
-        return list(map(lambda x:VarDecl(x,vartype).toParam(),ids))
+        return list(map(lambda x:VarDecl(x,vartype),ids))
 ######## ids=self.visit(ctx.attributeList()) return [[a],[b,7]]
 ######## return [VarDecl(x[0],vartype,x[1]).toParam()for x in ids]
     
@@ -103,15 +107,17 @@ class ASTGeneration(BKOOLVisitor):
         tail=[] if ctx.getChildCount()==1 else self.visit(ctx.variables())
         return self.visit(ctx.variable())+tail
     def visitVariable(self, ctx:BKOOLParser.VariableContext):
-        #kind=Instance()
+        #TODO kind=Instance()
         vartyp=self.visit(ctx.vartype())
-        if ctx.IMMUTABLE():
+        '''
             assignList=self.visit(ctx.assignList())
-            return list(map(lambda x:ConstDecl(x[0],vartyp,x[1]),assignList))
-        else:
-            attributeList=self.visit(ctx.attributeList())
-            return list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
-        
+            return list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) if len(x)==2 else ConstDecl(x[0],vartyp,None),assignList))
+        else:'''
+        attributeList=self.visit(ctx.attributeList())
+        if ctx.IMMUTABLE():
+            return list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) if len(x)==2 else ConstDecl(x[0],vartyp,None) ,attributeList))
+        return list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
+    """    
         #return list(map(lambda x:VarDecl(x[0],vartyp,x[1]) if len(x)==2 else VarDecl(x[0],vartyp), attributeList))
         #return list(map(lambda x:ConstDecl(x[0],vartyp) if len(x)==1 else ConstDecl(x[0],vartyp,x[1]),attributeList))
          
@@ -119,12 +125,11 @@ class ASTGeneration(BKOOLVisitor):
         #kind=Static() if ctx.STATIC() else Instance()
         #trick: append 1 more index = None instead of fin missing and fill
         #attributeList=list(map(lambda x:x.append(None),attributeList))
-        """
+       
         if ctx.IMMUTABLE():
             #add x1 in to declr if there is value,x[1]
             assignList=self.visit(ctx.assignList())
-            decls=list(map(lambda x:ConstDecl(x[0],vartyp,x[1]) ,assignList))
-            
+            decls=
         else: 
             attributeList=self.visit(ctx.attributeList())
             decls=list(map(lambda x:VarDecl(x[0],vartyp)if len(x)==1 else VarDecl(x[0],vartyp,x[1]),attributeList))     
@@ -143,12 +148,16 @@ class ASTGeneration(BKOOLVisitor):
             return self.visit(ctx.stmBlock())
         elif ctx.lhs():
             return Assign(self.visit(ctx.lhs()),self.visit(ctx.exp(0)))
+        ###why exp0
         elif ctx.IF():
-            return If(self.visit(ctx.exp()),ctx.stm(0),ctx.stm(1))
+            if ctx.ELSE():
+                return If(self.visit(ctx.exp(0)),self.visit(ctx.stm(0)),self.visit(ctx.stm(1)))
+            return If(self.visit(ctx.exp(0)),self.visit(ctx.stm(0)))
+        ###why stm0
         elif ctx.FOR():
             id=self.visit(ctx.scala_var())
             up=bool(ctx.TO())
-            return For(id, self.visit(ctx.exp(0)), self.visit(ctx.exp(1)), up, self.visit(ctx.stm()))
+            return For(id, self.visit(ctx.exp(0)), self.visit(ctx.exp(1)), up, self.visit(ctx.stm(0)))
         elif ctx.BREAK():
             return Break()
         elif ctx.CONT():
@@ -168,45 +177,68 @@ class ASTGeneration(BKOOLVisitor):
         return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp1(0)),self.visit(ctx.exp1(1)))
     def visitExp1(self, ctx:BKOOLParser.Exp1Context):
         if ctx.getChildCount()==1:
-            return self.visit(ctx.exp2())
-        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp2()),self.visit(ctx.exp1()))
-    
+            return self.visit(ctx.getChild(0))
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp2(0)),self.visit(ctx.exp2(1)))
     def visitExp2(self, ctx:BKOOLParser.Exp2Context):
         if ctx.getChildCount()==1:
             return self.visit(ctx.exp3())
-        return UnaryOp(ctx.getChild(0).getText(),ctx.exp2())
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp2()),self.visit(ctx.exp3()))
     def visitExp3(self, ctx:BKOOLParser.Exp3Context):
         if ctx.getChildCount()==1:
             return self.visit(ctx.exp4())
-        return ArrayCell(self.visit(ctx.exp3()),self.visit(ctx.exp()))
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp3()),self.visit(ctx.exp4()))
     def visitExp4(self, ctx:BKOOLParser.Exp4Context):
-        if ctx.exp5():
+        if ctx.getChildCount()==1:
             return self.visit(ctx.exp5())
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp4()),self.visit(ctx.exp5()))
+    def visitExp5(self, ctx:BKOOLParser.Exp5Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp6())
+        return BinaryOp(ctx.getChild(1).getText(),self.visit(ctx.exp5()),self.visit(ctx.exp6()))
+    
+    def visitExp6(self, ctx:BKOOLParser.Exp6Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp7())
+        return UnaryOp(ctx.getChild(0).getText(),self.visit(ctx.exp6()))
+    def visitExp7(self, ctx:BKOOLParser.Exp7Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp8())
+        return UnaryOp(ctx.getChild(0).getText(),self.visit(ctx.exp8()))
+    def visitExp8(self, ctx:BKOOLParser.Exp8Context):
+        if ctx.getChildCount()==1:
+            return self.visit(ctx.exp9())
+        return ArrayCell(self.visit(ctx.exp8()),self.visit(ctx.exp()))
+    def visitExp9(self, ctx:BKOOLParser.Exp9Context):
+        if ctx.exp10():
+            return self.visit(ctx.exp10())
         elif ctx.methodInvoke():
             return self.visit(ctx.methodInvoke())
         return self.visit(ctx.attriAccess())
-    def visitExp5(self, ctx:BKOOLParser.Exp5Context):
+    def visitExp10(self, ctx:BKOOLParser.Exp10Context):
         if ctx.getChildCount()==1:
             return self.visit(ctx.operand())
-        return NewExpr(ctx.ID().getText(),self.visit(ctx.explist()))
+        return NewExpr(Id(ctx.ID().getText()),self.visit(ctx.explist()))
     def visitOperand(self, ctx:BKOOLParser.OperandContext):
         if ctx.arrayLit():
             return self.visit(ctx.arrayLit())
         elif ctx.elem():
             return self.visit(ctx.elem())
+        elif ctx.ID():
+            return Id(ctx.ID().getText())
         elif ctx.SELF():
             return SelfLiteral()
         elif ctx.NIL():
             return NullLiteral()
         return self.visit(ctx.subexp())
+
     def visitSubexp(self, ctx:BKOOLParser.SubexpContext):
         return self.visit(ctx.exp())
 
     def visitMethodInvoke(self,ctx:BKOOLParser.MethodInvokeContext):
         if ctx.attriAccess():
             obj=self.visit(ctx.attriAccess())
-        elif ctx.exp5():
-            obj=self.visit(ctx.exp5())
+        elif ctx.exp10():
+            obj=self.visit(ctx.exp10())
         else: obj=Id(ctx.ID(0).getText())
         method=Id(ctx.ID(1).getText())if ctx.ID(1) else Id(ctx.ID(0).getText())
         param=self.visit(ctx.explist())
@@ -220,8 +252,8 @@ class ASTGeneration(BKOOLVisitor):
     def visitMethodCall(self,ctx:BKOOLParser.MethodCallContext):
         if ctx.attriAccess():
             obj=self.visit(ctx.attriAccess())
-        elif ctx.exp5():
-            obj=self.visit(ctx.exp5())
+        elif ctx.exp10():
+            obj=self.visit(ctx.exp10())
         else: obj=Id(ctx.ID(0).getText())
         method=Id(ctx.ID(1).getText())if ctx.ID(1) else Id(ctx.ID(0).getText())
         param=self.visit(ctx.explist())
@@ -239,8 +271,9 @@ class ASTGeneration(BKOOLVisitor):
         if ctx.getChildCount()==0:
             return []
         return [Id(ctx.ID().getText()),self.visit(ctx.explist()),self.visit(ctx.methodRecur())]
+    #TODO
     def visitAttriAccess(self, ctx:BKOOLParser.AttriAccessContext):
-        obj=self.visit(ctx.exp5()) if ctx.exp5() else Id(ctx.ID(0).getText())
+        obj=self.visit(ctx.exp10()) if ctx.exp10() else Id(ctx.ID(0).getText())
         head_=self.visit(ctx.methodRecur())
         fieldname=Id(ctx.ID(1).getText()) if ctx.ID(1) else Id(ctx.ID(0).getText())
         """if ctx.ID(1):
@@ -248,7 +281,7 @@ class ASTGeneration(BKOOLVisitor):
             obj=Id(ctx.ID(0).getText())
         else:
             fieldname=Id(ctx.ID(0).getText())
-            obj=self.visit(ctx.exp5()) """    
+            obj=self.visit(ctx.exp10()) """    
         while(head_!=[]):
             obj=CallExpr(obj,head_[0],head_[1])
             head_=head_[2] if len(head_)==3 else []
@@ -275,8 +308,8 @@ class ASTGeneration(BKOOLVisitor):
     def visitLhs(self, ctx:BKOOLParser.LhsContext):
         if ctx.ID():
             return Id(ctx.ID().getText())
-        elif ctx.exp4():
-            return ArrayCell(self.visit(ctx.exp4()),self.visit(ctx.exp()))
+        elif ctx.exp9():
+            return ArrayCell(self.visit(ctx.exp9()),self.visit(ctx.exp()))
             #chỗ này nó có nhầm lần exp4 với exp đc k -> nhẩm thì thành exp(1)
         else:
             return self.visit(ctx.attriAccess())
@@ -305,20 +338,17 @@ class ASTGeneration(BKOOLVisitor):
         type=self.visit(ctx.primtype()) if ctx.primtype() else self.visit(ctx.classtype())
         return ArrayType(self.visit(ctx.size()),type)
     def visitSize(self, ctx:BKOOLParser.SizeContext):
-        return IntLiteral(ctx.INTLIT().getInt())
+        return int(ctx.INTLIT().getText())
     def visitArrayLit(self, ctx:BKOOLParser.ArrayLitContext):
-        return ArrayLiteral(self.visit(ctx.elemList()))
+        return ArrayLiteral(self.visit(ctx.exps()))
     def visitElemList(self, ctx:BKOOLParser.ElemListContext):
         tail=[] if ctx.getChildCount()==1 else self.visit(ctx.elemList())
-        return [self.visit(ctx.elem)]+tail
+        return [self.visit(ctx.elem())]+tail
     def visitElem(self, ctx:BKOOLParser.ElemContext):
         if ctx.INTLIT():
-            return IntLiteral(ctx.INTLIT().getText())
+            return IntLiteral(int(ctx.INTLIT().getText()))
         elif ctx.FLOATLIT():
-            return FloatLiteral(ctx.FLOATLIT().getText())
+            return FloatLiteral(float(ctx.FLOATLIT().getText()))
         elif ctx.BOOLLIT():
-            return BooleanLiteral(ctx.BOOLLIT().getText())
-        elif ctx.STRINGLIT():
-            return StringLiteral(ctx.STRINGLIT().getText())
-        return Id(ctx.ID().getText())
- 
+            return BooleanLiteral(bool(ctx.BOOLLIT().getText()=="true"))
+        return StringLiteral(ctx.STRINGLIT().getText())

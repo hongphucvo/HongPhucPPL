@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(m),StringType)],[AssignStmt(Id(m),BinaryOp(^,StringLit("VO"),StringLit("HONGPHUC"))),AssignStmt(Id(m),BinaryOp(-,Id(m),StringLit("PHUC"))),Call(Id(io),Id(writeBool),[BinaryOp(==,Id(m),StringLit("VOHONG"))])]))])])

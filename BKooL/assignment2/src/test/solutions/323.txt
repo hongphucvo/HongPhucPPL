@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(X),[MethodDecl(Id(k),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[BinaryOp(-,BinaryOp(+,IntLit(1),IntLit(4)),Id(e))])])),MethodDecl(Id(<init>),Instance,[],Block([],[]))])])

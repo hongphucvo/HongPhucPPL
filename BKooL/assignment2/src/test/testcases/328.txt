@@ -1,0 +1,7 @@
+class X{
+            int k;
+            boolean mod2(X source){
+                if (this.k%2==0 )&&(source.k%2==0) then return true;
+                else return false;
+            }
+            }

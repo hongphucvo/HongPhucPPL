@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([],[Call(Id(io),Id(writeString),[StringLit("legal")])]))])])

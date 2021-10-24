@@ -1,0 +1,6 @@
+class Lit{
+            final int a = 3.5;
+            final int[2] b = {1.2,3};
+        void main(){
+        string A;
+        A:="This is a string containing tab 	";}}

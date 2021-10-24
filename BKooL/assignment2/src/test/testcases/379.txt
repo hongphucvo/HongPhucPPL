@@ -1,0 +1,11 @@
+
+        class xep{
+void output(int[5] sach) {
+    for i:= 0 to 5 do {
+            io.writeInt(xep[i]);
+        }
+ }
+int main(){
+    this.output({1,2,3,4,5});
+            }
+        }

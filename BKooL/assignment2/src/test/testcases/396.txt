@@ -1,0 +1,6 @@
+class A{
+        int main(){
+        int[3] x;
+        int sum; sum:=0;
+        for i:=1 to n do sum := sum*10+io.readInt(x[i]);
+        }}

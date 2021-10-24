@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(x),BoolType)],[If(Id(x),If(Id(y),AssignStmt(Id(x),BooleanLit(False)),AssignStmt(Id(x),BooleanLit(True))))]))])])

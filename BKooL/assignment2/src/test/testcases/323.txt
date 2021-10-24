@@ -1,0 +1,3 @@
+class X{
+            void k(){io.writeInt(1+4-e);}
+            X(){}}

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Lit),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(A),StringType)],[AssignStmt(Id(A),StringLit("my name")),AssignStmt(Id(A),StringLit("This is a string containing tab 	"))]))])])

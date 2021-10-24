@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(x),ArrayType(3,IntType)),VarDecl(Id(sum),IntType)],[AssignStmt(Id(sum),IntLit(0)),For(Id(i),IntLit(1),Id(n),True,AssignStmt(Id(sum),BinaryOp(+,BinaryOp(*,Id(sum),IntLit(10)),CallExpr(Id(io),Id(readInt),[ArrayCell(Id(x),Id(i))]))))]))])])

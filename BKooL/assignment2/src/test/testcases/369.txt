@@ -1,0 +1,6 @@
+class A{
+        void main(){
+        boolean x;
+        if x then if y then x:=false;
+        else x:=true;
+        }}

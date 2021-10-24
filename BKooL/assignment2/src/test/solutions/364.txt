@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(m),Instance,[],IntType,Block([],[Return(IntLit(5))])),MethodDecl(Id(main),Instance,[],VoidType,Block([],[For(Id(i),ArrayCell(FieldAccess(Id(a),Id(k)),BinaryOp(+,IntLit(3),CallExpr(Self(),Id(m),[]))),IntLit(100),True,Block([],[Call(Id(io),Id(writeInt),[Id(i)]),Break]))]))])])

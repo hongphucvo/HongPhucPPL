@@ -1,0 +1,4 @@
+class A{}
+            class B extends A{int a;}
+            class C extends A{int a;}
+            class A{int x;}

@@ -1,0 +1,11 @@
+class A{
+            void main(){
+            for i:= a==t to 100 do {
+            #a line cmt
+            /*i:=1000*/
+            i:=i+1;
+            for i:= a||b to 100-56*1 do {
+            k[i]:=i;
+            }
+            }
+            }}

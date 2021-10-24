@@ -1,0 +1,58 @@
+
+def test_asdfgh(self):
+        input = """class X{
+            int main(){
+            boolean _=true||false;
+            int a=+1-5;
+            boolean  e= _;
+            }
+            }"""
+        expect = ""
+        self.assertTrue(TestAST.test(input, expect, 324))
+
+
+    
+    def test_t02(self):
+        input = """class X{
+        int k;
+        boolean lessthan(X source){
+            if this.k<source.k then return true;
+            else if this.k==source.k then return false;
+            else return false;
+        }
+        }"""
+        expect = ""
+        self.assertTrue(TestAST.test(input, expect, 326))
+    def test_t03(self):
+        input = """class X{
+        int k;
+        boolean notequal(X source){
+            if this.k==source.k then return false;
+            else return true;
+        }
+        }"""
+        expect = ""
+        self.assertTrue(TestAST.test(input, expect, 327))
+    def test_t04(self):
+        input = """class X{
+        int k;
+        boolean mod2(X source){
+            if (this.k%2==0 )&&(source.k%2==0) then return true;
+            else return false;
+        }
+        }"""
+        expect = ""
+        self.assertTrue(TestAST.test(input, expect, 328))
+
+
+
+
+
+    
+
+
+
+
+
+
+

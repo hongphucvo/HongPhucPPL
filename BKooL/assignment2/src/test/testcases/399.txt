@@ -1,0 +1,7 @@
+class rec{
+        int w,b;
+        int main(){
+        io.readInt(this.w);
+        io.readInt(this.b);
+        io.writeInt(w*b);
+        }}

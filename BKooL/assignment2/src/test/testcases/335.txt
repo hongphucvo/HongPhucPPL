@@ -1,0 +1,6 @@
+class Lit{
+        void main(){
+        string A;
+        string[1] A;
+        A:="Open the string";
+        A:={"A#cmt"};}}

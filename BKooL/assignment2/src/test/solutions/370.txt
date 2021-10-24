@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(x),BoolType)],[If(Id(x),If(BinaryOp(==,FieldAccess(Self(),Id(m)),IntLit(7)),AssignStmt(Id(x),BooleanLit(True)),Call(Id(io),Id(writeInt),[IntLit(100)])),Call(Id(io),Id(writeInt),[IntLit(1)]))]))])])

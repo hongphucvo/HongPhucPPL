@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(x),Instance,[],VoidType,Block([],[]))]),ClassDecl(Id(B),Id(A),[MethodDecl(Id(x),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[BinaryOp(+,BinaryOp(+,IntLit(4),BinaryOp(\,BinaryOp(/,BinaryOp(*,IntLit(5),IntLit(8)),IntLit(3)),IntLit(4))),CallExpr(FieldAccess(FieldAccess(Id(a),Id(b)),Id(c)),Id(d),[]))])]))])])

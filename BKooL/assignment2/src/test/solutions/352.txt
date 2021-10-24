@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[AttributeDecl(Static,ConstDecl(Id(k),IntType,None)),AttributeDecl(Static,ConstDecl(Id(y),IntType,IntLit(5)))])])

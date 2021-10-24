@@ -1,0 +1,4 @@
+class A{
+            void main(){float m;
+            m:=  x.m(b[2]).a.g()       ;
+            }}

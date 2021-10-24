@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Static,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(7.3)),VarDecl(Id(root),FloatType)],[]))])])

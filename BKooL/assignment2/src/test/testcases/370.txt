@@ -1,0 +1,7 @@
+class A{
+        void main(){
+        boolean x;
+        if x then if(this.m==7)then x:=true;
+        else io.writeInt(100);
+        else io.writeInt(1);
+        }}

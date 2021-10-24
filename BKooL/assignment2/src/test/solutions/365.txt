@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],VoidType,Block([],[AssignStmt(Id(m),StringLit("PHUC")),For(Id(i),IntLit(1),IntLit(100),True,Block([],[AssignStmt(Id(m),BinaryOp(^,Id(m),StringLit("123")))]))]))])])

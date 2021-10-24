@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),[AttributeDecl(Static,VarDecl(Id(id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([VarDecl(Id(a),IntType,IntLit(100))],[Call(Id(io),Id(writeInt),[Id(a)])]))]),ClassDecl(Id(Faculty),Id(School),[MethodDecl(Id(print),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeInt),[IntLit(1)])]))])])

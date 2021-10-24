@@ -1,0 +1,7 @@
+class X{
+            int k;
+            boolean notequal(X source){
+                if this.k==source.k then return false;
+                else return true;
+            }
+            }

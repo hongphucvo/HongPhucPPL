@@ -1,0 +1,7 @@
+ class A{
+        # cmt contain illegal escape \p
+        int main(){
+        io.writeString("legal");
+        }
+        }
+        

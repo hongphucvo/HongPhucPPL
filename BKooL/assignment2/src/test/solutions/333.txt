@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Lit),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(A),StringType)],[AssignStmt(Id(A),StringLit("He asked me: \"Where is John?\""))]))])])

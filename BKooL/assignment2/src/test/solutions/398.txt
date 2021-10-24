@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(x),IntType)],[Call(Id(io),Id(readInt),[Id(x)]),Call(Id(io),Id(writeInt),[BinaryOp(%,Id(x),IntLit(3))])]))])])

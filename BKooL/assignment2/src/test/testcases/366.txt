@@ -1,0 +1,9 @@
+class A{
+        int m(){}
+        void main(){
+        A x;
+        for i:= 1 downto 100 do {
+            x.m();
+            continue;
+        }
+        }}

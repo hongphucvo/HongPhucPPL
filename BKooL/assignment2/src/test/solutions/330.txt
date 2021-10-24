@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(classX),[MethodDecl(Id(print),Instance,[param(Id(str),StringType)],VoidType,Block([],[Call(Id(io),Id(writeString),[Id(str)])])),MethodDecl(Id(main),Instance,[],VoidType,Block([],[Call(Self(),Id(print),[StringLit("")])]))])])

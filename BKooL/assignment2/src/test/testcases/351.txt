@@ -1,0 +1,21 @@
+
+class xep{
+    void rearrange(int[5]sach){
+        for i:= 0 to 4 do
+            if sach[i]>sach[i+1] then {
+                int m = sach[i+1];
+                sach[i+1]:=sach[i];
+                sach[i]:=m;
+            }
+    }
+void output(int[5] sach) {
+    for i:= 0 to 5 do {
+            io.writeInt(xep[i]);
+        }
+ }
+int main(){
+    arr:={1,2,3,4,5};
+    this.output({1,2,3,4,5});
+    this.rearrange(arr);
+            }
+        }

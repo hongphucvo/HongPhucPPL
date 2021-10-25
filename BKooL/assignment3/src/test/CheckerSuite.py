@@ -55,12 +55,12 @@ class CheckerSuite(unittest.TestCase):
         input = "class A{int x(int k,k){}}"
         expect = "Redeclared Parameter: k"
         self.assertTrue(TestChecker.test(input,expect,407))
-'''           
+           
     def test_re_method(self):
         input = "class A{int x(int k){return 5;} int x(){return 5;}}"
         expect = "Redeclared Method: x"
         self.assertTrue(TestChecker.test(input,expect,408))
-
+'''
 
 
 

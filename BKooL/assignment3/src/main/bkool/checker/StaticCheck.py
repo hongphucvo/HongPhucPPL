@@ -9,6 +9,8 @@ from StaticError import *
 #from main.bkool.utils.AST import Program, VarDecl
 from functools import reduce
 import enum
+
+from main.bkool.utils.AST import Assign, Stmt
 T={0:[],1:["Const"],2:["Static"],3:["Static","Const"]}
 #to add const: +1
 #to add static: +2
@@ -79,16 +81,16 @@ class StaticChecker(BaseVisitor):
         #self.f.write("")
     
     def check(self):
-        GetFor().visit(self.ast,{})
         return self.visit(self.ast,StaticChecker.global_envi)
 
     def visitProgram(self,ast,  o): 
         """Handle type, value, redeclare"""
         #raise Redeclared(Variable(),"Con")
+        GetFor().visit(self.ast,{})
         o=self.getName.visit(ast,o)
-        #[map(lambda x: self.visit(x,o),ast.decl)]
-        for x in ast.decl:
-            self.visit(x,o)
+        [map(lambda x: self.visit(x,o),ast.decl)]
+        #for x in ast.decl:
+        #    self.visit(x,o)
         #self.f.write(str(o))
 
         #self.f.close()
@@ -116,8 +118,17 @@ class StaticChecker(BaseVisitor):
     '''
 
     def visitClassDecl(self, ast,  o):
-        
-        list(map(lambda x: self.visit(x,o),filter(lambda t: type(t) is MethodDecl,ast.memlist)))
+        #TODO
+        # 
+        env={
+            "global":o,
+            "current":ast.name.name,
+        }
+        list(map(lambda x: self.visit(x,env),filter(lambda t: type(t) is AttributeDecl,ast.memlist)))
+        #inheritance
+        if ast.parentname:
+            env["global"][ast.classname]["mem"].update({map(filter(lambda x: x not in env["global"][ast.classname]["mem"]))})
+        list(map(lambda x: self.visit(x,env),filter(lambda t: type(t) is MethodDecl,ast.memlist)))
         return o
         #pass
         """env={
@@ -135,21 +146,20 @@ class StaticChecker(BaseVisitor):
     
     """
     def visitMethodDecl(self, ast , o):
-        """env={
+        env={
             "global":o["global"],
             "current":o["current"],
             "local":{}
-        }"""
-        o={}
+        }
         #should local:{"code":self.visit(ast.kind)}
-        param=list(map(lambda x: self.getName.visit(x,o),ast.param))#"""env["local"]"""
+        param=list(map(lambda x: self.getName.visit(x,env["local"]),ast.param))#"""env["local"]"""
         #TODO check type param of class
         err=list(filter(lambda x: len(x)>1,param))
         if err:
             raise Redeclared(Parameter(),err[0]["Redeclare"].name) 
         #param được gán trị k ta, có thì 
         #list(map(lambda x:self.visit(x,env["local"]),ast.param))
-        self.visit(ast.body,o)
+        self.visit(ast.body,env)
     
     def visitAttributeDecl(self, ast , o):
         return self.visit(ast.decl,o)
@@ -204,12 +214,18 @@ class StaticChecker(BaseVisitor):
     
     def visitCallExpr(self, ast , o):
         obj=self.visit(ast.obj,o)
+        """if not o["global"][obj]:
+            raise TypeMismatchInExpression(ast)"""
         med=self.visit(ast.method,o[obj])
-        param=list(map(lambda x: self.visit(x,o),ast.param))
-        #lấy list expr check với def của method
-        err=list(map(filter(lambda x,y: x!=y, (param,o[med]["param"]))))
-        if err:
+        if med=="void":
             raise TypeMismatchInExpression(ast)
+        #param=list(map(lambda x: self.visit(x,o),ast.param))
+        #lấy list expr check với def của method
+        #err=list(map(filter(lambda x,y: x!=y, (param,o[med]["param"]))))
+        #if err:
+        #    raise TypeMismatchInExpression(ast)
+        list(map(lambda x,y: self.visitAssign((self.visit(x,o),y),o), ast.param,o[med]["param"]))       
+    
         return med#type
     
     def visitNewExpr(self, ast , o):
@@ -228,20 +244,37 @@ class StaticChecker(BaseVisitor):
         return o[ast.name]
     
     def visitArrayCell(self, ast , o):
-        return None
+        if self.visit(ast.idx,o) != "int":
+            raise TypeMismatchInExpression(ast)
+        arr=self.visit(ast.arr,o)
+        typearr=arr.find("[")
+        if typearr==-1:
+            raise TypeMismatchInExpression(ast)
+        return arr[0:typearr-1]
     
     def visitFieldAccess(self, ast , o):
-        #remember to check parent
-        return None
+        obj=self.visit(ast.obj,o)
+        """if not o["global"][obj]:
+            raise TypeMismatchInExpression(ast)"""
+        #TODO check ID
+        field=o[obj]["mem"][ast.fieldname.name]
+        if field["code"]>1:
+            raise IllegalMemberAccess(ast)
+        return field["field"].typ
+         
     def visitIf(self, ast , o):
-        return None
+        if(self.visit(ast.expr)!="bool"):
+            raise TypeMismatchInStatement(ast)
+        self.visit(ast.thenStmt,o)
+        if ast.elseStmt:
+            self.visit(ast.elseStmt,o)
     
     def visitFor(self, ast , o):
         env["local"]={"var":ast.name}
         #scalar has type int
-        if not (self.visit(ast.exp1)==self.visit(ast.exp2)=="int"):
+        if not (self.visit(ast.expr1)==self.visit(ast.expr2)=="int"):
             raise TypeMismatchInStatement(ast.name+":="+ast.exp1)
-    
+        self.visit(ast.loop)
     def visitContinue(self, ast , o):
         pass
     
@@ -250,28 +283,42 @@ class StaticChecker(BaseVisitor):
     
     def visitReturn(self, ast , o):
         val=self.visit(ast.expr,o)
-        if val!=env[current]["returntype"]:
-            raise TypeMismatchInStatement(ast)
+        #TODO trace back the type of current method
+        self.visitAssign((val,o["current"]),o)
     
     def visitAssign(self, ast , o):
-        r=self.visit(ast.exp,o)
-        l=self.visit(ast.lhs,o)
+        r=self.visit(ast.exp,o) if type(ast) is Stmt else ast[0]
+        l=self.visit(ast.lhs,o) if type(ast) is Stmt else ast[1]
+        if l=="void":
+            raise TypeMismatchInStatement(ast)
         if r!=l:
-            #TODO check cha gán con
-            raise TypeMismatchInStatement(ast)   
+            if r=="int" and l=="float":
+                pass
+            #TODO check ông nội
+            elif o[r]["parent"]==l:
+                pass
+            #TODO coer to the array type like int coer to [float]
+            elif r.find("int[")!=-1 and l=="float":
+                pass
+        
+            else:
+                raise TypeMismatchInStatement(ast) 
+        #TODO r là type làm s mà có name
         if o[r.name]["code"]>1:
             #const
             raise CannotAssignToConstant(ast)
          
     def visitCallStmt(self, ast , o):
         obj=self.visit(ast.obj,o)
+        #check class type
+        if not o[obj]:
+            raise Undeclared(Class(),obj)
         med=self.visit(ast.method,o[obj])
-        param=list(map(lambda x: self.visit(x,o),ast.param))
-        #lấy list expr check với def của method
-        err=list(map(filter(lambda x,y: x!=y, (param,o[med]["param"]))))
-        if err:
+        if med != "void":
             raise TypeMismatchInStatement(ast)
-        
+        #param=list(map(lambda x: self.visit(x,o),ast.param))
+        #lấy list expr check với def của method
+        list(map(lambda x,y: self.visitAssign((self.visit(x,o),y),o), ast.param,o[med]["param"]))       
     
     def visitArrayLiteral(self, ast , o):
         value=list(map(lambda x: self.visit(x,value)))
@@ -331,6 +378,21 @@ class StaticChecker(BaseVisitor):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class GetName(BaseVisitor):
     """Get the name and SIKind in code"""
     #def __init__(self):
@@ -353,7 +415,7 @@ class GetName(BaseVisitor):
             if par not in o:
                 raise Undeclared(Class(),par)
             o[this]={
-                 "parent": par.name ,
+                "parent": par.name ,
                 "mem":{}
             }
         else: 
@@ -416,6 +478,38 @@ class GetName(BaseVisitor):
         return 0
     def visitStatic(self, ast, o):
         return 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class GetFor(BaseVisitor):
     def visitProgram(self, ast, o):
         list(map(lambda x: self.visit(x,0),ast.decl))

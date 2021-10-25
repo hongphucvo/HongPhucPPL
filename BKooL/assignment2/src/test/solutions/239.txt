@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(a),FloatType,IntLit(0))),AttributeDecl(Instance,VarDecl(Id(m),FloatType,IntLit(1))),AttributeDecl(Instance,VarDecl(Id(x),FloatType,IntLit(2))),AttributeDecl(Instance,VarDecl(Id(l),FloatType,IntLit(3)))]),ClassDecl(Id(Student),Id(School),[])])

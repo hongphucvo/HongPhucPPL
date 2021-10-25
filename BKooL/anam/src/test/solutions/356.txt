@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[AttributeDecl(Instance,VarDecl(Id(m),IntType)),MethodDecl(Id(m),Instance,[],IntType,Block([],[])),MethodDecl(Id(k),Instance,[],IntType,Block([[ConstDecl(constant=Id(name='m'), constType=<AST.IntType object at 0x0000019CC2338A00>, value=None)]],[]))])])

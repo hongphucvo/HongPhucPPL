@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Rectangle),[AttributeDecl(Instance,VarDecl(Id(width),IntType)),AttributeDecl(Instance,VarDecl(Id(height),IntType)),MethodDecl(Id(set_values),Instance,[param(Id(a),IntType),param(Id(c),ClassType(Id(bool)))],VoidType,Block([],[Return(Id(b))])),MethodDecl(Id(area),Instance,[param(Id(main),VoidType)],IntType,Block([],[]))])])

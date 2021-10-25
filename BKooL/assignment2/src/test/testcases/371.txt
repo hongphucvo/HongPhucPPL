@@ -1,6 +1,9 @@
-class A{
-        void main(){
-        boolean x;
-        if x then for i:=1 to 3 do io.writeInt(i);
-        else io.writeInt(2);
-        }}
+class b_47 {
+float b_94(float[5] b_8, b_52; void[6] b_19) {
+float[9] b_77 = b_95.b_27({this}, b_86) - b_82 - b_38.b_34(b_30[b_58[b_17 * b_76] || b_79], b_76);
+b_23.b_23(false, b_100);
+}
+b_16(int b_60, b_94; int b_35) {
+float[1] b_8, b_86 = b_54 || b_39 && (b_81 ^ b_100[{nil, nil, 0.07} / b_11]);
+}
+}

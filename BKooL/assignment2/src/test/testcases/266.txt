@@ -1,0 +1,10 @@
+
+        class Animal {
+            void move(){}
+            float a = x.move();
+
+            void label() {
+                System.out.println("Animal's data:");
+            }
+        }
+	    

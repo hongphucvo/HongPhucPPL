@@ -1,7 +1,6 @@
-class School{
-        int id;
-        void print(){io.writeInt(this.id);}
-        int go(int a,b;float d){
-            io.writeInt(0);
-        }
-        }
+class b_88 {
+b_99(b_48 b_79, b_89; boolean b_75) {
+void b_42, b_61 = (b_56.b_78((b_52 / "string literal"), b_3) || b_87);
+b_28.b_89((11 - "string literal"), b_33);
+}
+}

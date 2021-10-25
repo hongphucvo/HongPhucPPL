@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),[MethodDecl(Id(main),Instance,[],VoidType,Block([ConstDecl(Id(a),IntType,IntLit(0))],[For(Id(a),IntLit(0),IntLit(10),True,Call(Id(io),Id(print),[StringLit("Hello")]))]))])])

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Animal),[MethodDecl(Id(move),Instance,[],VoidType,Block([],[])),AttributeDecl(Instance,VarDecl(Id(a),FloatType,CallExpr(Id(x),Id(move),[]))),MethodDecl(Id(label),Instance,[],VoidType,Block([],[Call(FieldAccess(Id(System),Id(out)),Id(println),[StringLit("Animal's data:")])]))])])

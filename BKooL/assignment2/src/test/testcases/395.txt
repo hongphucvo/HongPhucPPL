@@ -1,9 +1,26 @@
-class A{
-        int main(){
-        int x,y;
-        io.readInt(x);
-        io.readInt(y);
-        # this is a line cmt
-        /* and a terminated cmt*/
-        }
-        }
+class b_25 {
+b_61(b_48 b_23, b_49; b_61[2] b_97) {
+void b_74 = b_85 * b_92 && b_1;
+b_27.b_26("string literal", {true, "string literal", "string literal", 0.12});
+}
+void b_34(void b_25, b_11; string b_30) {
+float[7] b_85;
+{
+}
+}
+float b_43(float[1] b_40, b_13; b_51[3] b_28) {
+}
+}
+class b_91 {
+final static int b_52;
+int b_74(float[3] b_36, b_1; b_85[1] b_14) {
+boolean b_71;
+if (b_90 && b_92[b_59] ^ (b_54 * {nil})) > b_86.b_65.b_93 then
+b_44 := {0.38, nil, this, this};
+else
+return (({this, this, 14, 0, nil} && b_25.b_54.b_23({0.35, nil}, {nil, false, false})) && b_98);
+}
+string b_66(string b_48, b_31; boolean[2] b_9) {
+float b_68 = 3;
+}
+}

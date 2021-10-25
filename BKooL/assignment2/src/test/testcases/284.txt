@@ -1,0 +1,7 @@
+
+        class Test extends Test1{
+            static void main(String _args) {
+                a := a[5]*x.foo(1,2,3);
+            }
+        }
+	    

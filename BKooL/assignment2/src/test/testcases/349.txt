@@ -1,4 +1,8 @@
-class A{
-            void main(){float m;
-            m:=   (1*7)-(5*9)+1.6*50.1      ;
-            }}
+class b_0 {
+b_70(int[4] b_98, b_3; void[8] b_60) {
+b_22 b_99 = ((b_90 * b_27[(b_97 + b_83.b_10((b_58 || false), {nil, 0.95, 0, "string literal", "string literal"}))]) * b_79), b_57 = {0.97, true, false, nil};
+}
+b_69 b_25(string[2] b_64, b_75; int[10] b_47) {
+string[1] b_64;
+}
+}

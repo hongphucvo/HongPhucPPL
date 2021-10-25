@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Dum_Truck),[AttributeDecl(Instance,VarDecl(Id(vehicle),ClassType(Id(Vehicle)),NewExpr(Id(Dump_Truck),[]))),MethodDecl(Id(<init>),Instance,[],Block([],[Call(FieldAccess(Self(),Id(vehicle)),Id(start_engine),[]),Call(FieldAccess(Self(),Id(vehicle)),Id(drive),[]),Call(FieldAccess(Self(),Id(vehicle)),Id(raise_bed),[])]))])])

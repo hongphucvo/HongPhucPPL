@@ -1,0 +1,12 @@
+
+        class Rectangle {
+            int width, height;
+            int area (){
+                if (a == b) then {
+                    io.print();
+                } else {
+
+                }
+            }
+        } 
+	    

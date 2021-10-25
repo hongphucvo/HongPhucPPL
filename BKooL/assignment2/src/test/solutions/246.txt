@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Rectangle),[AttributeDecl(Instance,VarDecl(Id(width),IntType)),AttributeDecl(Instance,VarDecl(Id(height),IntType)),MethodDecl(Id(area),Instance,[],IntType,Block([],[If(BinaryOp(==,Id(a),Id(b)),Block([],[Call(Id(io),Id(print),[])]),Block([],[]))]))])])

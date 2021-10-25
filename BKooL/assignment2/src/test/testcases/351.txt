@@ -1,21 +1,6 @@
-
-class xep{
-    void rearrange(int[5]sach){
-        for i:= 0 to 4 do
-            if sach[i]>sach[i+1] then {
-                int m = sach[i+1];
-                sach[i+1]:=sach[i];
-                sach[i]:=m;
-            }
-    }
-void output(int[5] sach) {
-    for i:= 0 to 5 do {
-            io.writeInt(xep[i]);
-        }
- }
-int main(){
-    arr:={1,2,3,4,5};
-    this.output({1,2,3,4,5});
-    this.rearrange(arr);
-            }
-        }
+class b_16 extends b_54 {
+b_70(string b_80, b_86; b_95[4] b_17) {
+int[6] b_41 = b_99 * "string literal", b_49;
+}
+final boolean b_25 = b_97.b_48.b_37(b_1, 2), b_40;
+}

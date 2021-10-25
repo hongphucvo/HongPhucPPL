@@ -1,0 +1,12 @@
+
+        class IceCream {
+            int total_cost(void self){
+                #vanilla ice cream is sold at a discount of half off!
+                if self.flavor == "vanilla" then 
+                    total_cost := self.numScoops * 5*self.costPerScoop;
+                else
+                    total_cost := self.numScoops * self.costPerScoop;
+                return total_cost;
+            }
+        }
+	    

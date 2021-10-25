@@ -1,0 +1,5 @@
+class m {
+            int a;
+        }
+        class m{int x;}
+        

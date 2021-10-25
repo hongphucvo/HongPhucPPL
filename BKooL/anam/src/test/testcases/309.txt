@@ -1,0 +1,4 @@
+class A{int main(){
+  final float number = root;
+  this.root:=5;}
+}

@@ -1,7 +1,7 @@
-class A{
-        void main(){
-        boolean x;
-        if x then if(this.m==7)then x:=true;
-        else io.writeInt(100);
-        else io.writeInt(1);
-        }}
+class b_0 {
+b_37 b_65(string b_60, b_54; void b_21) {
+}
+boolean b_62(float b_31, b_83; b_13[7] b_38) {
+b_65.b_82(b_39, b_3.b_43.b_11(b_58 && b_44, b_30));
+}
+}

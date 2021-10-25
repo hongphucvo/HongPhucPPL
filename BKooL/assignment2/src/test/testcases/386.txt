@@ -1,27 +1,14 @@
-class Shape {
-float length,width;
-float getArea() {}
-Shape(float length,width){
-this.length := length;
-this.width := width;
+class b_39 {
+b_43(boolean[7] b_18, b_49; b_95 b_61) {
+string b_24 = (b_45 || b_44), b_23 = (b_45[b_4[b_26 && b_52]] + true * {0.39, this, "string literal", this});
+}
+b_95(void[8] b_19, b_98; int b_88) {
+b_37[8] b_71 = b_41 + (b_76 ^ b_9), b_76;
 }
 }
-class Rectangle extends Shape {
-float getArea(){
-return this.length*this.width;
+class b_24 {
+b_79(string b_44, b_52; int b_33) {
+int[1] b_35 = b_28.b_65(b_75 - b_96, b_21);
 }
-}
-class Triangle extends Shape {
-float getArea(){
-return this.length*this.width / 3;
-}
-}
-class Example2 {
-void main(){
-Shape s;
-s := new Rectangle(3,4);
-io.writeFloatLn(s.getArea());
-s := new Triangle(3,4);
-io.writeFloatLn(s.getArea());
-}
+b_76 b_53 = b_39, b_97 = (b_43.b_92.b_21 + b_57[b_18 * b_35] || b_49[b_5 - b_80]);
 }

@@ -1,6 +1,19 @@
-class A{
-        int main(){
-        int x;
-        io.readInt(x);
-        io.writeInt(-x);
-        }}
+class b_70 {
+final static boolean[8] b_67, b_33;
+float b_99(b_90 b_45, b_24; void b_56) {
+}
+static int b_77, b_89;
+}
+class b_99 {
+void b_43(boolean[7] b_52, b_7; b_50[6] b_27) {
+}
+b_21(string[5] b_66, b_51; int[3] b_22) {
+string[7] b_13 = 0.91 + (b_35.b_80 - b_70);
+{
+}
+}
+float b_40(string[10] b_94, b_29; void[9] b_33) {
+float b_59, b_92;
+break;
+}
+}

@@ -1,0 +1,10 @@
+
+        class Geeks
+        {
+            string geekname;
+            void printname()
+            {
+            io.writeLn("Hello" ^ "World");
+            }
+        }
+	    

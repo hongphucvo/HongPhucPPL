@@ -1,2 +1,10 @@
-class A{
-        final static int k,y=5;}
+class b_0 {
+string b_52(void b_60, b_86; boolean b_21) {
+if b_30[{"string literal"} || b_36] != (b_20 * "string literal") then
+b_65.b_97(b_27, 11);
+}
+float b_28(void[3] b_92, b_87; boolean b_71) {
+void[6] b_70 = b_16[b_86[b_58.b_9.b_85(b_93 / b_76, b_90)]];
+b_96.b_46(false, b_58.b_27(19 * b_29[(b_37 / b_62)], {true}));
+}
+}

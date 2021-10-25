@@ -1,4 +1,0 @@
-class Lit{
-        void main(){
-        string A;
-        A:="This is a string containing tab 	";}}

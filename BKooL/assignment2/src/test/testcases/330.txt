@@ -1,3 +1,5 @@
-class classX{
-        void print(string str){io.writeString(str);}
-        void main(){this.print("");}}
+class b_77 {
+string b_90(string[6] b_1, b_45; b_13[9] b_23) {
+this.b_25 := this;
+}
+}

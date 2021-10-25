@@ -1,0 +1,15 @@
+class A {
+            int main(int input) {
+                int x = -1, y;
+                for i := 0 to list.size() do {
+                    for j := 0 to this.len(list.get(i)) do {
+                        if list.get(i)[j] == -2 then continue;
+                        if list.get(i)[j] == input then {
+                            x := i;
+                            y := j;
+                            break;
+                        }
+                    }
+                }
+            }
+        }

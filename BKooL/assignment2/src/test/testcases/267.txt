@@ -1,0 +1,18 @@
+
+        class TestBird {
+            static void main(int args) {
+                Animal myBird = new Bird();
+                myBird.label();
+                myBird.move();
+                myBird.eat();
+            }
+        }
+        class TestFish {
+            static void main(int args) {
+                Animal myFish = new Fish();
+                myFish.label();
+                myFish.move();
+                myFish.eat();
+            }
+        }
+	    

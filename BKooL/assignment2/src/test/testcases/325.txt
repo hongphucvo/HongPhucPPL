@@ -1,4 +1,4 @@
-class A{}
-            class B extends A{int a;}
-            class C extends A{int a;}
-            class A{int x;}
+class b_74 {
+string b_50(boolean b_55, b_0; b_38 b_64) {
+}
+}

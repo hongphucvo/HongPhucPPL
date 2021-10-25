@@ -1,6 +1,7 @@
-class A{void x(){} A(){}}
-        class B extends A{
-            int m;
-            int x(){return m;}
-        B(){this.m:=5%2-9;
-        io.writeInt(m);}}
+class b_22 {
+int b_14(void[10] b_71, b_14; int[3] b_2) {
+boolean[8] b_67, b_12 = ((b_93 && {this, this, false, 0.22, 2}) + b_49 && 8);
+}
+b_24 b_72(float b_11, b_40; int[5] b_47) {
+}
+}

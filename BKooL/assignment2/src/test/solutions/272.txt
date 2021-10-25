@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(List),[AttributeDecl(Instance,VarDecl(Id(begin),ClassType(Id(node)))),AttributeDecl(Instance,VarDecl(Id(end),ClassType(Id(node)))),MethodDecl(Id(List),Instance,[],ClassType(Id(List)),Block([],[If(BinaryOp(!=,Id(begin),NullLiteral()),Return(Self()))]))])])

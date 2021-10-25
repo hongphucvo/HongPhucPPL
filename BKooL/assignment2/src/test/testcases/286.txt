@@ -1,0 +1,24 @@
+
+        class PPL {
+            float express(float a,b) {
+                return a*b\c+4==5;
+                return "mdgnskaf";
+            }
+            boolean express(boolean a,b) {
+                return !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(c == f) && a || !b;
+            }
+            string express(string a) {
+                return a ^ b ^(c ^ d ^ ("abc" ^ _24dha));
+            }
+            PPL New(int a; float b) {
+                if a == 0 then
+                    return new New(a,b,c,d,1./2);
+                else {
+                    if a<1 then
+                        return this;
+                    else
+                        return nil;
+                }
+            }
+        }
+	    

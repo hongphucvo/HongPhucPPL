@@ -1,6 +1,27 @@
-class A{
-        int main(){
-        int x;
-        io.readInt(x);
-        io.writeInt(x%3);
-        }}
+class b_27 extends b_40 {
+void[10] b_60;
+void b_81(boolean b_70, b_18; string[7] b_99) {
+boolean[2] b_14 = b_9.b_31(b_21 / b_97, 0.14);
+return b_38.b_91.b_80;
+}
+b_42(b_94[7] b_41, b_16; void[4] b_67) {
+}
+}
+class b_5 extends b_51 {
+b_12(string b_50, b_73; float[10] b_87) {
+}
+float b_76(boolean b_18, b_56; float[5] b_90) {
+if (b_59 && b_65) <= b_41 then
+if b_4.b_32.b_80(b_85, b_81) < b_80 * false + b_8 + b_97[b_35] then
+if b_88 * 19 >= (b_99 || b_36 - {true, 14}) then
+continue;
+else
+break;
+else
+if b_74 == b_38 then
+return b_29 * b_43.b_21.b_5 || ({0.51, false} + b_83);
+}
+void b_20(boolean[3] b_77, b_11; float b_65) {
+break;
+}
+}

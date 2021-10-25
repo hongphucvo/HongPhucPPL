@@ -1,0 +1,9 @@
+
+        class ABC extends Character {
+            void main(){
+                #start of declaration part
+                for x := 5 downto 2 do
+                    io.writeIntLn(x);
+            }
+        }
+        

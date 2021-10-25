@@ -1,10 +1,6 @@
-class A{
-            int m(){return 5;}
-            void main(){
-            for i:= a.k[3+this.m()] to 100 do {
-                #if i%2==0 then i:=i*2;
-                
-            io.writeInt(i);
-            break;
-            }
-            }}
+class b_60 extends b_23 {
+final static boolean[4] b_15 = b_68[b_93 - b_83.b_79.b_66(({true} && b_51), b_66[{true, 18} - b_73])];
+b_97(string[7] b_88, b_9; void[3] b_28) {
+float b_91 = "string literal", b_79 = b_68;
+}
+}

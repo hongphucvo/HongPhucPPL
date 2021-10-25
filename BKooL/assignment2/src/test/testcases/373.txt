@@ -1,5 +1,6 @@
-class A{
-        void main(){
-        boolean x;
-        if x then x:={1,2,3};
-        }}
+class b_80 {
+b_84(float[9] b_100, b_24; int[6] b_48) {
+string[9] b_17 = b_99;
+}
+static int[10] b_41 = b_87, b_61 = 0.44;
+}

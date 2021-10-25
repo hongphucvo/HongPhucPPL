@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Shape),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(a),ArrayType(5,IntType)),VarDecl(Id(o),ClassType(Id(Object)),IntLit(1))],[]))])])

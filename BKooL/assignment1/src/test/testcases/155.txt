@@ -1,2 +1,0 @@
-#An inline cmt 
-/* before a block cmt*/ 

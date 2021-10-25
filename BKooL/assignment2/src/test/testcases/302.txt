@@ -1,4 +1,4 @@
-class main {
-            int a;
-            int b;
-        }
+class b_7 extends b_30 {
+b_63(boolean[7] b_29, b_17; boolean b_65) {
+}
+}

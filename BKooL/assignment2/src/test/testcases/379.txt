@@ -1,11 +1,11 @@
-
-        class xep{
-void output(int[5] sach) {
-    for i:= 0 to 5 do {
-            io.writeInt(xep[i]);
-        }
- }
-int main(){
-    this.output({1,2,3,4,5});
-            }
-        }
+class b_22 {
+b_46(boolean[2] b_94, b_24; boolean b_89) {
+}
+b_55 b_87(float b_45, b_81; int b_37) {
+return b_58 ^ {true} + b_26.b_69(b_37[(b_28 * b_54)] - "string literal", b_52[(b_38 + b_26)]);
+}
+}
+class b_92 {
+static b_28[7] b_33 = {false, "string literal", "string literal", 1}, b_90 = {0.1, 6};
+final static int b_59;
+}

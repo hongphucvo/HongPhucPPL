@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(_id),IntType)),MethodDecl(Id(print),Instance,[],VoidType,Block([VarDecl(Id(a),IntType)],[Call(Id(io),Id(writeInt),[FieldAccess(Self(),Id(id))])]))])])
+Program([ClassDecl(Id(b_37),[AttributeDecl(Static,VarDecl(Id(b_77),ArrayType(1,FloatType),Id(b_50))),AttributeDecl(Static,VarDecl(Id(b_81),ArrayType(1,FloatType),Id(b_15)))])])

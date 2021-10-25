@@ -1,6 +1,0 @@
-class A{
-        void main(){
-        for i:= a.k[3] to 100 do {
-            if i%2==0 then i:=i*2;
-        }
-        }}

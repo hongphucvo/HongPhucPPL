@@ -1,4 +1,9 @@
-class A{
-            void main(){float m;
-            m:=    x.arr[1000]-(x.b(100)*30); 
-            }}
+class b_72 {
+b_21 b_57(float[9] b_51, b_27; float[8] b_18) {
+void[2] b_79, b_25;
+}
+b_94(void[9] b_100, b_41; void b_67) {
+int b_34 = ((b_66 / b_5) / this), b_17 = nil - b_48 - b_5 * b_71;
+return b_73.b_76((b_31 ^ b_75), b_47.b_78.b_0(b_80.b_86(0.67, {this}) && b_54, b_100[nil]));
+}
+}

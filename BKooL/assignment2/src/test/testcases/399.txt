@@ -1,7 +1,22 @@
-class rec{
-        int w,b;
-        int main(){
-        io.readInt(this.w);
-        io.readInt(this.b);
-        io.writeInt(w*b);
-        }}
+class b_13 {
+b_3[9] b_55 = b_58, b_60 = (b_76 || b_85);
+final static void[1] b_54;
+b_32(boolean[10] b_88, b_35; float[6] b_78) {
+return b_85;
+}
+}
+class b_2 {
+b_61 b_58(float[6] b_93, b_21; b_29 b_87) {
+b_99.b_19((b_69 + b_31), b_24);
+}
+float b_65(int[1] b_69, b_51; string[9] b_69) {
+boolean[9] b_20;
+}
+float b_95(void[9] b_37, b_52; boolean b_22) {
+int b_58;
+for b_54 := b_51.b_32(b_97 ^ b_55[(b_52 - b_22.b_66.b_95)], b_98) downto b_54 do
+if (this + b_93[b_1]) > b_63 then
+if b_25 == (b_6 / b_80[b_69 * b_13[b_80 || b_66]]) then
+continue;
+}
+}

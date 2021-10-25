@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(number),FloatType,FloatLit(7.0)),VarDecl(Id(root),FloatType,FloatLit(2.3))],[Block([],[])]))])])
+Program([ClassDecl(Id(b_9),Id(b_6),[MethodDecl(Id(<init>),Instance,[param(Id(b_39),ArrayType(1,ClassType(Id(b_53)))),param(Id(b_94),ArrayType(1,ClassType(Id(b_53)))),param(Id(b_36),BoolType)],Block([VarDecl(Id(b_19),StringType)],[Continue]))])])

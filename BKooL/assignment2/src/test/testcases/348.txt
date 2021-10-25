@@ -1,6 +1,9 @@
-class A{
-            void main(){float m;
-            m:=   4*5/3\6+1      ;
-            if m==0 then io.writeStr("m=0");
-            
-            }}
+class b_78 extends b_51 {
+b_91(boolean[3] b_29, b_16; string[5] b_71) {
+void b_42;
+break;
+}
+b_9(float b_31, b_67; string b_5) {
+b_0.b_29({this, false, 0.08, 0.33, 0.55}, b_25);
+}
+}

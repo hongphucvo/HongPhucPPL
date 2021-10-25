@@ -1,0 +1,8 @@
+class test{
+        int a=4, m;
+        int func(){
+        final int a=5,m;
+        m:=5;
+        }
+        
+        }

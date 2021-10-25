@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Number),[AttributeDecl(Static,VarDecl(Id(x),IntType)),AttributeDecl(Static,VarDecl(Id(y),IntType)),AttributeDecl(Static,VarDecl(Id(z),IntType,IntLit(5))),MethodDecl(Id(main),Instance,[],VoidType,Block([],[For(Id(i),Id(x),UnaryOp(-,IntLit(1)),False,Block([VarDecl(Id(s),FloatType,StringLit("Mean"))],[If(BinaryOp(==,Id(i),IntLit(0)),Break)]))]))])])

@@ -1,4 +1,0 @@
-class Lit{
-        void main(){
-        string A;
-        A:="Open the string;}}

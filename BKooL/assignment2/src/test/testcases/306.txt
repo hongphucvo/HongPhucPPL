@@ -1,5 +1,6 @@
-class A{
-    int main(){
-    float number = 7.0, root=2.3;
-    {}}
+class b_9 extends b_6 {
+b_59(b_53[1] b_39, b_94; boolean b_36) {
+string b_19;
+continue;
+}
 }

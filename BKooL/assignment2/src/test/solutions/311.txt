@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(longitude),IntType)),AttributeDecl(Instance,VarDecl(Id(latitude),IntType))])])
+Program([ClassDecl(Id(b_45),Id(b_49),[MethodDecl(Id(b_83),Instance,[param(Id(b_54),ArrayType(3,VoidType)),param(Id(b_88),ArrayType(3,VoidType)),param(Id(b_56),ClassType(Id(b_93)))],FloatType,Block([],[Return(BinaryOp(-,Id(b_36),Id(b_76)))]))])])

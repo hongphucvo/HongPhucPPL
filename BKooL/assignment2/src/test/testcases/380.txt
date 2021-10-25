@@ -1,13 +1,16 @@
-class Shape {
-static final int numOfShape = 0;
-final int immuAttribute = 0;
-float length,width;
-static int getNumOfShape() {
-return numOfShape;
+class b_65 extends b_27 {
+b_55(string[1] b_96, b_6; b_39 b_25) {
+for b_85 := b_21 && b_68 downto b_88 do
+b_41.b_74 := (b_23 / b_81);
 }
+static float b_65, b_33;
 }
-class Rectangle extends Shape {
-float getArea(){
-return this.length*this.width;
+class b_5 {
+float b_93(void[5] b_73, b_1; b_34 b_73) {
+boolean b_34 = (b_76.b_77(b_18.b_18.b_68 - b_91.b_88((b_100 && {0.63, nil, nil, "string literal", 0.07}), false), b_57) + b_74) ^ (b_22 && b_82), b_52 = (18 * b_86[b_63]);
+}
+b_98(string[5] b_67, b_14; b_5 b_67) {
+void[7] b_86 = b_35.b_81.b_93;
+b_89[0] := b_47;
 }
 }

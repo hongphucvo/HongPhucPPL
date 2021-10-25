@@ -1,4 +1,0 @@
-class A{
-        void main(){float m;
-        m:=    (1--5*9)+9     ;
-        }}

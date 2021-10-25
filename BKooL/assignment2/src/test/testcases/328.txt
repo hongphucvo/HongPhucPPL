@@ -1,7 +1,4 @@
-class X{
-            int k;
-            boolean mod2(X source){
-                if (this.k%2==0 )&&(source.k%2==0) then return true;
-                else return false;
-            }
-            }
+class b_19 {
+float b_48(int[10] b_63, b_68; float b_14) {
+}
+}

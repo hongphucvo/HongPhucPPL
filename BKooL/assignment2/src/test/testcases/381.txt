@@ -1,4 +1,14 @@
-class A{
-        #this is a cmt
-        int a=4+5;
-        }
+class b_95 {
+static float b_62, b_2;
+b_32(void[7] b_29, b_89; float b_12) {
+float b_13;
+break;
+}
+}
+class b_92 {
+string b_67(int b_11, b_62; float b_52) {
+for b_18 := (b_75 * b_91) downto 0.43 ^ b_87[b_55 - {nil}] do
+b_11.b_18(b_76.b_13({0, this, 0.69, "string literal", this} || b_88, b_89[b_33 + b_67]), nil);
+}
+static b_93[6] b_14, b_97 = b_3;
+}

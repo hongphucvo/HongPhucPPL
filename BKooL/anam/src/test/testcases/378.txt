@@ -1,0 +1,29 @@
+
+        class Bus
+    {
+        string ID;
+        string Code;
+        int Case;
+        int Start;
+        int Finish;
+
+        Bus()
+        {
+            ID := "";
+            Code := "";
+            Case := -1;
+            Start := 0;
+            Finish := 0;
+            next := 0;
+            prev := 0;
+        }
+        Bus(string ID , CODE ; int Case , Start , Finish)
+        {
+            this.ID := ID;
+            this.Code := CODE;
+            this.Case := Case;
+            this.Start := Start;
+            this.Finish := Finish;
+        }
+    }
+        

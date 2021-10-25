@@ -1,6 +1,12 @@
-class A{
-        void main(){
-        boolean x;
-        if x then io.readBool(x);
-        else io.writeBool(x);
-        }}
+class b_58 extends b_15 {
+b_88(float b_89, b_79; void b_79) {
+}
+static float[1] b_76;
+}
+class b_59 {
+b_11(float[8] b_10, b_47; boolean[5] b_48) {
+return ({true} || b_7) / b_57 && b_46;
+}
+void b_8(boolean[6] b_31, b_55; float b_6) {
+}
+}

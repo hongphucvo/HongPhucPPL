@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Dog),[AttributeDecl(Instance,VarDecl(Id(_attendance),IntType,IntLit(0))),MethodDecl(Id(<init>),Instance,[param(Id(birthday),ClassType(Id(name)))],Block([],[AssignStmt(FieldAccess(Self(),Id(name)),Id(name)),AssignStmt(FieldAccess(Self(),Id(birthday)),Id(birthday))]))])])

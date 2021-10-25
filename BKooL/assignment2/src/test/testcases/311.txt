@@ -1,1 +1,5 @@
-class School{ int longitude,latitude;}
+class b_45 extends b_49 {
+float b_83(void[3] b_54, b_88; b_93 b_56) {
+return (b_36 - b_76);
+}
+}

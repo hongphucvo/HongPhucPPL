@@ -1,5 +1,13 @@
-class A{
-            int m;
-            int m(){}
-            int k(){final int m;}
-            }
+class b_9 extends b_33 {
+b_21(string b_97, b_76; int[8] b_89) {
+{
+if 2 == b_99 - (b_96.b_14.b_81 || 0.17) then
+b_29.b_32(b_41.b_87(b_39 || b_49.b_7, b_46[("string literal" * b_17)]), b_16);
+else
+b_37.b_5(0.57, b_60);
+}
+}
+b_94(void[3] b_88, b_59; boolean[8] b_24) {
+continue;
+}
+}

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(rec),[AttributeDecl(Instance,VarDecl(Id(w),IntType)),AttributeDecl(Instance,VarDecl(Id(b),IntType)),MethodDecl(Id(main),Instance,[],IntType,Block([],[Call(Id(io),Id(readInt),[FieldAccess(Self(),Id(w))]),Call(Id(io),Id(readInt),[FieldAccess(Self(),Id(b))]),Call(Id(io),Id(writeInt),[BinaryOp(*,Id(w),Id(b))])]))])])

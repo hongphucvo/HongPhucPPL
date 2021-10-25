@@ -1,6 +1,3 @@
-class Lit{
-        void main(){
-        string A;
-        string[1] A;
-        A:="Open the string";
-        A:={"A#cmt"};}}
+class b_86 extends b_83 {
+final float b_28, b_14;
+}

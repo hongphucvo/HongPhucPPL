@@ -1,6 +1,5 @@
-class MJ{
-        final int k=5; 
-        int g=3;}
-        class HJ{
-        final int k=5; 
-        int e=3;}
+class b_52 extends b_0 {
+b_62(string b_20, b_15; int[8] b_57) {
+}
+int[2] b_30 = 0.98, b_2 = b_28;
+}

@@ -1,3 +1,7 @@
-class School{
-        int id;
-        void print(){io.writeInt(this.id);}}
+class b_92 extends b_68 {
+b_99 b_10(b_76 b_0, b_42; string[4] b_14) {
+{
+return b_96[b_94];
+}
+}
+}

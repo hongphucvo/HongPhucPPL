@@ -1,4 +1,0 @@
-class A{
-        void main(){float m;
-        m:=   4*5/3\6+1      ;
-        }}

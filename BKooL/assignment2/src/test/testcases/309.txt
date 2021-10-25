@@ -1,4 +1,5 @@
-class A{int main(){
-  final float number = root;
-  this.root:=5;}
+class b_11 extends b_50 {
+float b_40(string[5] b_81, b_36; string b_9) {
+boolean[7] b_72, b_7;
+}
 }

@@ -1,0 +1,17 @@
+
+        class Number {
+            void[10000000000] a = new Object(1,2,3,4,5);
+            void main(){
+                a[b[2]*c[3]] := this.value;
+                this.value.foo().fooo1().foo2 := a >= b;
+            }
+            void display(void[5] a,b,c){
+                if (a[1] >= b[1] == c[1]) then{
+                    io.writeStr(a ^ b ^ c);
+                }
+                else return a.x[5];
+                for a := 5 to 100 do
+                continue;
+            }
+        }
+	    

@@ -1,9 +1,8 @@
-class A{
-        int m(){}
-        void main(){
-        A x;
-        for i:= 1 downto 100 do {
-            x.m();
-            continue;
-        }
-        }}
+class b_97 extends b_80 {
+b_88(string[9] b_64, b_65; b_31[8] b_99) {
+boolean b_78, b_89;
+b_74.b_96((b_86 / b_94), b_92);
+}
+string b_71(float b_41, b_84; float[4] b_62) {
+}
+}

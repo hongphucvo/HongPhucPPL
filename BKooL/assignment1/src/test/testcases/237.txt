@@ -1,4 +1,0 @@
-class Lit{
-        void main(){
-        string[1] A;
-        A:={"	"};}}

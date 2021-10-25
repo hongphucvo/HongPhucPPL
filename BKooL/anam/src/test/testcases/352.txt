@@ -1,0 +1,2 @@
+class A{
+        final static int k,y=5;}

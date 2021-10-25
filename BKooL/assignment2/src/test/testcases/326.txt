@@ -1,8 +1,5 @@
-class X{
-            int k;
-            boolean lessthan(X source){
-                if this.k<source.k then return true;
-                else if this.k==source.k then return false;
-                else return false;
-            }
-            }
+class b_47 extends b_33 {
+b_59(int b_53, b_17; void b_56) {
+b_83 b_15 = b_32;
+}
+}

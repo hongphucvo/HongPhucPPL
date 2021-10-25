@@ -1,7 +1,5 @@
-class X{
-            int k;
-            boolean notequal(X source){
-                if this.k==source.k then return false;
-                else return true;
-            }
-            }
+class b_55 extends b_46 {
+int b_40(void[3] b_4, b_100; boolean[10] b_30) {
+void b_34 = b_55 || this, b_85;
+}
+}

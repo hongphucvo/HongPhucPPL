@@ -1,0 +1,9 @@
+
+        class Number {
+            void[10000000000] a = new Object(1,2,3,4,5);
+            void main(){
+                a[b[2]*c[3]] := this.value;
+                this.value.foo().fooo1().foo2 := a >= b;
+            }
+        }
+	    

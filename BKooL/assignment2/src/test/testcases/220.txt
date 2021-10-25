@@ -1,0 +1,8 @@
+
+        class ABC extends Character {
+            #start of declaration part
+            float r,s;
+            int[5] a,b;
+            #list of statements
+        }
+        

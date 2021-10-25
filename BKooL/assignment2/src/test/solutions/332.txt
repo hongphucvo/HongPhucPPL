@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(Lit),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(A),StringType)],[AssignStmt(Id(A),StringLit("")),AssignStmt(Id(A),BinaryOp(+,Id(A),StringLit("HongPhuc")))]))])])
+Program([ClassDecl(Id(b_38),Id(b_9),[MethodDecl(Id(<init>),Instance,[param(Id(b_1),ArrayType(2,BoolType)),param(Id(b_81),ArrayType(2,BoolType)),param(Id(b_9),ArrayType(3,IntType))],Block([],[]))])])

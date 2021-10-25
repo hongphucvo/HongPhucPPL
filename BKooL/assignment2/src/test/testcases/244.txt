@@ -1,0 +1,6 @@
+
+        class classroom{
+        void roomnumber = {1,2,3,4};
+		Classroom(float a; bool c){}
+	    }
+	    

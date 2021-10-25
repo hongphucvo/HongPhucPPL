@@ -1,0 +1,6 @@
+
+        class List{
+            node[10] begin;
+            node[100] end;
+        }
+	    

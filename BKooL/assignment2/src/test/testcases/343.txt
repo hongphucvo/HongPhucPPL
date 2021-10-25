@@ -1,2 +1,4 @@
-class A{void x(){}}
-        class B extends A{void x(){/*cmt*/ }}
+class b_43 extends b_46 {
+float b_53(void[9] b_70, b_8; float[4] b_97) {
+}
+}

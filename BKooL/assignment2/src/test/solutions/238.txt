@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),Id(Organization),[AttributeDecl(Instance,ConstDecl(Id(a),ClassType(Id(id)),None)),MethodDecl(Id(<init>),Instance,[],Block([],[])),MethodDecl(Id(searchSchool),Instance,[param(Id(id),IntType)],ClassType(Id(School)),Block([],[If(BinaryOp(==,FieldAccess(Self(),Id(id)),Id(id)),Return(Self()))]))])])

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Dog),[MethodDecl(Id(<init>),Instance,[],Block([],[Return(BinaryOp(-,CallExpr(Id(Date),Id(now),[]),FieldAccess(Self(),Id(birthday))))])),MethodDecl(Id(<init>),Instance,[],Block([],[Return(CallExpr(Id(console),Id(log),[StringLit("Woof!")]))])),MethodDecl(Id(<init>),Instance,[],Block([],[Return(FieldAccess(Self(),Id(_attendance)))]))])])

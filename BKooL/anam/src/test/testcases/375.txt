@@ -1,0 +1,6 @@
+class A{
+        void main(){
+        boolean x;
+        if x then io.readBool(x);
+        else io.writeBool(x);
+        }}

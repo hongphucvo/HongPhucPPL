@@ -1,3 +1,3 @@
-class X{
-        void print(string str){io.writeString(str);}
-        void main(){this.print("str");}}
+class b_21 {
+final void b_57, b_60 = b_18;
+}

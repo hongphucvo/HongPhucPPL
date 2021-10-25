@@ -1,0 +1,11 @@
+
+        class Number {
+            static int x,y,z = 5;
+            void main(){
+                for i:=x downto -1 do {
+                    float s = "Mean";
+                    if i == 0 then break;
+                }
+            }
+        }
+	    

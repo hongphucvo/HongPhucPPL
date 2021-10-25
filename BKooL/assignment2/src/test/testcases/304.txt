@@ -1,7 +1,6 @@
-class A{
-    int main(){
-    int b;
-    {int a;}
-    return 0;
-    }
+class b_32 extends b_43 {
+b_69(boolean[1] b_4, b_85; float b_51) {
+boolean[10] b_63 = b_58.b_62.b_17((b_55[{true}] ^ 0.27), b_96[(b_1 * b_10)]);
+return this;
+}
 }

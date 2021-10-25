@@ -1,6 +1,8 @@
-class A{
-        void main(){
-        boolean x;
-        if x then if y then x:=false;
-        else x:=true;
-        }}
+class b_45 extends b_65 {
+b_18(string[9] b_64, b_91; boolean b_53) {
+if b_72 ^ b_64 == (b_74 - b_74.b_37.b_50((b_20 || b_98), {false, 0.73}) * b_26.b_42) then
+{
+}
+}
+final static b_79 b_41, b_56;
+}

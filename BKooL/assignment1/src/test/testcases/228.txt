@@ -1,3 +1,0 @@
-class X{
-        int a;
-        void X(){ this.a=((5*8)-123;}

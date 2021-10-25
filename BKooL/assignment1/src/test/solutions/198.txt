@@ -1,1 +1,0 @@
-classX,{,void,print,(,string,str,),{,io,.,writeString,(,str,),;,},void,main,(,),{,this,.,print,(,"",),;,},},<EOF>

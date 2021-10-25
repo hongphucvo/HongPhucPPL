@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(longitude),IntType)),AttributeDecl(Instance,VarDecl(Id(latitude),IntType))])])
+Program([ClassDecl(Id(b_98),[MethodDecl(Id(<init>),Instance,[param(Id(b_81),ArrayType(7,IntType)),param(Id(b_88),ArrayType(7,IntType)),param(Id(b_39),ArrayType(1,BoolType))],Block([],[]))])])

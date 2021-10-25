@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(classroom),[AttributeDecl(Instance,VarDecl(Id(roomnumber),VoidType,NewExpr(Id(Classroom),[]))),MethodDecl(Id(<init>),Instance,[param(Id(a),FloatType)],Block([],[Return(Id(a))]))])])

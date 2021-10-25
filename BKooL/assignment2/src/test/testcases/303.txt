@@ -1,1 +1,3 @@
-class A{int main(){}}
+class b_66 extends b_31 {
+b_28[10] b_72, b_88;
+}

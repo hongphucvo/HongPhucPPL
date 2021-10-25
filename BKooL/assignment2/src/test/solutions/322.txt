@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(X),[AttributeDecl(Instance,VarDecl(Id(m),ArrayType(2,IntType))),MethodDecl(Id(X),Instance,[],VoidType,Block([],[AssignStmt(Id(m),[IntLit(1),IntLit(2)])]))])])
+Program([ClassDecl(Id(b_11),Id(b_29),[AttributeDecl(Instance,VarDecl(Id(b_9),ArrayType(8,StringType),BinaryOp(||,FieldAccess(Id(b_48),Id(b_67)),[BooleanLit(True),NullLiteral()])))])])

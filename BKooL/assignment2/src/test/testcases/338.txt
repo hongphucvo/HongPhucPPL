@@ -1,7 +1,7 @@
-class Lit{
-            final int a = 3.5;
-            final static int a=10;
-            static float m="1234";
-        void main(){
-        string A;
-        A:="This is a string containing tab 	";}}
+class b_82 extends b_94 {
+b_99(float[4] b_36, b_83; int b_27) {
+boolean[7] b_16, b_87;
+for b_100 := b_18 downto ({"string literal", this, nil, "string literal"} && b_97[(b_84.b_18.b_1 + b_25[b_89[b_25 && b_39[(b_36 / b_69.b_31.b_50({0.22, 5, 0.96, "string literal"} && b_15, b_0.b_25.b_25))]]])]) do
+b_36.b_34 := b_39 + b_43[({0.47, 0.47, nil, false} && {true, true})] || b_58;
+}
+}

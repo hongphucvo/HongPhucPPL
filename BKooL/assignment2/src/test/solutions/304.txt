@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(b),IntType)],[Block([VarDecl(Id(a),IntType)],[]),Return(IntLit(0))]))])])
+Program([ClassDecl(Id(b_32),Id(b_43),[MethodDecl(Id(<init>),Instance,[param(Id(b_4),ArrayType(1,BoolType)),param(Id(b_85),ArrayType(1,BoolType)),param(Id(b_51),FloatType)],Block([VarDecl(Id(b_63),ArrayType(10,BoolType),CallExpr(FieldAccess(Id(b_58),Id(b_62)),Id(b_17),[BinaryOp(^,ArrayCell(Id(b_55),[BooleanLit(True)]),FloatLit(0.27)),ArrayCell(Id(b_96),BinaryOp(*,Id(b_1),Id(b_10)))]))],[Return(Self())]))])])

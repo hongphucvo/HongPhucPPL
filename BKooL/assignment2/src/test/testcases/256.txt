@@ -1,0 +1,6 @@
+
+        class Test {
+            string toString(int a, b){}
+        }
+        class Test1 extends Test{}
+	    

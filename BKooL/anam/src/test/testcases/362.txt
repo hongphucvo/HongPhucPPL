@@ -1,0 +1,6 @@
+class A{final string m = "HONGPHUC";
+            void main(){
+            m:="VO"^"HONGPHUC";
+            m:=m-"PHUC";
+            io.writeBool(m=="VOHONG");
+            }}

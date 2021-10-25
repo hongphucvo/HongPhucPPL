@@ -1,4 +1,9 @@
-class A{
-        void main(){float m;
-        m:= 1*3/5        ;
-        }}
+class b_40 {
+final static string[3] b_8;
+b_83(b_41[7] b_28, b_75; b_91[7] b_97) {
+if b_12 + b_57 + b_47 >= b_78.b_10.b_19 + b_22 then
+return b_71[b_60];
+else
+continue;
+}
+}

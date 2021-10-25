@@ -1,1 +1,0 @@
- /* inside this block cmt is a smtblk{int a;}*/

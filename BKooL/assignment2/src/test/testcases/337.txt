@@ -1,5 +1,7 @@
-class Lit{
-            final int a = 3.5;
-        void main(){
-        string A;
-        A:="This is a string containing tab 	";}}
+class b_36 {
+b_79(float[8] b_16, b_93; string[8] b_6) {
+{
+string[9] b_25 = b_79 - b_20.b_33.b_45(b_18, b_21);
+}
+}
+}

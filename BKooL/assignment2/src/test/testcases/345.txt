@@ -1,2 +1,6 @@
-class A{void x(){}}
-        class B extends A{void x(){io.writeInt(m.b().a.c().d);}}
+class b_80 {
+void b_96(void[5] b_67, b_89; b_61 b_11) {
+b_28.b_6(b_10.b_86((b_13 + b_49), b_39), b_72);
+}
+final string[2] b_79, b_56 = b_69;
+}

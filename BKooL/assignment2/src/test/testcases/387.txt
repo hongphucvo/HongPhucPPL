@@ -1,10 +1,20 @@
-class Example1 {
-int factorial(int n){
-if n == 0 then return 1; else return n * this.factorial(n - 1);
+class b_84 extends b_83 {
+b_66(void[6] b_4, b_31; boolean b_46) {
+int b_75 = this - b_44 ^ b_94 + b_55.b_75.b_79((b_80 ^ b_41), this);
+for b_58 := b_94.b_93.b_9(({6, this, "string literal"} && b_97), 0.48) downto "string literal" && (b_54 + b_37) do
+b_37[3] := b_97.b_22.b_36;
 }
-void main(){
-int x;
-x := io.readInt();
-io.writeIntLn(this.factorial(x));
+b_73(string b_80, b_63; void b_29) {
+}
+}
+class b_99 extends b_13 {
+void b_70(b_1[8] b_60, b_2; b_8[10] b_21) {
+if this > b_73 && b_95[{false, 0.23, nil, this, "string literal"} ^ b_75] then
+if {true, nil, nil, 1, this} * b_25 < {true, "string literal", 8, true} then
+this.b_77 := nil - b_33.b_75.b_74({0.45, 1, "string literal"} - b_23, b_50) && b_7["string literal" && b_86];
+}
+b_95(void b_37, b_75; b_9[7] b_16) {
+void[8] b_11 = "string literal" || b_96.b_24(b_28 * b_2, b_58), b_36 = b_46;
+b_92.b_20(b_36, {0.76, this, this, 7});
 }
 }

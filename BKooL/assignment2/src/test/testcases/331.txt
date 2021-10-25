@@ -1,5 +1,3 @@
-class Lit{
-        void main(){
-        string A;
-        A:="my name";
-        A:="This is a string containing tab 	";}}
+class b_81 {
+static void[9] b_1;
+}

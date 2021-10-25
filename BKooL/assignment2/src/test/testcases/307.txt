@@ -1,3 +1,5 @@
-class A{int main(){
- float number=9.0; int root;}
+class b_69 extends b_31 {
+b_76 b_100(string b_86, b_13; b_43 b_4) {
+b_96.b_7(b_15.b_26, {0.81, false, "string literal", this, nil});
+}
 }

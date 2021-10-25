@@ -1,6 +1,9 @@
-class A{final string m = "HONGPHUC";
-            void main(){
-            m:="VO"^"HONGPHUC";
-            m:=m-"PHUC";
-            io.writeBool(m=="VOHONG");
-            }}
+class b_52 {
+b_15(float b_44, b_19; string[5] b_70) {
+{
+}
+}
+b_4(float[7] b_59, b_3; float b_76) {
+b_60[1] b_33 = {nil, true, nil}, b_98 = (b_23 || b_88 + (this * 0.69));
+}
+}

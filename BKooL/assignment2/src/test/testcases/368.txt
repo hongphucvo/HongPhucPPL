@@ -1,5 +1,6 @@
-class A{
-        void main(){
-        boolean x;
-        if x then if x then if m==6 then m:=1000;
-        }}
+class b_13 extends b_44 {
+b_4(void b_63, b_9; boolean[7] b_26) {
+b_16[0] := {13, 17, nil};
+}
+static string b_22, b_88;
+}

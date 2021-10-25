@@ -1,4 +1,12 @@
-
-        class A{int x;
-        }
-        #cmt
+class b_57 {
+b_93(int[4] b_42, b_46; b_38[5] b_72) {
+b_23[4] := ({nil, "string literal"} && b_30);
+}
+b_51 b_63(b_55 b_38, b_49; b_54[8] b_11) {
+b_3 := b_53[b_0 - b_97];
+}
+}
+class b_95 {
+final static boolean b_80 = b_1;
+final static void[10] b_49;
+}

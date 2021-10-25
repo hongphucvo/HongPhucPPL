@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(Lit),[AttributeDecl(Instance,ConstDecl(Id(a),IntType,FloatLit(3.5))),MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(A),StringType)],[AssignStmt(Id(A),StringLit("This is a string containing tab 	"))]))])])
+Program([ClassDecl(Id(b_36),[MethodDecl(Id(<init>),Instance,[param(Id(b_16),ArrayType(8,FloatType)),param(Id(b_93),ArrayType(8,FloatType)),param(Id(b_6),ArrayType(8,StringType))],Block([],[Block([VarDecl(Id(b_25),ArrayType(9,StringType),BinaryOp(-,Id(b_79),CallExpr(FieldAccess(Id(b_20),Id(b_33)),Id(b_45),[Id(b_18),Id(b_21)])))],[])]))])])

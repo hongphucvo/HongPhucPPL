@@ -1,0 +1,7 @@
+class Lit{
+            void main(){
+                string A;
+                int[2] b = {1.2,A};
+                A:="The comment starts with #";
+        
+                A:={"A"};}}

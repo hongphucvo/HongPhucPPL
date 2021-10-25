@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Student),[MethodDecl(Id(main),Instance,[],VoidType,Block([VarDecl(Id(s1),ClassType(Id(Student))),VarDecl(Id(s2),ClassType(Id(Student)))],[Call(Id(s1),Id(insert),[IntLit(201),StringLit("Sonoo")]),Call(Id(s2),Id(insert),[IntLit(202),StringLit("Nakul")]),Call(Id(s1),Id(display),[]),Call(Id(s2),Id(display),[]),Return(IntLit(0))]))])])

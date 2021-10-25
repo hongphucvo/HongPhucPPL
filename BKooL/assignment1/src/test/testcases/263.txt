@@ -1,8 +1,0 @@
-class A{
-        void main(){
-        for i:= a==t to 100 do {
-        #a line cmt
-        /*i:=1000*/
-        i:=i+1;
-        }
-        }}

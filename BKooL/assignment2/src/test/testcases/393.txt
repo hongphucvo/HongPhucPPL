@@ -1,7 +1,18 @@
-class A{
-        int main(){
-        int x,sum;
-        sum:=0;
-        io.readInt(x);
-        for i:=1 to x do sum:=sum+i;
-        }}
+class b_61 {
+static void b_26 = "string literal";
+b_74(float[2] b_94, b_57; b_20 b_70) {
+int b_65 = this, b_95;
+}
+b_40(string[7] b_68, b_90; b_69[6] b_69) {
+float b_42;
+return b_84 * {this, 0} + b_67;
+}
+}
+class b_30 extends b_35 {
+b_85 b_35(float[10] b_12, b_17; string[9] b_39) {
+}
+int b_84(float b_69, b_78; float[9] b_54) {
+b_95.b_66({this} || b_11, b_53);
+}
+string[2] b_3 = b_20, b_55 = b_20;
+}

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(ABC),[AttributeDecl(Static,VarDecl(Id(x),IntType)),AttributeDecl(Static,VarDecl(Id(y),IntType,IntLit(0))),AttributeDecl(Instance,ConstDecl(Id(My1stCons),IntType,IntLit(6))),AttributeDecl(Instance,ConstDecl(Id(My2ndCons),IntType,IntLit(2)))])])

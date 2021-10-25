@@ -1,0 +1,17 @@
+
+        class Employee {    
+            int id;
+            string name; 
+            float salary;  
+            void insert(int i; string n; float s)    
+                {    
+                    id := i;    
+                    this.name := n;    
+                    this.salary := s;  
+                }    
+            void display()    
+                {    
+                    this.print(this.salary);
+                }    
+        }
+	    

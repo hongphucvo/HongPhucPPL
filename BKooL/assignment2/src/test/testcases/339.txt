@@ -1,6 +1,5 @@
-class Lit{
-            final int a = 3.5;
-            final int[2] b = {1.2,3};
-        void main(){
-        string A;
-        A:="This is a string containing tab 	";}}
+class b_87 {
+int b_28(void b_14, b_3; b_36 b_31) {
+return "string literal" * {this, 14, 14};
+}
+}

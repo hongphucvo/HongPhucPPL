@@ -1,2 +1,7 @@
-class School{int id;}
-        class Faculty { int id;}
+class b_19 {
+b_66(string b_45, b_96; float b_60) {
+float[8] b_89 = "string literal" && this && 4, b_10;
+{
+}
+}
+}

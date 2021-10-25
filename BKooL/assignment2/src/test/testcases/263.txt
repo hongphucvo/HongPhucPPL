@@ -1,0 +1,14 @@
+
+        class Test {
+            void main(){}
+            void main(){
+                int i = 0, s = 0;
+                float c = 1.e3;
+                for i := 1 to 10 do
+                s := s + i;
+                if s != 10 then 
+                    {bool flag = true;}
+                else continue;
+            }
+        }
+	    

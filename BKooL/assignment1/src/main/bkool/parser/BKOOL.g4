@@ -89,12 +89,16 @@ variable	    : (IMMUTABLE|) vartype attributeList SEMI;
 stms		    : stm (stms|)                       ;
 stm			    : stmBlock
                 | lhs ASGOP exp SEMI
-			    | IF exp THEN stm (ELSE stm|)
+			    | (matchIF|unmatchIF)
 			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
 			    | (BREAK|CONT) SEMI
 			    | RETURN exp SEMI
 			    | methodCall                ;   //method invoke 5.6
 methodCall		: (attriAccess|exp10|ID) DOT ID explist methodRecur SEMI;
+
+matchIF:    IF exp THEN stm ELSE stm SEMI|;
+unmatchIF:  IF exp THEN stm
+            |IF exp THEN matchIF ELSE unmatchIF;
 
 scala_var       : ID                                ;
 lhs             : ID | attriAccess | exp9 '[' exp ']';

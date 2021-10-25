@@ -1,4 +1,4 @@
-class Lit{
-        void main(){
-        int[2] A;
-        A:={1.2,6};}}
+class b_27 {
+boolean b_47(b_90[5] b_66, b_12; void[3] b_53) {
+}
+}

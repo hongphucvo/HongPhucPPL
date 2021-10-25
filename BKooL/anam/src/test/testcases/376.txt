@@ -1,0 +1,18 @@
+
+            class testing {
+                int a,b;
+                testing(){
+                    this.a:=5;
+                    this.b:=6;
+                }
+            void test(testing a; float b) {
+                if a.a then {
+                    a := new Block(a,d);
+                    m := a.v.x.a[1];
+                }
+                else {
+                    this.a := this.function();
+                    b := m.g.h(f, "abc");
+                }
+            }
+        } 

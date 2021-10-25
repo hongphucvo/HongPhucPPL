@@ -1,0 +1,11 @@
+
+        class Rectangle {
+            int width, height;
+            void set_values (int a; boolean c){
+                return b;
+            }
+            void main(){
+                arr[4] r = {1,2,3}; 
+            }
+        }
+	    

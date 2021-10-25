@@ -1,5 +1,17 @@
-
-        class A extends M{
-            int a=5;
-        }
-        
+class b_61 {
+void b_26(string[9] b_62, b_11; float[5] b_21) {
+boolean b_100 = "string literal" ^ b_40, b_82;
+}
+float b_92 = nil, b_86;
+}
+class b_94 {
+void b_95(boolean b_28, b_56; boolean b_87) {
+void b_18 = ({"string literal", nil, this, nil, true} ^ b_60), b_5 = b_28 + {"string literal", 8, nil};
+}
+b_5(boolean[6] b_96, b_80; void[10] b_37) {
+boolean b_88 = b_19;
+{
+void b_73, b_19;
+}
+}
+}

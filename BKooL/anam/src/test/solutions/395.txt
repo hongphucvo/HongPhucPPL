@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([[VarDecl(variable=Id(name='x'), varType=<AST.IntType object at 0x0000019CC286D3A0>, varInit=None), VarDecl(variable=Id(name='y'), varType=<AST.IntType object at 0x0000019CC286D3A0>, varInit=None)]],[Call(Id(io),Id(readInt),[Id(x)]),Call(Id(io),Id(readInt),[Id(y)])]))])])

@@ -1,2 +1,6 @@
-class A{void x(){}}
-        class B extends A{void x(){io.writeInt(4+5*8/3\ 4+a.b.c.d());}}
+class b_90 {
+boolean[5] b_40 = (b_96 + b_38[2 / b_77.b_54]) / (0.82 / {nil, this, 10}), b_52 = (b_28 / b_55);
+b_42(boolean[7] b_75, b_89; b_3[7] b_52) {
+continue;
+}
+}

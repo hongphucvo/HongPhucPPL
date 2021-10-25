@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(List),[AttributeDecl(Instance,VarDecl(Id(begin),ArrayType(10,ClassType(Id(node))))),AttributeDecl(Instance,VarDecl(Id(end),ArrayType(100,ClassType(Id(node)))))])])

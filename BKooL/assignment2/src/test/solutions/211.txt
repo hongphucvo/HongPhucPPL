@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Hero),Id(Character),[AttributeDecl(Instance,VarDecl(Id(a),IntType)),AttributeDecl(Instance,VarDecl(Id(b),IntType,IntLit(5))),AttributeDecl(Instance,VarDecl(Id(c),IntType)),MethodDecl(Id(getPowerCombat),Instance,[],IntType,Block([],[Return(BinaryOp(+,Id(atk),Id(def)))]))])])

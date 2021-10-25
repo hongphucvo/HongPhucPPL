@@ -1,4 +1,3 @@
-class X{
-        int[2]m;
-         void X(){
-         m:={1,2};}}
+class b_11 extends b_29 {
+string[8] b_9 = (b_48.b_67 || {true, nil});
+}

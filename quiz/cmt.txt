@@ -7,7 +7,8 @@ https://www.gatevidyalay.com/left-recursion-left-recursion-elimination/
 [']((~['])|(['][']))*[']
 '\''  (.* '\'' '\'' .*)*  '\''
 '\''   ('\'''\'')* .*  '\'';
-
+fragment Char: ~[']|['][']        ;
+QUOTE: [']Char*['];
 //Week 2
 
 program  : declarations EOF ;
@@ -82,3 +83,42 @@ fragment Lit: INTLIT|FLOATLIT|BOOLLIT|STRINGLIT;
 fragment Elem: Lit COMMA;
 ARRAYLIT: '{' Elem*? Lit '}';
 a:ARRAYLIT;
+
+
+stm			    : stmBlock
+                | lhs ASGOP exp SEMI
+			    | (matchIF|unmatchIF)
+			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
+			    | (BREAK|CONT) SEMI
+			    | RETURN exp SEMI
+			    | methodCall                ;   //method invoke 5.6
+
+matchIF:    IF exp THEN stm ELSE stm|;
+unmatchIF:  IF exp THEN stm|IF exp THEN matchIF ELSE unmatchIF;
+
+cái if phải tách ra :"))) rememeber, tách thành match và unmatch
+nhưng bug
+
+exps			: exp COMMA exps
+				| exp								;
+saiiiiii
+explist     :   exp COMMA explist
+            |   exp                     ;
+  exp				: exp ('>'|'<'|'>='|'<=') exp		    //relational expression
+                                | exp ('=='|'!=') exp  	|exp1;
+                                			    //relational expression
+                                exp1:<assoc=left> exp1 ('&&'|'||') exp1				   //boolean expression
+                                | <assoc=left> exp1 '^' exp1					    //string expression
+                                | <assoc=left> exp1 ('*'|'/'|'\\') exp1   //arithemic expression
+                				| <assoc=left> exp1 ('+'|'-') exp1|exp2;
+                				exp2:<assoc=right> '!' exp2
+                                |<assoc=right> ('-') exp2|exp3;					    //sign expression
+                				exp3:<assoc=left> exp3 '[' exp ']'                      //index
+                				| exp10 ;
+                exp10			: operand						    ;
+                operand			: INTVAL|FLOATVAL|ID;  //operand value
+
+exp sai
+
+
+

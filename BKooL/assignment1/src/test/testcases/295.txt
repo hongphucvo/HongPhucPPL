@@ -1,8 +1,0 @@
-class A{
-        int main(){
-        int x,y;
-        io.readInt(x);
-        io.readInt(y);
-        # this is a line cmt
-        /* and an unterminated cmt
-        }}

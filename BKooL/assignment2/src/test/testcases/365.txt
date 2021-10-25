@@ -1,8 +1,4 @@
-class A{
-            void main(){
-                m:="PHUC";
-            for i:= 1 to 100 do {
-                m:=m^"123";
-            }
-            }
-            }
+class b_59 {
+static float[5] b_0 = (b_18.b_59({true, this} || {0.33, "string literal", false}, {"string literal", 0.15, true, true}) - b_68 ^ this), b_90;
+final int[6] b_72;
+}

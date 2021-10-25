@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Test),[MethodDecl(Id(main),Instance,[],VoidType,Block([],[If(BinaryOp(==,Id(a),Id(b)),Call(Id(io),Id(write),[StringLit("a equals to b")]),Break)]))])])

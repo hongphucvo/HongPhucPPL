@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Geeks),[AttributeDecl(Instance,VarDecl(Id(geekname),StringType)),MethodDecl(Id(printname),Instance,[],VoidType,Block([],[Call(Id(io),Id(writeLn),[BinaryOp(^,StringLit("Hello"),StringLit("World"))])]))])])

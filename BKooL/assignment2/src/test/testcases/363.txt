@@ -1,11 +1,6 @@
-class A{
-            void main(){
-            for i:= a==t to 100 do {
-            #a line cmt
-            /*i:=1000*/
-            i:=i+1;
-            for i:= a||b to 100-56*1 do {
-            k[i]:=i;
-            }
-            }
-            }}
+class b_89 extends b_67 {
+b_26(float[2] b_94, b_36; boolean[7] b_34) {
+b_5.b_80((b_39[({false, this} ^ false)] || {4}), b_45);
+}
+static void[5] b_46 = b_34 + b_21[b_85 / {17, nil, false, 2, this}] / b_71 && b_91[(0.86 + b_78[b_47 / 0.07])], b_89;
+}

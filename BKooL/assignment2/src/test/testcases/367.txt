@@ -1,4 +1,7 @@
-class A{
-        void main(){
-        for i:= 1 to 100.6 do{}
-        }}
+class b_77 extends b_40 {
+boolean[6] b_42, b_19;
+b_22(boolean b_52, b_14; float[6] b_34) {
+string b_6;
+b_11.b_92(b_28, b_12);
+}
+}

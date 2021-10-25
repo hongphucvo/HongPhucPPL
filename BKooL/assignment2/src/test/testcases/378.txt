@@ -1,29 +1,11 @@
-
-        class Bus
-    {
-        string ID;
-        string Code;
-        int Case;
-        int Start;
-        int Finish;
-
-        Bus()
-        {
-            ID := "";
-            Code := "";
-            Case := -1;
-            Start := 0;
-            Finish := 0;
-            next := 0;
-            prev := 0;
-        }
-        Bus(string ID , CODE ; int Case , Start , Finish)
-        {
-            this.ID := ID;
-            this.Code := CODE;
-            this.Case := Case;
-            this.Start := Start;
-            this.Finish := Finish;
-        }
-    }
-        
+class b_6 {
+b_14(boolean b_95, b_29; boolean b_52) {
+}
+static float[5] b_86 = b_3, b_53 = b_73;
+}
+class b_1 {
+void b_18 = b_98;
+b_43(string b_86, b_92; boolean[10] b_82) {
+b_19.b_38((b_90[b_16 + "string literal"] && b_5.b_53((b_44.b_29.b_80((b_10.b_95.b_94(b_13 || {"string literal", 2, 0.6, "string literal", 0.69}, b_49) ^ nil), {this, 14, "string literal", "string literal"}) ^ b_88.b_10), b_66)), b_96[b_51 ^ true]);
+}
+}

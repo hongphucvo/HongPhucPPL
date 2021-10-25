@@ -1,7 +1,6 @@
-class X{
-                int main(){
-                boolean _=true||false;
-                int a=+1-5;
-                boolean  e= _;
-                }
-                }
+class b_4 {
+int b_1(void[7] b_63, b_8; float[4] b_1) {
+int b_98 = (b_89[b_76] - b_86 * true), b_28;
+break;
+}
+}

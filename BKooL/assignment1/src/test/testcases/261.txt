@@ -1,6 +1,0 @@
-class A{
-        void main(){
-        for i:= 1 to 100 +j*5/4do {
-        
-        }
-        }}

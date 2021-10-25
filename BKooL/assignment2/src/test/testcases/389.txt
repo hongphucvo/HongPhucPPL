@@ -1,12 +1,23 @@
-class A{
-        A(){
-        
-#start of declaration part
-float r,s;
-int[5] a,b;
-#list of statements
-r:=2.0;
-s:=r*r*this.myPI;
-a[0]:= s;
+class b_91 extends b_75 {
+b_12(string b_27, b_40; float[6] b_92) {
+{
+float b_88 = b_50[b_81 * b_26] * 0.62;
 }
+}
+final static void b_4 = (b_1.b_71(b_39, b_27) - b_49);
+boolean b_92(b_8[5] b_32, b_46; b_9[2] b_22) {
+void[10] b_96, b_41;
+{
+}
+}
+}
+class b_67 extends b_2 {
+b_38(boolean[2] b_78, b_81; string[2] b_48) {
+b_11[5] b_65;
+for b_73 := b_54 && b_2 to b_8 - {false, 0.79} do
+b_35[5] := ("string literal" / b_53);
+}
+b_67(boolean b_37, b_99; float b_50) {
+}
+final static int[9] b_60 = true, b_30;
 }

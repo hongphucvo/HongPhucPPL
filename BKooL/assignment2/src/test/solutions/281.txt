@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(TestBird),[MethodDecl(Id(main),Static,[param(Id(_args),ClassType(Id(String)))],VoidType,Block([VarDecl(Id(myBird),ClassType(Id(Bird)),NewExpr(Id(Bird),[]))],[Call(Id(myBird),Id(fly),[]),Call(Id(myBird),Id(fly),[IntLit(10000)]),Call(Id(myBird),Id(fly),[StringLit("eagle"),IntLit(10000)])]))])])

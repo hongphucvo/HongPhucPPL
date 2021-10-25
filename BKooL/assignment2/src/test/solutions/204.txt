@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Hero),Id(Character),[AttributeDecl(Instance,VarDecl(Id(a),ClassType(Id(Person)),NewExpr(Id(Person),[IntLit(1),IntLit(2)]))),AttributeDecl(Instance,VarDecl(Id(b),ClassType(Id(Person)),NewExpr(Id(Person),[])))])])

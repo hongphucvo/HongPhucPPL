@@ -1,3 +1,6 @@
-class A{int main(){
-  io.writeFloat(7*9-10);}
+class b_16 extends b_26 {
+string b_30(string[8] b_28, b_37; int b_82) {
+boolean[2] b_54;
+continue;
+}
 }

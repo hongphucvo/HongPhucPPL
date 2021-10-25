@@ -1,4 +1,18 @@
-class A{
-        int main(){
-        io.writeInt(io.readInt(x)+io.readInt(x)+io.readInt(x));
-        }}
+class b_35 extends b_71 {
+b_94 b_10(boolean b_85, b_50; float[3] b_79) {
+float b_18 = b_75[b_38], b_21;
+for b_71 := b_38 downto nil ^ b_25 do
+{
+}
+}
+final int b_18 = (b_10 * b_4.b_20), b_28;
+b_79(boolean[9] b_59, b_0; b_91 b_73) {
+boolean[7] b_19, b_42;
+}
+}
+class b_43 {
+float b_53(string b_98, b_8; int[5] b_18) {
+}
+final float[4] b_63, b_79 = false * b_41;
+final string b_11;
+}

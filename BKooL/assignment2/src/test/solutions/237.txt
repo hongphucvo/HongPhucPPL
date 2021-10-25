@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),Id(B),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(obj1),ClassType(Id(Geeks)))],[AssignStmt(FieldAccess(Id(obj1),Id(geekname)),StringLit("Abhi")),Call(Id(obj1),Id(printname),[]),Return(IntLit(0))]))])])

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Fraction),[MethodDecl(Id(<init>),Instance,[],Block([],[AssignStmt(FieldAccess(Self(),Id(n)),Id(n)),AssignStmt(FieldAccess(Self(),Id(d)),Id(d)),AssignStmt(Id(a),BinaryOp(>=,BinaryOp(-,BinaryOp(+,BinaryOp(/,Id(n),IntLit(0)),IntLit(2)),Id(a)),Id(b))),AssignStmt(Id(c),BinaryOp(==,BinaryOp(>,Id(a),Id(b)),BinaryOp(==,BinaryOp(/,Id(a),Id(b)),IntLit(1))))]))])])

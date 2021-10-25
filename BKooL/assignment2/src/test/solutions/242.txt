@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(flag),ClassType(Id(bool)),BooleanLit(True))),AttributeDecl(Instance,VarDecl(Id(bflag),ClassType(Id(bool)))),AttributeDecl(Instance,VarDecl(Id(cflag),ClassType(Id(bool)),NewExpr(Id(Object),[]))),MethodDecl(Id(<init>),Instance,[],Block([],[]))])])

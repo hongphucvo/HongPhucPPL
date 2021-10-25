@@ -1,5 +1,14 @@
-class A{
-        void main(){
-        boolean x;
-        if x then io.readInt(x);
-        }}
+class b_82 extends b_94 {
+final b_42 b_20 = b_89 || b_70, b_22 = {nil, 0.08, 12, true, 0.96};
+b_59(b_40 b_97, b_56; int b_3) {
+void b_9 = b_58 - b_75, b_21;
+}
+}
+class b_47 extends b_93 {
+b_50(int[6] b_99, b_37; b_82 b_49) {
+}
+b_46 b_74(int[1] b_49, b_2; int b_35) {
+b_83[10] b_70 = b_82, b_65;
+break;
+}
+}

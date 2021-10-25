@@ -1,5 +1,4 @@
-class A{
-        void main(){
-        boolean x;
-        if x then x.m(5);
-        }}
+class b_95 {
+int b_22 = "string literal" ^ b_97[b_50.b_48.b_55(b_95, b_81.b_6) + {true}];
+final static boolean[8] b_18 = b_18, b_9 = b_61;
+}

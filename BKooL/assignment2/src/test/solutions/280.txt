@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Dog),[MethodDecl(Id(<init>),Instance,[],Block([],[Return(BinaryOp(-,CallExpr(Id(Date),Id(now),[]),FieldAccess(Self(),Id(birthday))))]))])])

@@ -58,16 +58,10 @@ call        :   ID LB explist RB
 returnstate :   RETURNKEY exp           ;
 
 
-explist     :   exp COMMA explist       
-            |   exp                     ;
-exp         :   exp1 ADDOP exp|exp1     
-            |   exp1                    ;
-exp1        :   exp2 SUBOP exp1
-            |   exp2                    ;
-exp2        :   exp2 (MULOP|DIVOP) operand
-            |   operand                 ;
-operand     :   INTVAL | FLOATVAL | ID | call | subexp;
-subexp      :   LB exp RB               ;
+
+
+
+
 
 
 

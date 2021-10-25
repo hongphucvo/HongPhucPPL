@@ -1,4 +1,6 @@
-class A{
-            void main(){float m;
-            m:=  x.m(b[2]).a.g()       ;
-            }}
+class b_37 extends b_13 {
+b_85(boolean[4] b_10, b_85; boolean b_92) {
+continue;
+}
+int b_96 = b_17.b_29.b_45(({this, true, "string literal"} ^ b_63[b_30[(b_20 || b_31)]]), b_61), b_100;
+}

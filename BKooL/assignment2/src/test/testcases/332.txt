@@ -1,6 +1,4 @@
-class Lit{
-        void main(){
-        string A;
-        A:="";
-        A:=A+"HongPhuc";
-        }}
+class b_38 extends b_9 {
+b_60(boolean[2] b_1, b_81; int[3] b_9) {
+}
+}

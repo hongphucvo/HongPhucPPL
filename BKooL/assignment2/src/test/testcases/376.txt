@@ -1,18 +1,15 @@
-
-            class testing {
-                int a,b;
-                testing(){
-                    this.a:=5;
-                    this.b:=6;
-                }
-            void test(testing a; float b) {
-                if a.a then {
-                    a := new Block(a,d);
-                    m := a.v.x.a[1];
-                }
-                else {
-                    this.a := this.function();
-                    b := m.g.h(f, "abc");
-                }
-            }
-        } 
+class b_20 {
+string b_89(boolean b_37, b_46; b_67 b_85) {
+int b_97 = (0.67 || false && (b_22[b_84 ^ b_58[(b_51 + b_39.b_30)]] ^ b_4.b_50.b_39({this}, b_60))), b_41;
+}
+int b_1(void b_18, b_4; int[2] b_41) {
+break;
+}
+}
+class b_23 {
+string b_98(float b_72, b_70; b_72[1] b_20) {
+}
+float b_35(b_99[1] b_13, b_77; float[5] b_59) {
+return (b_74[(b_72 ^ b_77)] * b_51.b_47.b_48(b_53 && 6, {"string literal", "string literal"}));
+}
+}

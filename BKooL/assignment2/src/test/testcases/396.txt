@@ -1,6 +1,20 @@
-class A{
-        int main(){
-        int[3] x;
-        int sum; sum:=0;
-        for i:=1 to n do sum := sum*10+io.readInt(x[i]);
-        }}
+class b_33 extends b_69 {
+b_11(void[9] b_5, b_64; boolean b_19) {
+}
+b_79(float[7] b_38, b_54; float b_86) {
+void b_55 = (nil || b_81), b_4 = b_19.b_18.b_38((b_24 || b_70), 2) && b_12[b_45];
+}
+int b_14(boolean[9] b_31, b_34; float[2] b_41) {
+float b_84;
+b_64.b_73(b_99, b_73);
+}
+}
+class b_83 {
+void b_11, b_86;
+float b_92(float b_38, b_95; string[4] b_44) {
+b_37 b_22 = ({0.87} || b_90 && b_58);
+}
+boolean b_10(void[10] b_57, b_89; b_67 b_51) {
+boolean b_43 = b_81 + b_88;
+}
+}

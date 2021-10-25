@@ -1,0 +1,11 @@
+class School{
+        static int id;
+        void print(){
+        int a=100;
+        io.writeInt(a);}
+        }
+        class Faculty extends School{
+            void print(){
+                io.writeInt(1);
+            }
+        }

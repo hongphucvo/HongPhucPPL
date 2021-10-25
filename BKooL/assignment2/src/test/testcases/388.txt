@@ -1,10 +1,15 @@
-class X{
-        int[100] Intarray;
-        X(){
-        for i := 1 to 100 do {
-io.writeIntLn(i);
-Intarray[i] := i + 1;
+class b_78 extends b_69 {
+b_48(boolean[5] b_72, b_85; float b_47) {
+b_88.b_20 := b_15;
 }
-for x := 5 downto 3 do
-io.writeIntLn(x);
-}}
+b_68(float b_77, b_4; b_76 b_71) {
+return b_60;
+}
+}
+class b_68 extends b_31 {
+boolean b_25(b_66 b_80, b_86; b_3 b_93) {
+continue;
+}
+int b_88(b_42 b_76, b_85; float b_98) {
+}
+}

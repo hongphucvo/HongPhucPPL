@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Test),[MethodDecl(Id(toString),Instance,[param(Id(a),IntType),param(Id(b),FloatType),param(Id(c),FloatType),param(Id(d),FloatType),param(Id(e),ClassType(Id(bool)))],StringType,Block([],[Return(NewExpr(Id(Object),[ArrayCell(Id(a),IntLit(2))]))]))])])

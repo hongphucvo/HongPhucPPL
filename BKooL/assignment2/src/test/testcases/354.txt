@@ -1,8 +1,10 @@
-class test{
-        int a=4, m;
-        int func(){
-        final int a=5,m;
-        m:=5;
-        }
-        
-        }
+class b_91 extends b_91 {
+b_14(b_44 b_78, b_35; boolean[9] b_37) {
+b_21[3] b_92;
+for b_24 := b_77[(b_0 + b_12)] downto b_80[b_48 / b_34] do
+b_89.b_18((b_83 - b_87.b_78.b_8), b_0);
+}
+b_87(string b_66, b_3; float b_71) {
+b_15[5] := this + b_87;
+}
+}

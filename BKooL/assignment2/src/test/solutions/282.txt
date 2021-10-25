@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Test),[MethodDecl(Id(main),Static,[param(Id(_args),ClassType(Id(String)))],VoidType,Block([],[If(Id(a),If(Id(a),If(Id(a),If(Id(a),AssignStmt(Id(b),Id(a))))))]))])])

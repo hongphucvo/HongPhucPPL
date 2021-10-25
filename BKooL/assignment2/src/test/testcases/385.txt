@@ -1,8 +1,14 @@
-class Shape {
-float length,width;
-float getArea() {}
-Shape(float length,width){
-this.length := length;
-this.width := width;
+class b_89 extends b_96 {
+final static void[8] b_37 = b_25[(b_10 - {nil})], b_37;
+float b_12(int[9] b_61, b_88; boolean[9] b_25) {
+int b_3, b_92 = b_17.b_69.b_10(b_59.b_71.b_0, b_24);
+b_42.b_45((b_58 && b_60), b_13);
+}
+}
+class b_55 {
+static void[3] b_46, b_43 = b_39[(b_44.b_81.b_85 ^ b_33.b_85.b_84(b_72 / b_16[b_5 && this], b_74[b_62 ^ b_14]))];
+b_12(b_39[8] b_57, b_60; string b_55) {
+b_94[9] b_87 = ("string literal" / 9), b_72 = b_28;
+return b_68;
 }
 }

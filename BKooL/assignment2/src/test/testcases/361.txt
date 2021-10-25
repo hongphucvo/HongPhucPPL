@@ -1,6 +1,8 @@
-class A{
-            void main(){string m;
-            m:="VO"^"HONGPHUC";
-            m:=m-"PHUC";
-            io.writeBool(m=="VOHONG");
-            }}
+class b_61 {
+b_18(int[2] b_55, b_77; boolean[1] b_65) {
+}
+b_30(float b_46, b_38; float b_18) {
+boolean b_3, b_95 = {5};
+b_82.b_61 := b_56;
+}
+}

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],VoidType,Block([[VarDecl(variable=Id(name='m'), varType=<AST.FloatType object at 0x0000019CC2587190>, varInit=None)]],[AssignStmt(Id(m),NewExpr(Id(A),[]))]))])])

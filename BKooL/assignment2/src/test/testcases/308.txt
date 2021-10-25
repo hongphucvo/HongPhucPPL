@@ -1,3 +1,6 @@
-class A{static int main(){
-float number=7.3, root;}
+class b_18 {
+float b_82(b_27[7] b_57, b_12; int b_77) {
+boolean[9] b_60;
+b_9 := b_83;
+}
 }

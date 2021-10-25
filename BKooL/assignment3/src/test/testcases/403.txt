@@ -1,0 +1,5 @@
+class m {
+            int a;
+        }
+        class m{final int v;}
+        class e{static int x;}

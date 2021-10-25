@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(A),[MethodDecl(Id(x),Instance,[],VoidType,Block([],[]))]),ClassDecl(Id(B),Id(A),[MethodDecl(Id(x),Instance,[],VoidType,Block([],[]))])])
+Program([ClassDecl(Id(b_43),Id(b_46),[MethodDecl(Id(b_53),Instance,[param(Id(b_70),ArrayType(9,VoidType)),param(Id(b_8),ArrayType(9,VoidType)),param(Id(b_97),ArrayType(4,FloatType))],FloatType,Block([],[]))])])

@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Test),[MethodDecl(Id(main),Instance,[],IntType,Block([VarDecl(Id(room1),ClassType(Id(Room)))],[Call(Id(room1),Id(initData),[FloatLit(42.5),FloatLit(30.8),FloatLit(19.2)]),Call(Id(io),Id(writeStr),[BinaryOp(+,StringLit("Area of Room =  "),CallExpr(Id(room1),Id(calculateArea),[]))]),Return(IntLit(0))]))])])

@@ -1,0 +1,6 @@
+class Lit{
+        void main(){
+        string A;
+        A:="";
+        A:=A+"HongPhuc";
+        }}

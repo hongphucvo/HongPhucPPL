@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(ABC),Id(Character),[AttributeDecl(Instance,VarDecl(Id(r),FloatType)),AttributeDecl(Instance,VarDecl(Id(s),FloatType)),AttributeDecl(Instance,VarDecl(Id(a),ArrayType(5,IntType))),AttributeDecl(Instance,VarDecl(Id(b),ArrayType(5,IntType)))])])

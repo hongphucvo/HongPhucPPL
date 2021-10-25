@@ -1,0 +1,5 @@
+class Lit{
+        void main(){
+        string A;
+        A:="my name";
+        A:="This is a string containing tab 	";}}

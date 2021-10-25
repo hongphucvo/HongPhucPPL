@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Dog),[MethodDecl(Id(__init__),Instance,[param(Id(name),ClassType(Id(self))),param(Id(age),ClassType(Id(self)))],ClassType(Id(def)),Block([],[AssignStmt(FieldAccess(Id(self),Id(name)),Id(name)),AssignStmt(FieldAccess(Id(self),Id(age)),Id(age))]))])])

@@ -1,6 +1,5 @@
-class A{
-        int main(){
-          float number, root;
-          {}
-          }
-        }
+class b_23 {
+b_26(int b_15, b_78; float b_3) {
+break;
+}
+}

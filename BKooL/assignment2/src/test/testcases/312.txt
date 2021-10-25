@@ -1,1 +1,4 @@
-class School{ int longitude,latitude;}
+class b_98 {
+b_44(int[7] b_81, b_88; boolean[1] b_39) {
+}
+}

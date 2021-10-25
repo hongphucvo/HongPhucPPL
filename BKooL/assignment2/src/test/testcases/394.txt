@@ -1,7 +1,20 @@
-class A{
-        int main(){
-        int x,y;
-        io.readInt(x);
-        io.readInt(y);
-        io.writeInt(x+y);
-        }}
+class b_81 {
+boolean b_31(float[7] b_42, b_35; b_56 b_9) {
+string[5] b_26 = b_69.b_65(b_15, b_82), b_59;
+}
+float[5] b_19 = (b_77 ^ b_67.b_25(b_96, b_1) + b_34 || b_9.b_75);
+final float[9] b_4;
+}
+class b_30 {
+final boolean b_45;
+b_72(float b_55, b_72; float[2] b_64) {
+b_25[3] := ((b_79[b_20 ^ {17, true, nil, this}] + 0.33) ^ nil || b_5[(b_23.b_22 || b_29)]);
+}
+b_27(void b_72, b_6; boolean b_10) {
+float b_37, b_57 = b_44;
+for b_63 := ((b_9[b_44.b_96.b_96] ^ b_5) && {nil, 19, 13, 0.44} || b_10.b_92) downto b_100[b_89] + (b_84[b_1[{"string literal", "string literal", nil} + {true, 0.18, 6}]] * b_32) do
+{
+b_38.b_93({nil, "string literal", 15, 12, nil}, b_5[(true * b_59.b_79.b_48((this + b_13), b_73))]);
+}
+}
+}

@@ -1,3 +1,3 @@
-class A{int main(){
-            int a = (1234+9857-(6574*(8754-87/3\1)));}
-        }
+class b_5 extends b_41 {
+static string[9] b_75 = "string literal";
+}

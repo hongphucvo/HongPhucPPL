@@ -1,0 +1,3 @@
+class Ex {
+    final int x = 10;
+}

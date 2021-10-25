@@ -1,0 +1,1 @@
+Program([ClassDecl(Id(Example),Id(_E1),[MethodDecl(Id(<init>),Instance,[param(Id(a),IntType),param(Id(b),FloatType)],Block([],[AssignStmt(Id(a),NewExpr(Id(B),[IntLit(1),IntLit(2),StringLit("a")])),AssignStmt(Id(b),Self())]))])])

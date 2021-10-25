@@ -1,7 +1,6 @@
-class A{
-            int func(){
-            int f,k;
-            final string f=5,m;
-            m:=k;
-            }
-            }
+class b_82 extends b_81 {
+b_21(float b_10, b_17; boolean[10] b_30) {
+}
+b_98 b_72(b_44 b_97, b_79; string b_7) {
+}
+}

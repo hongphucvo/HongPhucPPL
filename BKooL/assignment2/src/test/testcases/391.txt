@@ -1,15 +1,19 @@
-
-        class X{
-        int main(){
-  int[100] arr, n, i;
-  io.writeString( "Enter number of elements: ");
-  io.readInt(n);
-  for i := 0 to  n do
-    io.readInt(arr[i]);
-  for i := 0 to  n do
-    for j := i+1 to  n do
-      if arr[i] == arr[j] then {
-        io.writeString("First repeating integer is ");
-         io.writeInt(arr[i]);
-      }
-}}
+class b_78 {
+string b_63(void b_31, b_90; void[7] b_10) {
+int[4] b_43 = nil;
+}
+b_42(boolean b_55, b_7; b_92 b_34) {
+}
+b_3(string[3] b_34, b_33; float[1] b_16) {
+boolean b_94 = 0.53 / b_91 || b_20 ^ b_39, b_17 = (b_37[{0.91, "string literal", 0, nil, true} * b_72] || b_43 ^ (nil + b_84[b_20.b_9.b_9 - {"string literal", nil, 15, 0.61}]));
+}
+}
+class b_100 {
+final static boolean[5] b_63, b_20 = b_7;
+void b_45(int b_4, b_45; string b_69) {
+b_12.b_82(b_87, b_34);
+}
+void b_55(float[2] b_26, b_86; int[4] b_85) {
+void[7] b_25 = nil;
+}
+}

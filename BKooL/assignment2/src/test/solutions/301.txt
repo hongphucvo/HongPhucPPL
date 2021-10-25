@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(main),[AttributeDecl(Instance,VarDecl(Id(a),IntType))])])
+Program([ClassDecl(Id(b_94),[AttributeDecl(Static,VarDecl(Id(b_18),ArrayType(8,BoolType),[FloatLit(0.23)])),AttributeDecl(Static,VarDecl(Id(b_35),ArrayType(8,BoolType)))])])

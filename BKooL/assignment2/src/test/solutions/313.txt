@@ -1,1 +1,1 @@
-Program([ClassDecl(Id(School),[AttributeDecl(Instance,VarDecl(Id(id),IntType))]),ClassDecl(Id(Faculty),[AttributeDecl(Instance,VarDecl(Id(id),IntType))])])
+Program([ClassDecl(Id(b_19),[MethodDecl(Id(<init>),Instance,[param(Id(b_45),StringType),param(Id(b_96),StringType),param(Id(b_60),FloatType)],Block([VarDecl(Id(b_89),ArrayType(8,FloatType),BinaryOp(&&,BinaryOp(&&,StringLit("string literal"),Self()),IntLit(4))),VarDecl(Id(b_10),ArrayType(8,FloatType))],[Block([],[])]))])])

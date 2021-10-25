@@ -1,4 +1,7 @@
-class Lit{
-        void main(){
-        string A;
-        A:="He asked me: \"Where is John?\"";}}
+class b_97 {
+int b_69(string b_54, b_46; int[1] b_12) {
+int b_98 = b_80, b_0 = b_62;
+if {this, true, 15} >= (b_55 / b_75.b_72((b_71[b_87 - b_30] && nil), b_94)) - this - b_59[b_95 && "string literal"] then
+return 0.15;
+}
+}

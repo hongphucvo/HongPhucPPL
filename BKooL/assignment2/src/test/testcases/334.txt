@@ -1,7 +1,7 @@
-class Lit{
-            void main(){
-                string A;
-                int[2] b = {1.2,A};
-                A:="The comment starts with #";
-        
-                A:={"A"};}}
+class b_74 {
+b_21(void[8] b_87, b_41; string b_76) {
+{
+boolean[5] b_32 = (b_3[(b_22 && b_90[(b_58[b_70] / b_1[{"string literal", 5}])])] * {4} + {0.84, "string literal", "string literal", true} * b_47), b_2;
+}
+}
+}

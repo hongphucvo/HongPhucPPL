@@ -1,0 +1,6 @@
+class A{void x(){} A(){}}
+        class B extends A{
+            int m;
+            int x(){return m;}
+        B(){this.m:=5%2-9;
+        io.writeInt(m);}}

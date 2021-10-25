@@ -1,0 +1,11 @@
+
+        class Rectangle {
+            int width, height;
+            void set_values (int a; bool c){
+                return b;
+            }
+            int area (void main){
+
+            }
+        }
+	    

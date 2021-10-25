@@ -1,3 +1,3 @@
-class X{
-            void k(){io.writeInt(1+4-e);}
-            X(){}}
+class b_8 {
+static void[7] b_0 = (b_31 - b_77[{nil, 14, this, 0.35} * this]), b_38;
+}

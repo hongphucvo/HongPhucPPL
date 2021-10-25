@@ -1,5 +1,0 @@
-class A{
-        void main(){
-        boolean x;
-        if x then x:=true;
-        }}

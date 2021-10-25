@@ -1,7 +1,12 @@
- class A{
-        # cmt contain illegal escape \p
-        int main(){
-        io.writeString("legal");
-        }
-        }
-        
+class b_84 {
+b_30(b_75[2] b_60, b_16; int b_23) {
+float[6] b_59, b_21;
+}
+final b_55 b_0 = (({4, this, nil, this} / b_61) + (b_87 || b_91));
+}
+class b_85 extends b_83 {
+void[9] b_91, b_96 = b_38;
+b_73 b_71(string[6] b_94, b_16; string[1] b_69) {
+b_37 b_95 = b_52 || b_42;
+}
+}

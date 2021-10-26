@@ -1,0 +1,9 @@
+
+        class A {
+            int[1] k;
+            void y(int b){int a=5;}
+            int x()
+            {  this.y(10);
+            }
+
+            }

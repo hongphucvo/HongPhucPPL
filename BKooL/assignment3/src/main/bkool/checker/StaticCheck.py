@@ -10,7 +10,8 @@ from StaticError import *
 from functools import reduce
 import enum
 
-from main.bkool.utils.AST import Assign, Stmt
+from main.bkool.utils.AST import ConstDecl, Id
+
 T={0:[],1:["Const"],2:["Static"],3:["Static","Const"]}
 #to add const: +1
 #to add static: +2
@@ -48,21 +49,39 @@ class StaticChecker(BaseVisitor):
         self.o=StaticChecker.global_envi
         self.getName=GetName()
         self.bl=0
-        #self.f = open("dictionary","w")
-        #self.f.write("")
     
     def check(self):
         return self.visit(self.ast,StaticChecker.global_envi)
 
     def visitProgram(self,ast,  o): 
-        """Handle type, value, redeclare"""
-        #raise Redeclared(Variable(),"Con")
         GetFor().visit(self.ast,{})
-        o={"io":{"mem":{}}}
-        o["io"]["mem"]={
-            "readInt":{
-                "param":{},
-                "rType":"int"
+        o={"io": {"mem":
+            {
+                "readInt":{"param":{},
+                            "rType":"int"},
+                "writeInt":{"param":{"anArg":{"rType":"int"}},
+                            "rType":"voidt"},
+                "writeIntLn":{"param":{"anArg":{"rType":"int"}},
+                            "rType":"void"},
+                "readBool":{"param":{},
+                            "rType":"bool"},
+                "writeBool":{"param":{"anArg":{"rType":"bool"}},
+                            "rType":"void"},
+                "writeBoolLn":{"param":{"anArg":{"rType":"bool"}},
+                            "rType":"void"},
+                "readFloat":{"param":{},
+                            "rType":"float"},
+                "writeFloat":{"param":{"anArg":{"rType":"float"}},
+                            "rType":"void"},
+                "writeFloatLn":{"param":{"anArg":{"rType":"float"}},
+                            "rType":"void"},            
+                "readStr":{"param":{},
+                            "rType":"string"},
+                "writeStr":{"param":{"anArg":{"rType":"string"}},
+                            "rType":"void"},
+                "writeStrLn":{"param":{"anArg":{"rType":"string"}},
+                            "rType":"void"}            
+                }
             }
         }
         o=self.getName.visit(ast,o)
@@ -71,11 +90,8 @@ class StaticChecker(BaseVisitor):
         for x in ast.decl:
             self.visit(x, env)
         return o
-    #   res = self.lookup(ast.method.name,c[0],lambda x: x.name)
     
     def visitClassDecl(self, ast,  o):
-        #TODO
-        #raise Undeclared(Class(),str(type(ast)))
         env={
             "global":o["global"],
             "current":o["global"][ast.classname.name]
@@ -83,13 +99,12 @@ class StaticChecker(BaseVisitor):
         list(map(lambda x: self.visit(x,env),filter(lambda t: type(t) is AttributeDecl,ast.memlist)))
         #inheritance
         if ast.parentname:
-            env["current"]["mem"].update({map(filter(lambda x: x not in env["current"]["mem"]))})
+            for x in env["global"][ast.parentname.name]["mem"]:
+                if x not in env["current"]["mem"]:
+                    env["current"]["mem"].update({x:env["global"][ast.parentname.name]["mem"][x]})
         list(map(lambda x: self.visit(x,env),filter(lambda t: type(t) is MethodDecl,ast.memlist)))
         return o
-    def visitMethodDecl(self, ast , o):
-        #should local:{"code":self.visit(ast.kind)}
-        #raise Undeclared(Class(), str(o))
-        
+    def visitMethodDecl(self, ast , o):        
         env={
             "global":o["global"],
             "current":o["current"]["mem"][ast.name.name]
@@ -97,73 +112,72 @@ class StaticChecker(BaseVisitor):
         env["current"]["rType"]=self.visit(ast.returnType,env)
         env["current"]["param"]={}
         env["current"]["bl"+str(self.getName.bl)]={}
-        param=list(map(lambda x: env["current"]["param"].update(self.getName.visit(x,env["current"])),ast.param))#"""env["local"]"""
-        #TODO check type param of class
-        err=list(filter(lambda x: len(x)>1,param))
-        if err:
-            raise Redeclared(Parameter(),err[0]["Redeclare"].name) 
-        #get value for param
-        list(map(lambda x:self.visit(x,env["current"]["param"]),ast.param))
+        
+        for key,value in env["global"].items():
+            if env["global"][key]["mem"].get(ast.name.name) is not None:
+                env["current"]["parent"] = {"classType":key}
+        for x in ast.param:
+            par=self.getName.visit(x,env["current"]["param"])
+            if len(par)>1:
+                raise Redeclared(Parameter(),x.name)
+            par.update({"rType":self.visit(x.varType,env)})
+            if x.varInit:
+                val=self.visit(x.varInit,env)
+                if par["rType"] !=val:
+                    raise TypeMismatchInStatement(str(ast))
+                else: 
+                    par.update({"val": val})
         self.visit(ast.body,env)
     
     def visitAttributeDecl(self, ast , o):
         return self.visit(ast.decl,o)
     def visitBlock(self, ast , o):
+        
         self.bl+=1
         env={
             "global":o["global"],
             "current":o["current"]
         }
-        env["current"]["bl"+str(self.bl-1)]["var"]={}
+        env["current"]["bl"+str(self.bl-1)]={"mem":{}}
         bl=self.getName.visit(ast,env)
+        env["current"]["classType"]=env["current"]["parent"]["classType"]
         env["current"]["parent"]=env["current"]
         env["current"]=env["current"][bl]
-        
         list(map(lambda x: self.visit(x,env),ast.decl))
-        
-        list(map(lambda x: self.visit(x,env),ast.stmt))
-        """ """   
-        
-        raise TypeMismatchInStatement("L"+str(env))
-        list(map(lambda x: self.visit(x,env),ast.decl))
-        #to get list of 
-        list(map(lambda x: self.visit(x,env),ast.stmt))
-        #To handle undeclare ID
-        #return None
-    #TODO we have code in o, we have to assign type and value
+        list(map(lambda x: self.visit(x,env),ast.stmt)) 
     def visitVarDecl(self, ast, o):
-        #every variable has these field
-        #o of this object is {}
-        #To chuc luu tru cho var_const_static_expr
         
         env={
             "global":o["global"],
             "current":o["current"]
         }
-        #raise Undeclared(Class(), str(o))
         rType=self.visit(ast.varType,o)
         val = self.visit(ast.varInit,env)if ast.varInit else None
-        
-        if rType!=val:
+        if val and rType!=val:
             raise TypeMismatchInStatement(ast)
-        env["current"]["var"][ast.variable.name]["rType"]= rType
-        env["current"]["var"][ast.variable.name]["val"]= val
-        return env["current"]["var"][ast.variable.name]
+        cur=env["current"]["mem"][ast.variable.name]
+        cur.update({"rType":rType})
+        cur.update({"val": val})
+        return env["current"]["mem"][ast.variable.name]
         
     def visitConstDecl(self, ast, o):
         env={
             "global":o["global"],
-            "current":o["current"]["var"]
+            "current":o["current"]
         }  
-        val=Field(self.visit(ast.constType),self.visit(ast.value)if ast.value else None)
-        if val.value is None:
+        rType=self.visit(ast.varType,o)
+        val = self.visit(ast.varInit,env)if ast.varInit else None
+        
+        if val is None:
             raise IllegalConstantExpression(ast)
         #TODO
         # check static expr elif o[val.value
-        if val.typ!=val.value:
+        if rType!=val:
             raise TypeMismatchInConstant(ast)
-        env["current"][ast.name]["val"]= val
-        return env["current"][ast.name]
+        cur=env["current"]["mem"][ast.variable.name]
+        cur.update({"rType":rType})
+        cur.update({"val": val})
+        return env["current"]["mem"][ast.variable.name]
     def visitBinaryOp(self, ast , o):
         r=self.visit(ast.right,o)
         l=self.visit(ast.left,o)
@@ -205,7 +219,22 @@ class StaticChecker(BaseVisitor):
             if ex in ["float","int"]:
                 return ex
         return None
-    
+        
+    def visitCallStmt(self, ast , o):
+        obj=self.visit(ast.obj,o)
+        #check class type
+        if not o["global"][obj]:
+            raise Undeclared(Class(),obj)
+        med=self.visit(ast.method,o["global"][obj])
+        if med != "void":
+            raise TypeMismatchInStatement(ast)
+        
+        param=o["global"][obj]["mem"][ast.method.name]["param"]
+        idx=0
+        for x in param:
+            if self.visit(ast.param[idx],o["current"])!=param[x]["rType"]:
+                raise TypeMismatchInStatement(ast)
+            idx+=1
     def visitCallExpr(self, ast , o):
         obj=self.visit(ast.obj,o)
         """if not o["global"][obj]:
@@ -218,8 +247,16 @@ class StaticChecker(BaseVisitor):
         #err=list(map(filter(lambda x,y: x!=y, (param,o[med]["param"]))))
         #if err:
         #    raise TypeMismatchInExpression(ast)
-        list(map(lambda x,y: self.visitAssign((self.visit(x,o),y),o), ast.param,o[med]["param"]))       
+        
+        param=o["global"][obj]["mem"][ast.method.name]["param"]
+        idx=0
+        for x in param:
+            if self.visit(ast.param[idx],o["current"])!=param[x]["rType"]:
+                raise TypeMismatchInExpression(ast)
+            idx+=1
+            #list(map(lambda x,y: self.visitAssign((self.visit(x,o),y),o), ast.param,o[med]["param"]))       
     
+
         return med#type
     
     def visitNewExpr(self, ast , o):
@@ -230,13 +267,6 @@ class StaticChecker(BaseVisitor):
             raise TypeMismatchInExpression(ast)
         return classname.name
     
-    def visitId(self, ast , o):
-        #handle undeclr
-        if ast.name not in o:
-            o[ast.name]["Undeclare"]=ast.name
-            raise Undeclared(Identifier(),ast.name)
-        return o[ast.name]
-    
     def visitArrayCell(self, ast , o):
         if self.visit(ast.idx,o) != "int":
             raise TypeMismatchInExpression(ast)
@@ -244,17 +274,21 @@ class StaticChecker(BaseVisitor):
         typearr=arr.find("[")
         if typearr==-1:
             raise TypeMismatchInExpression(ast)
-        return arr[0:typearr-1]
+        return arr[0:typearr]
     
     def visitFieldAccess(self, ast , o):
         obj=self.visit(ast.obj,o)
         """if not o["global"][obj]:
             raise TypeMismatchInExpression(ast)"""
         #TODO check ID
-        field=o[obj]["mem"][ast.fieldname.name]
-        if field["code"]>1:
-            raise IllegalMemberAccess(ast)
-        return field["field"].typ
+        #raise 
+        field=o["global"][obj]["mem"]
+        #
+        if field.get(ast.fieldname.name) is not None:
+            if field[ast.fieldname.name]["code"]<2:
+                return field[ast.fieldname.name]["rType"]
+            
+        raise IllegalMemberAccess(ast)
          
     def visitIf(self, ast , o):
         if(self.visit(ast.expr)!="bool"):
@@ -265,10 +299,12 @@ class StaticChecker(BaseVisitor):
     
     def visitFor(self, ast , o):
         env=o
-        env["local"]={"var":ast.name}
-        #scalar has type int
-        if not (self.visit(ast.expr1)==self.visit(ast.expr2)=="int"):
-            raise TypeMismatchInStatement(ast.name+":="+ast.exp1)
+        
+        if not (self.visit(ast.expr1,o)==self.visit(ast.expr2,o)=="int"):
+            raise TypeMismatchInStatement(str(ast.id.name)+":="+str(ast.expr1))
+        env["current"]={"mem":{
+            ast.id.name:{"rType":"int","val":"int"}
+        }}
         self.visit(ast.loop)
     def visitContinue(self, ast , o):
         pass
@@ -297,9 +333,8 @@ class StaticChecker(BaseVisitor):
                 raise TypeMismatchInStatement(str(ast)) 
         raise TypeMismatchInStatement("M"+str(o))
     def visitAssign(self, ast , o):
-        
-        r=self.visit(ast.exp,o) if type(ast) is Stmt else ast[0]
-        l=self.visit(ast.lhs,o) if type(ast) is Stmt else ast[1]
+        r=self.visit(ast.exp,o) 
+        l=self.visit(ast.lhs,o)
         if l=="void":
             raise TypeMismatchInStatement(ast)
         if r!=l:
@@ -311,29 +346,23 @@ class StaticChecker(BaseVisitor):
                     pass
             elif r.find("int[")!=-1 and l=="float":
                 pass
-
             else:
                 #TODO raise sai r nè
                 raise TypeMismatchInStatement(str(ast)) 
-        #TODO r là type làm s mà có name
-        if o[r.name]["code"]>1:
-            #const
-            raise CannotAssignToConstant(ast)
-         
-    def visitCallStmt(self, ast , o):
-        obj=self.visit(ast.obj,o)
-        #check class type
-        if not o[obj]:
-            raise Undeclared(Class(),obj)
-        med=self.visit(ast.method,o[obj])
-        if med != "void":
-            raise TypeMismatchInStatement(ast)
-        #param=list(map(lambda x: self.visit(x,o),ast.param))
-        #lấy list expr check với def của method
-        list(map(lambda x,y: self.visitAssign((self.visit(x,o),y),o), ast.param,o[med]["param"]))       
+        if type(ast.lhs) is Id:
+            if o["global"][ast.lhs]["code"]>1:
+                #const
+                raise CannotAssignToConstant(ast)
+    def visitId(self, ast , o):
+        #handle undeclr
+        env=o["current"]
+        if env.get("mem") is not None:
+            if env["mem"].get(ast.name) is not None:
+                return env["mem"][ast.name]["rType"]
+        raise Undeclared(Identifier(),ast.name) 
     
     def visitArrayLiteral(self, ast , o):
-        value=list(map(lambda x: self.visit(x,value)))
+        value=list(map(lambda x: self.visit(x,o),ast.value))
         pure=reduce(lambda acc,ele: acc and (ele==value[0]),value,True)
         if not pure:
             raise IllegalArrayLiteral(ast)
@@ -355,7 +384,13 @@ class StaticChecker(BaseVisitor):
         return "null"
     
     def visitSelfLiteral(self, ast , o):
-        return "this"
+        env=o["current"]
+
+        while env.get("parent") is not None:
+            if env["parent"].get("classType") is not None:
+                return env["parent"]["classType"]
+            env=env["parent"]
+        return o["global"][1]
     #TODO: do we need it anymore???
     def visitInstance(self, ast , o):
         return 0
@@ -378,10 +413,10 @@ class StaticChecker(BaseVisitor):
         return "void"
     
     def visitArrayType(self, ast , o):
-        return self.visit(ast.eleType)+str(ast.size)
+        return self.visit(ast.eleType,o)+"["+str(ast.size)+"]"
     
     def visitClassType(self, ast , o):
-        return ast.name.name
+        return ast.classname.name
     
 
 
@@ -427,13 +462,14 @@ class GetName(BaseVisitor):
             if par not in o:
                 raise Undeclared(Class(),par)
             o[this]={
-                "parent": par.name,
+                "parent": par,
                 "mem":{}
             }
         else: 
             o[this]={
             "mem":{}
             }
+            o[this]["current"]=o[this]
         if(len(ast.memlist)>0): 
             list(map(lambda x: self.visit(x,o[this]["mem"]),ast.memlist) )
         #map(lambda x: ,ast.memlist) 
@@ -455,51 +491,40 @@ class GetName(BaseVisitor):
         else:
             o[ast.variable.name]={"code":0}
         return o[ast.variable.name]
-        """"const":False,
-            #"field":Field(self.visit(ast.varType),None)}
-            "field":Field("int",None)}"""
-        #none is the assigned value, handle in the 2nd visitor, they will check for type 
-        #return o
-        '''c[ast.variable]={
-            Field(self.visit(ast.varType), self.visit(ast.varInit))
-        }'''
+        
     def visitConstDecl(self, ast, o):
         if ast.constant.name in o:
             raise Redeclared(Constant(),ast.constant.name)
         o[ast.constant.name]={"code":1}
         return o[ast.constant.name]
-        """o[ast.constant.name]={
-            "const":True,
-            #"field":Field(self.visit(ast.constType),None)
-            }"""
+        
     def visitBlock(self, ast, o):
         o["current"]["bl"+str(self.bl)]={
             "parent": o["current"],
             "rType":o["current"]["rType"],
-            "var"  : {}
+            "mem"  : {}
         }
-        #raise TypeMismatchInStatement("HE"+str(o))
         for x in ast.decl:
-            var=self.visit(x,o["current"]["bl"+str(self.bl)]["var"])
+            var=self.visit(x,o["current"]["bl"+str(self.bl)]["mem"])
             if len(var)>1:
                 raise Redeclared(Variable(),var.variable.name) 
+        if o["current"].get("param"):
+            o["current"]["bl"+str(self.bl)].update(o["current"]["param"])
+        if o["current"].get("mem"):
+            o["current"]["bl"+str(self.bl)].update(o["current"]["mem"])
         self.bl+=1
         return "bl"+str(self.bl-1)
-        #return o
     def visitMethodDecl(self, ast, o):
         if ast.name.name in o:
             raise Redeclared(Method(),ast.name.name)
-        o[ast.name.name]={"code":self.visit(ast.kind,o)}
-        #return o
-        
         o[ast.name.name]={
+            "code":self.visit(ast.kind,o),
             "param"  : {}
         }
         for x in ast.param:
             res=self.visit(x,o[ast.name.name]["param"])
             if len(res)>1: 
                 raise Redeclared(Parameter(),res["Redeclare"].name)
-        #self.visit(ast.body, o)
     def visitInstance(self, ast , o):
         return 0
     def visitStatic(self, ast, o):

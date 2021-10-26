@@ -1,0 +1,7 @@
+
+        class A {
+            int[1] k;
+            int x()
+            {  this.k[2]:=2.5;
+            }
+            }

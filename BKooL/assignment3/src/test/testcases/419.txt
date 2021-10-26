@@ -1,0 +1,9 @@
+
+        class X{int m;}
+        class A extends X{
+            int k;
+            int x(int e)
+            {  A temp;
+                temp.m:=5;
+            }
+            }

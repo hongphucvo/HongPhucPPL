@@ -1,0 +1,7 @@
+class A{
+            int k;
+            int x(int e)
+            {  A temp;
+                temp.m:=5;
+            }
+            }

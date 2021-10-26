@@ -3,7 +3,7 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckerSuite(unittest.TestCase):
-    
+  
     def test_un_parent(self):
         input = Program([ClassDecl(Id("a"),[],Id("b"))])
         expect = "Undeclared Class: b"
@@ -81,14 +81,114 @@ class CheckerSuite(unittest.TestCase):
         input = """class A{int x(){ int a=5;return 5.2;}}"""
         expect = "Type Mismatch In Statement: Return(FloatLit(5.2))"
         self.assertTrue(TestChecker.test(input,expect,412))
+    def test_wrong_assign_fi(self):
+        input = """class A{int x(){ int a=5;a:=2.1;}}"""
+        expect = "Type Mismatch In Statement: AssignStmt(Id(a),FloatLit(2.1))"
+        self.assertTrue(TestChecker.test(input,expect,413))
     
+    def test_wrong_exp_sf(self):
+        input = """class A{int x(){ int a=5;a:=2.1+"";}}"""
+        expect = "Type Mismatch In Expression: BinaryOp(+,FloatLit(2.1),StringLit(\"\"))"
+        self.assertTrue(TestChecker.test(input,expect,414))
+     
+    def test_undecl(self):
+        input = "class A{int x(){ int m; m:=k;}}"
+        expect = "Undeclared Identifier: k"
+        self.assertTrue(TestChecker.test(input,expect,415))
+
+    def test_wrong_for(self):
+        input = "class A{int x(){ int m;for a:=4.5 to 10 do {int x;}}}"
+        expect = "Type Mismatch In Statement: a:=FloatLit(4.5)"
+        self.assertTrue(TestChecker.test(input,expect,416))
+    
+    def test_wrong_array(self):
+        input = "class A{int x(){ int[1] m={4.0};}}"
+        expect = "Type Mismatch In Statement: VarDecl(Id(m),ArrayType(1,IntType),[FloatLit(4.0)])"
+        self.assertTrue(TestChecker.test(input,expect,417))
+    
+    
+    def test_wrong_arrayindex(self):
+        input = "class A{int x(){ int[1] m={4.0};}}"
+        expect = "Type Mismatch In Statement: VarDecl(Id(m),ArrayType(1,IntType),[FloatLit(4.0)])"
+        self.assertTrue(TestChecker.test(input,expect,417))
+    
+    def test_wrong_field_acc(self):
+        input = """class A{
+            int k;
+            int x(int e)
+            {  A temp;
+                temp.m:=5;
+            }
+            }"""
+        expect = "Illegal Member Access: FieldAccess(Id(temp),Id(m))"
+        self.assertTrue(TestChecker.test(input,expect,418))
+    
+    def test_right_field_par(self):
+        input = """
+        class X{int m;}
+        class A extends X{
+            int k;
+            int x(int e)
+            {  A temp;
+                temp.m:=5;
+            }
+            }"""
+        expect = ""
+        self.assertTrue(TestChecker.test(input,expect,419))
+    
+    def test_wrong_cell(self):
+        input = """
+        class A {
+            int[1] k;
+            int x()
+            {  this.k[2]:=2.5;
+            }
+            }"""
+        expect = "Type Mismatch In Statement: AssignStmt(ArrayCell(FieldAccess(Self(),Id(k)),IntLit(2)),FloatLit(2.5))"
+        self.assertTrue(TestChecker.test(input,expect,420))
+    
+    def test_wrong_call_void(self):
+        input = """
+        class A {
+            int[1] k;
+            int y(){int a=5;}
+            int x()
+            {  this.y();
+            }
+
+            }"""
+        expect = "Type Mismatch In Statement: Call(Self(),Id(y),[])"
+        self.assertTrue(TestChecker.test(input,expect,421))
+
+    def test_right_call_(self):
+        input = """
+        class A {
+            int[1] k;
+            void y(int b){int a=5;}
+            int x()
+            {  this.y(10);
+            }
+
+            }"""
+        expect = ""
+        self.assertTrue(TestChecker.test(input,expect,422))
+    def test_wrong_call_para(self):
+        input = """
+        class A {
+            int[1] k;
+            void y(int b){int a=5;}
+            int x()
+            {  this.y(10.5);
+            }
+
+            }"""
+        expect = "Type Mismatch In Statement: Call(Self(),Id(y),[FloatLit(10.5)])"
+        self.assertTrue(TestChecker.test(input,expect,423))
 
 
 
 
-
-
-
+#testwith class io
 
 
 

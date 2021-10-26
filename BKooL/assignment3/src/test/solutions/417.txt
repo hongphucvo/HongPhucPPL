@@ -1,0 +1,1 @@
+Type Mismatch In Statement: VarDecl(Id(m),ArrayType(1,IntType),[FloatLit(4.0)])

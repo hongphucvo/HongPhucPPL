@@ -1,1 +1,1 @@
-Type Mismatch In Statement: ('float', {'var': {'a': {'code': 0, 'val': <StaticCheck.Field object at 0x0000026B7A532BB0>}, 'code': 0}})
+Type Mismatch In Statement: Return(FloatLit(5.2))

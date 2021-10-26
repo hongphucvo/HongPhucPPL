@@ -47,6 +47,7 @@ class StaticChecker(BaseVisitor):
         self.ast = ast
         self.o=StaticChecker.global_envi
         self.getName=GetName()
+        self.bl=0
         #self.f = open("dictionary","w")
         #self.f.write("")
     
@@ -93,8 +94,9 @@ class StaticChecker(BaseVisitor):
             "global":o["global"],
             "current":o["current"]["mem"][ast.name.name]
         }
+        env["current"]["rType"]=self.visit(ast.returnType,env)
         env["current"]["param"]={}
-        env["current"]["stmt"]={}
+        env["current"]["bl"+str(self.getName.bl)]={}
         param=list(map(lambda x: env["current"]["param"].update(self.getName.visit(x,env["current"])),ast.param))#"""env["local"]"""
         #TODO check type param of class
         err=list(filter(lambda x: len(x)>1,param))
@@ -107,21 +109,27 @@ class StaticChecker(BaseVisitor):
     def visitAttributeDecl(self, ast , o):
         return self.visit(ast.decl,o)
     def visitBlock(self, ast , o):
+        self.bl+=1
         env={
             "global":o["global"],
-            "current":o["current"]["stmt"]
+            "current":o["current"]
         }
-        env["current"]["var"]={}
-        for x in ast.decl:
-            var=self.getName.visit(x,env["current"]["var"])
-            if len(var)>1:
-                raise Redeclared(Variable(),var.variable.name) 
-            env["current"]["var"].update(var)    
+        env["current"]["bl"+str(self.bl-1)]["var"]={}
+        bl=self.getName.visit(ast,env)
+        env["current"]["parent"]=env["current"]
+        env["current"]=env["current"][bl]
+        
+        list(map(lambda x: self.visit(x,env),ast.decl))
+        
+        list(map(lambda x: self.visit(x,env),ast.stmt))
+        """ """   
+        
+        raise TypeMismatchInStatement("L"+str(env))
         list(map(lambda x: self.visit(x,env),ast.decl))
         #to get list of 
         list(map(lambda x: self.visit(x,env),ast.stmt))
         #To handle undeclare ID
-        return None
+        #return None
     #TODO we have code in o, we have to assign type and value
     def visitVarDecl(self, ast, o):
         #every variable has these field
@@ -133,12 +141,15 @@ class StaticChecker(BaseVisitor):
             "current":o["current"]
         }
         #raise Undeclared(Class(), str(o))
-        val=Field(self.visit(ast.varType,o),self.visit(ast.varInit,env)if ast.varInit else None)
+        rType=self.visit(ast.varType,o)
+        val = self.visit(ast.varInit,env)if ast.varInit else None
         
-        if val.typ!=val.value:
+        if rType!=val:
             raise TypeMismatchInStatement(ast)
+        env["current"]["var"][ast.variable.name]["rType"]= rType
         env["current"]["var"][ast.variable.name]["val"]= val
         return env["current"]["var"][ast.variable.name]
+        
     def visitConstDecl(self, ast, o):
         env={
             "global":o["global"],
@@ -266,11 +277,27 @@ class StaticChecker(BaseVisitor):
         pass
     
     def visitReturn(self, ast , o):
-        val=self.visit(ast.expr,o)
+        r=self.visit(ast.expr,o)
         #TODO trace back the type of current method
-        self.visitAssign((val,o["current"]),o)
-    
+        l=o["current"]["rType"]
+        if l=="void":
+            raise TypeMismatchInStatement(ast)
+        if r!=l:
+            if r=="int" and l=="float":
+                pass
+            #TODO check ông nội
+            if r in o["global"]:
+                if o[r]["parent"]==l:
+                    pass
+            elif r.find("int[")!=-1 and l=="float":
+                pass
+
+            else:
+                #TODO raise sai r nè
+                raise TypeMismatchInStatement(str(ast)) 
+        raise TypeMismatchInStatement("M"+str(o))
     def visitAssign(self, ast , o):
+        
         r=self.visit(ast.exp,o) if type(ast) is Stmt else ast[0]
         l=self.visit(ast.lhs,o) if type(ast) is Stmt else ast[1]
         if l=="void":
@@ -380,8 +407,8 @@ class StaticChecker(BaseVisitor):
 
 class GetName(BaseVisitor):
     """Get the name and SIKind in code"""
-    #def __init__(self):
-        
+    def __init__(self):
+        self.bl=0
         
         #self.f = open("dictionarybase","w")
         #self.f.write("")
@@ -400,7 +427,7 @@ class GetName(BaseVisitor):
             if par not in o:
                 raise Undeclared(Class(),par)
             o[this]={
-                "parent": par.name ,
+                "parent": par.name,
                 "mem":{}
             }
         else: 
@@ -445,6 +472,19 @@ class GetName(BaseVisitor):
             "const":True,
             #"field":Field(self.visit(ast.constType),None)
             }"""
+    def visitBlock(self, ast, o):
+        o["current"]["bl"+str(self.bl)]={
+            "parent": o["current"],
+            "rType":o["current"]["rType"],
+            "var"  : {}
+        }
+        #raise TypeMismatchInStatement("HE"+str(o))
+        for x in ast.decl:
+            var=self.visit(x,o["current"]["bl"+str(self.bl)]["var"])
+            if len(var)>1:
+                raise Redeclared(Variable(),var.variable.name) 
+        self.bl+=1
+        return "bl"+str(self.bl-1)
         #return o
     def visitMethodDecl(self, ast, o):
         if ast.name.name in o:
@@ -459,7 +499,7 @@ class GetName(BaseVisitor):
             res=self.visit(x,o[ast.name.name]["param"])
             if len(res)>1: 
                 raise Redeclared(Parameter(),res["Redeclare"].name)
-        self.visit(ast.body, o)
+        #self.visit(ast.body, o)
     def visitInstance(self, ast , o):
         return 0
     def visitStatic(self, ast, o):

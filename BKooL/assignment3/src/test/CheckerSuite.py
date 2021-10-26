@@ -79,7 +79,7 @@ class CheckerSuite(unittest.TestCase):
     
     def test_wrong_return(self):
         input = """class A{int x(){ int a=5;return 5.2;}}"""
-        expect = "Type Mismatch In Statement: VarDecl(Id(a),IntType,StringLit(\"5\"))"
+        expect = "Type Mismatch In Statement: Return(FloatLit(5.2))"
         self.assertTrue(TestChecker.test(input,expect,412))
     
 

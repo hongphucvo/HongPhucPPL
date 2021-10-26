@@ -184,6 +184,16 @@ class CheckerSuite(unittest.TestCase):
             }"""
         expect = "Type Mismatch In Statement: Call(Self(),Id(y),[FloatLit(10.5)])"
         self.assertTrue(TestChecker.test(input,expect,423))
+    def test_var_as_class(self):
+        input = """
+        class A {
+            int A;}"""
+        expect = ""
+        self.assertTrue(TestChecker.test(input,expect,424))
+    def test_ill_const(self):
+        input = Program([ClassDecl(Id("Ex"),[AttributeDecl(Static(),VarDecl(Id("a"),IntType())),AttributeDecl(Instance(),ConstDecl(Id("x"),IntType(),FieldAccess(Id("Ex"),Id("a"))))])])
+        expect = "Illegal Constant Expression: FieldAccess(Id(Ex),Id(a))"
+        self.assertTrue(TestChecker.test(input,expect,425))
 
 
 

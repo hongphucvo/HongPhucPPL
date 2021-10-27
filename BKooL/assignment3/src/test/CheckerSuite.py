@@ -448,7 +448,7 @@ class CheckerSuite(unittest.TestCase):
         void main(){
         string A;
         A:="This is a string containing tab \t";}}"""
-        expect = "Redeclared Constant: a"
+        expect = "Redeclared Attribute: a"
         self.assertTrue(TestChecker.test(input,expect,459))
     def test_literal9(self):
         """wrong type"""

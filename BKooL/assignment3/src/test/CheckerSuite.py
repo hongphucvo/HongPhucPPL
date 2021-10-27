@@ -36,7 +36,7 @@ class CheckerSuite(unittest.TestCase):
         expect = "Redeclared Class: m"
         self.assertTrue(TestChecker.test(input,expect,403))
    
-    def test_break(self):
+    def test_break_hhh(self):
         input = "class A{int x(){break;}}"
         expect = "Break Not In Loop"
         self.assertTrue(TestChecker.test(input,expect,404))

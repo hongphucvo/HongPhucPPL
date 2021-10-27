@@ -1,0 +1,7 @@
+class A{
+        int main(){
+        int x,sum;
+        sum:=0;
+        io.readInt(x);
+        for i:=1 to x do sum:=sum+i;
+        }}

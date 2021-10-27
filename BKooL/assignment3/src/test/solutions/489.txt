@@ -1,0 +1,1 @@
+Type Mismatch In Statement: If(FieldAccess(Id(a),Id(a)),Block([],[AssignStmt(Id(a),NewExpr(Id(testing),[])),AssignStmt(Id(m),Id(a))]),Block([],[AssignStmt(FieldAccess(Self(),Id(a)),IntLit(5)),AssignStmt(Id(b),CallExpr(Self(),Id(test),[FieldAccess(Self(),Id(a)),FloatLit(1.0)]))]))

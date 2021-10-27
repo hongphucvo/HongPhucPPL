@@ -1,0 +1,7 @@
+class A{
+            int func(){
+            int f,k;
+            final string f=5,m;
+            m:=k;
+            }
+            }

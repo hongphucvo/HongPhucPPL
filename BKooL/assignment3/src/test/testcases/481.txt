@@ -1,0 +1,14 @@
+class A{
+            void main(){
+            for i:= 3 to 100 do {
+            #a line cmt
+            /*i:=1000*/
+            {
+                {
+                    if i==3 then
+                        break;
+                }
+            }
+            }
+            }
+            }

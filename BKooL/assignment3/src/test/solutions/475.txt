@@ -1,0 +1,1 @@
+Type Mismatch In Statement: AssignStmt(Id(m),BinaryOp(-,ArrayCell(FieldAccess(Id(x),Id(arr)),IntLit(1000)),BinaryOp(*,CallExpr(Id(x),Id(b),[IntLit(100)]),IntLit(30))))

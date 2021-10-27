@@ -54,29 +54,29 @@ class StaticChecker(BaseVisitor):
         GetFor().visit(self.ast,{})
         o={"io": {"mem":
             {
-                "readInt":{"param":{},
+                "readInt":{"mem":{},
                             "rType":"int"},
-                "writeInt":{"param":{"anArg":{"rType":"int"}},
+                "writeInt":{"mem":{"anArg":{"rType":"int"}},
                             "rType":"void"},
-                "writeIntLn":{"param":{"anArg":{"rType":"int"}},
+                "writeIntLn":{"mem":{"anArg":{"rType":"int"}},
                             "rType":"void"},
-                "readBool":{"param":{},
+                "readBool":{"mem":{},
                             "rType":"bool"},
-                "writeBool":{"param":{"anArg":{"rType":"bool"}},
+                "writeBool":{"mem":{"anArg":{"rType":"bool"}},
                             "rType":"void"},
-                "writeBoolLn":{"param":{"anArg":{"rType":"bool"}},
+                "writeBoolLn":{"mem":{"anArg":{"rType":"bool"}},
                             "rType":"void"},
-                "readFloat":{"param":{},
+                "readFloat":{"mem":{},
                             "rType":"float"},
-                "writeFloat":{"param":{"anArg":{"rType":"float"}},
+                "writeFloat":{"mem":{"anArg":{"rType":"float"}},
                             "rType":"void"},
-                "writeFloatLn":{"param":{"anArg":{"rType":"float"}},
+                "writeFloatLn":{"mem":{"anArg":{"rType":"float"}},
                             "rType":"void"},            
-                "readStr":{"param":{},
+                "readStr":{"mem":{},
                             "rType":"string"},
-                "writeStr":{"param":{"anArg":{"rType":"string"}},
+                "writeStr":{"mem":{"anArg":{"rType":"string"}},
                             "rType":"void"},
-                "writeStrLn":{"param":{"anArg":{"rType":"string"}},
+                "writeStrLn":{"mem":{"anArg":{"rType":"string"}},
                             "rType":"void"}            
                 }
             }
@@ -105,15 +105,20 @@ class StaticChecker(BaseVisitor):
             "global":o["global"],
             "current":o["current"]["mem"][ast.name.name]
         }
-        env["current"]["rType"]=self.visit(ast.returnType,env)
-        env["current"]["param"]={}
+        if ast.name.name!='<init>':
+            env["current"].update({"rType":self.visit(ast.returnType,env)})
+        else: 
+            for x in o["global"]:
+                if x==o["current"]:
+                    env["current"].update({"rType":x})
+        env["current"]["mem"]={}
         env["current"]["bl"+str(self.getName.bl)]={}
         
         for key,value in env["global"].items():
             if env["global"][key]["mem"].get(ast.name.name) is not None:
                 env["current"]["parent"] = {"classType":key}
         for x in ast.param:
-            par=self.getName.visit(x,env["current"]["param"])
+            par=self.getName.visit(x,env["current"]["mem"])
             if len(par)>1:
                 raise Redeclared(Parameter(),x.name)
             par.update({"rType":self.visit(x.varType,env)})
@@ -128,17 +133,22 @@ class StaticChecker(BaseVisitor):
     def visitAttributeDecl(self, ast , o):
         return self.visit(ast.decl,o)
     def visitBlock(self, ast , o):
-        
-        self.bl+=1
+        #self.bl+=1
         env={
             "global":o["global"],
             "current":o["current"]
         }
         env["current"]["bl"+str(self.bl-1)]={"mem":{}}
+        if env["current"].get("rType") is None: 
+            env["current"].update({"rType":o["current"]["rType"]})
+        #raise Undeclared(Class(), str(o["current"]["rType"]))
+        
+        
         bl=self.getName.visit(ast,env)
         env["current"]["classType"]=env["current"]["parent"]["classType"]
         env["current"]["parent"]=env["current"]
         env["current"]=env["current"][bl]
+        #env["current"]["rType"]=o["current"]["rType"]
         list(map(lambda x: self.visit(x,env),ast.decl))
         list(map(lambda x: self.visit(x,env),ast.stmt)) 
     def visitVarDecl(self, ast, o):
@@ -167,8 +177,6 @@ class StaticChecker(BaseVisitor):
         #raise IllegalConstantExpression("M"+str(ast))
         if val is None:
             raise IllegalConstantExpression(ast)
-        #TODO
-        # check static expr elif o[val.value
         if self.statconst==False:
             raise IllegalConstantExpression(ast.value)
         if rType!=val:
@@ -182,9 +190,7 @@ class StaticChecker(BaseVisitor):
         l=self.visit(ast.left,o)
         op=ast.op
         core=["+","-","*","/","<","<=",">",">="]
-        #TODO: check type of left+right+op
         if op in core:
-            #do core
             if r == "float":
                 if l == "int":
                     l="float"
@@ -230,10 +236,19 @@ class StaticChecker(BaseVisitor):
         #check class type
         if not o["global"][obj]:
             raise Undeclared(Class(),obj)
-        med=self.visit(ast.method,o["global"][obj])
-        if med != "void":
+        
+        #med=self.visit(ast.method,o["global"][obj])
+        
+        med=o["global"][obj]["mem"]
+        if ast.method.name not in med:
+            raise Undeclared(Method(), ast.method.name)
+        
+        
+        
+        method=med[ast.method.name]
+        if method["rType"] != "void":
             raise TypeMismatchInStatement(ast)
-        param=o["global"][obj]["mem"][ast.method.name]["param"]
+        param=method["mem"]
         #raise TypeMismatchInStatement(str(param))
         for idx,x in enumerate(param):
             argType=self.visit(ast.param[idx],o)
@@ -243,7 +258,26 @@ class StaticChecker(BaseVisitor):
                     pass
                 else: 
                     raise TypeMismatchInStatement(ast)
-
+    def visitFieldAccess(self, ast , o):
+        obj=self.visit(ast.obj,o)
+        field=o["global"][obj]["mem"]
+        
+        if field.get(ast.fieldname.name) is not None:
+            fieldloc=field[ast.fieldname.name]
+            if fieldloc["code"]%2==0:
+                self.statconst=False
+            if fieldloc["code"]<2:
+                return fieldloc["rType"]
+        if hasattr(ast.obj,'name'):
+            if obj==ast.obj.name:
+                if field.get(ast.fieldname.name) is not None:
+                    fieldloc=field[ast.fieldname.name]
+                    if fieldloc["code"]%2==0:
+                        self.statconst=False
+                    if fieldloc["code"]>1:
+                        return fieldloc["rType"]
+        raise IllegalMemberAccess(ast)
+     
     def visitCallExpr(self, ast , o):
         obj=self.visit(ast.obj,o)
         if not o["global"][obj]:
@@ -251,7 +285,7 @@ class StaticChecker(BaseVisitor):
         med=self.visit(ast.method,o["global"][obj])
         if med=="void":
             raise TypeMismatchInExpression(ast)
-        param=o["global"][obj]["mem"][ast.method.name]["param"]
+        param=o["global"][obj]["mem"][ast.method.name]["mem"]
         for idx,x in enumerate(param):
             argType=self.visit(ast.param[idx],o)
             paramType=param[x]["rType"]
@@ -264,8 +298,8 @@ class StaticChecker(BaseVisitor):
         return med
     
     def visitNewExpr(self, ast , o):
-        classname=ast.classname
-        param=o["global"][classname]["mem"][ast.method.name]["param"]
+        classname=ast.classname.name
+        param=o["global"][classname]["mem"]["<init>"]["mem"]
         for idx,x in enumerate(param):
             argType=self.visit(ast.param[idx],o)
             paramType=param[x]["rType"]
@@ -274,7 +308,7 @@ class StaticChecker(BaseVisitor):
                     pass
                 else: 
                     raise TypeMismatchInStatement(ast)
-        return classname.name
+        return classname
     
     def visitArrayCell(self, ast , o):
         if self.visit(ast.idx,o) != "int":
@@ -285,26 +319,7 @@ class StaticChecker(BaseVisitor):
             raise TypeMismatchInExpression(ast)
         return arr[0:typearr]
     
-    def visitFieldAccess(self, ast , o):
-        obj=self.visit(ast.obj,o)
-        field=o["global"][obj]["mem"]
-        
-        if field.get(ast.fieldname.name) is not None:
-            fieldloc=field[ast.fieldname.name]
-            if fieldloc["code"]%2==0:
-                self.statconst=False
-            if fieldloc["code"]<2:
-                return fieldloc["rType"]
-        if ast.obj.name:
-            if obj==ast.obj.name:
-                if field.get(ast.fieldname.name) is not None:
-                    fieldloc=field[ast.fieldname.name]
-                    if fieldloc["code"]%2==0:
-                        self.statconst=False
-                    if fieldloc["code"]>1:
-                        return fieldloc["rType"]
-        raise IllegalMemberAccess(ast)
-         
+    
     def visitIf(self, ast , o):
         if(self.visit(ast.expr,o)!="bool"):
             raise TypeMismatchInStatement(ast)
@@ -313,12 +328,14 @@ class StaticChecker(BaseVisitor):
             self.visit(ast.elseStmt,o)
     
     def visitFor(self, ast , o):
-        if not (self.visit(ast.expr1,o)==self.visit(ast.expr2,o)=="int"):
-            raise TypeMismatchInStatement(str(ast.id.name)+":="+str(ast.expr1))
-        o["current"]={"mem":{
+        if self.visit(ast.expr1,o)!="int":
+            raise TypeMismatchInStatement(Assign(ast.id,ast.expr1))
+        if self.visit(ast.expr2,o)!="int":
+            raise TypeMismatchInStatement(Assign(ast.id,ast.expr2))
+        o["current"]["mem"].update({
             ast.id.name:{"rType":"int","val":"int"} }
-        }
-        self.visit(ast.loop)
+        )
+        self.visit(ast.loop,o)
     def visitContinue(self, ast , o):
         pass
     
@@ -336,8 +353,12 @@ class StaticChecker(BaseVisitor):
                 pass
             #TODO check ông nội
             if r in o["global"]:
-                if o[r]["parent"]==l:
-                    pass
+                par=o["global"][r]
+                while par.get("parent") is not None:
+                    if par["parent"]["classType"]==l:
+                        return
+                    par=o["global"][par["parent"]]
+                
             elif r.find("int[")!=-1 and l=="float":
                 pass
             else:
@@ -354,15 +375,20 @@ class StaticChecker(BaseVisitor):
                 pass
             #TODO check ông nội
             if r in o["global"]:
-                if o[r]["parent"]==l:
-                    pass
+                par=o["global"][r]
+                while par.get("parent") is not None:
+                    if par["parent"]["classType"]==l:
+                        return
+                    par=o["global"][par["parent"]]
             elif r.find("int[")!=-1 and l=="float":
                 pass
             else:
                 #TODO raise sai r nè
                 raise TypeMismatchInStatement(str(ast)) 
         if type(ast.lhs) is Id:
-            if o["global"][ast.lhs]["code"]%2==0:
+            #if o["global"][ast.lhs.name]["code"]%2==0:
+            if o["global"].get(ast.lhs.name):
+                #TODO
                 raise CannotAssignToConstant(ast)
     def visitId(self, ast , o):
         #handle undeclr
@@ -405,7 +431,6 @@ class StaticChecker(BaseVisitor):
                 return env["parent"]["classType"]
             env=env["parent"]
         return o["global"]
-    #TODO: do we need it anymore???
     def visitInstance(self, ast , o):
         return 0
     def visitStatic(self, ast, o):
@@ -472,11 +497,11 @@ class GetName(BaseVisitor):
                 raise Undeclared(Class(),par)
             o[this]={
                 "parent": par,
-                "mem":{}
+                "mem":{"<init>":{"rType":this,"mem":{}}}
             }
         else: 
             o[this]={
-            "mem":{}
+            "mem":{"<init>":{"rType":this,"mem":{}}}
             }
             o[this]["current"]=o[this]
         if(len(ast.memlist)>0): 
@@ -511,23 +536,33 @@ class GetName(BaseVisitor):
         for x in ast.decl:
             var=self.visit(x,o["current"]["bl"+str(self.bl)]["mem"])
             if len(var)>1:
-                raise Redeclared(Variable(),var.variable.name) 
-        if o["current"].get("param"):
-            o["current"]["bl"+str(self.bl)].update(o["current"]["param"])
-        if o["current"].get("mem"):
+                raise Redeclared(Variable(),x.variable.name) 
+        """if o["current"].get("mem"):
             o["current"]["bl"+str(self.bl)].update(o["current"]["mem"])
+        """
+        if o["current"].get("mem"):
+            o["current"]["bl"+str(self.bl)]["mem"].update(o["current"]["mem"])
         self.bl+=1
-        raise Redeclared(Variable(),str(o)) 
+        #raise Redeclared(Variable(),str(o)) 
         return "bl"+str(self.bl-1)
     def visitMethodDecl(self, ast, o):
         if ast.name.name in o:
-            raise Redeclared(Method(),ast.name.name)
-        o[ast.name.name]={
+            if ast.name.name!='<init>':
+                raise Redeclared(Method(),ast.name.name)
+            else: 
+                o['<init>'].update({
             "code":self.visit(ast.kind,o),
-            "param"  : {}
-        }
+            "mem"  : {},
+            #"rType":'name'
+            })
+        else:
+            o[ast.name.name]={
+                "code":self.visit(ast.kind,o),
+                "mem"  : {},
+                #"rType":StaticChecker().visit(ast.returnType,{})
+            }
         for x in ast.param:
-            res=self.visit(x,o[ast.name.name]["param"])
+            res=self.visit(x,o[ast.name.name]["mem"])
             if len(res)>1: 
                 raise Redeclared(Parameter(),res["Redeclare"].name)
     def visitInstance(self, ast , o):

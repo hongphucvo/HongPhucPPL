@@ -1,0 +1,15 @@
+
+        class X{
+        int main(){
+  int[100] arr, n, i;
+  io.writeStr( "Enter number of elements: ");
+  n:=io.readInt();
+  for i := 0 to  n do
+    arr[i]:=io.readInt();
+  for i := 0 to  n do
+    for j := i+1 to  n do
+      if arr[i] == arr[j] then {
+        io.writeStr("First repeating integer is ");
+        arr[i]:= io.writeInt();
+      }
+}}

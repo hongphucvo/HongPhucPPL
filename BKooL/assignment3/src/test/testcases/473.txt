@@ -1,0 +1,5 @@
+class A{
+            int m;
+            int m(){}
+            int k(){final int d;}
+            }

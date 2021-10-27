@@ -1,0 +1,7 @@
+class A{
+            int[100] arr;
+            int b(int s){return s;}
+            void main(){float m;
+            A x;
+            m:=    x.arr[1000]-(x.b(100)*30); 
+            }}

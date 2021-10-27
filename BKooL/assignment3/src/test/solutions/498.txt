@@ -1,0 +1,1 @@
+Type Mismatch In Statement: AssignStmt(Id(n),CallExpr(Id(io),Id(readInt),[]))

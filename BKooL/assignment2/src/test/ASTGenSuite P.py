@@ -81,9 +81,7 @@ float number=7.3, root;}
         self.assertTrue(TestAST.test(input, expect, 309))
 
     def test_simple_test8(self):
-        input = """class A{int main(){
-  io.writeFloat(7*9-10);}
-}"""
+        input = """class A{int main(){  io.writeFloat(7*9-10);}}"""
         expect = """Program([ClassDecl(Id(A),[MethodDecl(Id(main),Instance,[],IntType,Block([],[Call(Id(io),Id(writeFloat),[BinaryOp(-,BinaryOp(*,IntLit(7),IntLit(9)),IntLit(10))])]))])])"""
         self.assertTrue(TestAST.test(input, expect, 310))
     def test_class_dcl1(self):

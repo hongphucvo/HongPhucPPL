@@ -1,0 +1,1 @@
+class m{int x(){int a=io.readInt();}}

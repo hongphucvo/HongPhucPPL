@@ -1,0 +1,3 @@
+class m extends io{int x(){
+            this.writeInt(1.3);
+        }}

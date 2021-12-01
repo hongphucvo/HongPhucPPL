@@ -1,0 +1,11 @@
+
+        class ABC extends abc {
+            static int a=5+2,b=6;
+            int b,c= b+2;
+            A(){}
+            static void getPowerCombat(int a, b; int b) {
+                return atk + def;
+            }
+            #static ABC a= new ABC(); 
+        }
+        

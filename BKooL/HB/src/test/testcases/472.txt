@@ -1,0 +1,10 @@
+
+        class List{
+            node begin;
+            node end;
+            List List(){
+                if (begin != nil) then
+                return this;
+            }
+        }
+	    

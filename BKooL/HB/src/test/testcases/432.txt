@@ -1,0 +1,7 @@
+
+        class Example{
+		void assign(){
+            x.b[2] := x.m()[3];
+        }
+	    }
+	    

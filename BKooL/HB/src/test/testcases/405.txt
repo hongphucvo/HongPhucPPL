@@ -1,0 +1,4 @@
+class ABC {
+            static int x,y = 0;
+            final int My1stCons = 6,My2ndCons = 2;
+        }

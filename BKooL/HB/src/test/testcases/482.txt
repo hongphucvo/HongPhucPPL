@@ -1,0 +1,10 @@
+
+        class Test{
+            static void main(String _args) {
+                if a then 
+                    if a then
+                        if a then
+                            if a then b:=a;
+            }
+        }
+	    

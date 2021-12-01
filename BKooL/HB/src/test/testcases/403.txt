@@ -1,0 +1,10 @@
+
+        class ABC extends Character {
+            void a;
+            int b=5,c;
+            int getPowerCombat() {
+                return atk + def;
+            }
+            #static ABC a= new ABC(); 
+        }
+        

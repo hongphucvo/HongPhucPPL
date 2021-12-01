@@ -1,0 +1,19 @@
+
+        class Car {
+            string type;
+            string model;
+            string color;
+            int speed;
+        
+            Car(string type; string model, color) {
+                this.type := type;
+                this.model := model;
+                this.color := color;
+            }
+            
+            int increaseSpeed(int increment) {
+                this.speed := this.speed + increment;
+                return this.speed;
+            }
+        }
+	    

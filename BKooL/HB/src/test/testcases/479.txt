@@ -1,0 +1,17 @@
+
+        class Dog {
+            calcAge() {
+                #calculate age using today's date and birthday
+                return Date.now() - this.birthday;
+            }
+            
+            bark() {
+                return console.log("Woof!");
+            }
+
+            updateAttendance() {
+                #add a day to the dog's attendance days at the petsitters
+                return this._attendance;
+            }
+        }
+	    

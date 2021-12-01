@@ -8,7 +8,6 @@ class ASTGeneration(BKOOLVisitor):
     def visitProgram(self, ctx:BKOOLParser.ProgramContext):
         classdcls=self.visit(ctx.classdcls())
         return Program(classdcls)
-
     def visitClassdcls(self, ctx:BKOOLParser.ClassdclsContext):
         tail=[] if ctx.getChildCount()==1 else self.visit(ctx.classdcls())
         return [self.visit(ctx.classdcl())]+tail

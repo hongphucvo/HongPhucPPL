@@ -1,0 +1,6 @@
+
+        class School{
+		float a=0,m=1,x=2,l=3;
+	    }
+        class Student extends School{}
+	    

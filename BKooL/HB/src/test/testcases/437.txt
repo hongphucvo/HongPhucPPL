@@ -1,0 +1,9 @@
+
+        class A extends B {
+        int main() {
+            Geeks obj1;
+            obj1.geekname := "Abhi";
+            obj1.printname();
+            return 0;
+        }}
+	    

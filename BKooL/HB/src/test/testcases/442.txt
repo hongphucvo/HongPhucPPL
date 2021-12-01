@@ -1,0 +1,8 @@
+
+        class School{
+		bool flag = true, bflag, cflag = new Object();
+        bflag(){
+
+        }
+	    }
+	    

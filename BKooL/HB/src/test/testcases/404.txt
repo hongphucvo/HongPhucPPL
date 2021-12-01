@@ -1,0 +1,5 @@
+
+        class Hero extends Character {
+            Person a = new Person(1,4), b = new Person();
+        }
+        

@@ -1,0 +1,10 @@
+
+        class Dum_Truck {
+            Vehicle vehicle = new Dump_Truck(); 
+            Dum_Truck(){
+                this.vehicle.start_engine(); 
+                this.vehicle.drive();        
+                this.vehicle.raise_bed(); 
+            }
+        }
+	    

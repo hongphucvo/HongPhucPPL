@@ -1,0 +1,10 @@
+
+        class School extends Organization{
+        final id a;
+		School(){}
+        School searchSchool(int id){
+        if this.id == id then
+        return this;
+        }
+	    }
+	    

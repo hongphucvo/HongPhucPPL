@@ -1,0 +1,14 @@
+
+        class Test {
+            Test(int a,b; int[5] c) {
+                if a.min < c[2] then {
+                    a := new Block(a.z, b+d);
+                    a := a.v.x.a[1];
+                }
+                else {
+                    this.A := this;
+                    this.B := Test.block.function(f, "abc");
+                }
+            }
+        }
+	    

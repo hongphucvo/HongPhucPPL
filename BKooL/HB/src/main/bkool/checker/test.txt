@@ -1,0 +1,29 @@
+
+
+
+    def test_undeclared_function(self):
+        """Simple program: int main() {} """
+        #input = Program([ClassDecl(Id("a"),[]),ClassDecl(Id("b"),[])])#str(Program([ClassDecl(Id("main"),[AttributeDecl(Instance(),VarDecl(Id("a"),IntType()))])]))
+        input = """class m {
+            int a;
+        }
+        class k{int x;}
+        """
+        expect = ""
+        self.assertTrue(TestChecker.test(input,expect,400))
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

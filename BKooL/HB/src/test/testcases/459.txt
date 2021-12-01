@@ -1,0 +1,12 @@
+
+        class Test {
+            int main() {
+            #create object of Room class
+            Room room1;
+            #pass the values of private variables as arguments
+            room1.initData(42.5, 30.8, 19.2);
+            io.writeStr("Area of Room =  " + room1.calculateArea());
+            return 0;
+        }
+        }
+	    

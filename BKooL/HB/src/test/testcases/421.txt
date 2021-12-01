@@ -1,0 +1,8 @@
+
+        class ABC extends Character {
+            void main(){
+                #start of declaration part
+                m := a*b*c+d-m%10;
+            }
+        }
+        

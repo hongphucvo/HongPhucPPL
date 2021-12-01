@@ -1,0 +1,3 @@
+class A {
+            final static string a = "Abc", b = "z a@ 1";
+        }

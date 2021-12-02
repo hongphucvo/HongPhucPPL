@@ -1,4 +1,4 @@
-# Generated from main/bkool/parser/BKOOL.g4 by ANTLR 4.9.2
+# Generated from e:\hongphuc\PPL\BKooL\assignment4\src\main\bkool\parser\BKOOL.g4 by ANTLR 4.8
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -360,7 +360,7 @@ class BKOOLParser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.9.2")
+        self.checkVersion("4.8")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
@@ -368,7 +368,6 @@ class BKOOLParser ( Parser ):
 
 
     class ProgramContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -383,12 +382,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_program
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProgram" ):
-                return visitor.visitProgram(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -413,7 +406,6 @@ class BKOOLParser ( Parser ):
 
 
     class ClassdclsContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -429,12 +421,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_classdcls
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClassdcls" ):
-                return visitor.visitClassdcls(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -469,7 +455,6 @@ class BKOOLParser ( Parser ):
 
 
     class ClassdclContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -493,12 +478,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_classdcl
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClassdcl" ):
-                return visitor.visitClassdcl(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -539,7 +518,6 @@ class BKOOLParser ( Parser ):
 
 
     class MemBlockContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -557,12 +535,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_memBlock
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMemBlock" ):
-                return visitor.visitMemBlock(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -604,7 +576,6 @@ class BKOOLParser ( Parser ):
 
 
     class MemListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -620,12 +591,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_memList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMemList" ):
-                return visitor.visitMemList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -660,7 +625,6 @@ class BKOOLParser ( Parser ):
 
 
     class ClassMemberContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -676,12 +640,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_classMember
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClassMember" ):
-                return visitor.visitClassMember(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -717,7 +675,6 @@ class BKOOLParser ( Parser ):
 
 
     class AttributeDeclareContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -742,12 +699,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_attributeDeclare
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAttributeDeclare" ):
-                return visitor.visitAttributeDeclare(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -812,7 +763,6 @@ class BKOOLParser ( Parser ):
 
 
     class VartypeContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -832,12 +782,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_vartype
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVartype" ):
-                return visitor.visitVartype(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -879,7 +823,6 @@ class BKOOLParser ( Parser ):
 
 
     class PrimtypeContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -902,12 +845,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_primtype
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrimtype" ):
-                return visitor.visitPrimtype(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -936,7 +873,6 @@ class BKOOLParser ( Parser ):
 
 
     class ClasstypeContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -947,12 +883,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_classtype
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClasstype" ):
-                return visitor.visitClasstype(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -975,7 +905,6 @@ class BKOOLParser ( Parser ):
 
 
     class AttributeListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -994,12 +923,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_attributeList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAttributeList" ):
-                return visitor.visitAttributeList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1036,7 +959,6 @@ class BKOOLParser ( Parser ):
 
 
     class AttriContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1054,12 +976,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_attri
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAttri" ):
-                return visitor.visitAttri(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1096,7 +1012,6 @@ class BKOOLParser ( Parser ):
 
 
     class IdListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1114,12 +1029,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_idList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIdList" ):
-                return visitor.visitIdList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1156,7 +1065,6 @@ class BKOOLParser ( Parser ):
 
 
     class MethodDeclareContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1182,12 +1090,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_methodDeclare
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMethodDeclare" ):
-                return visitor.visitMethodDeclare(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1238,7 +1140,6 @@ class BKOOLParser ( Parser ):
 
 
     class ParamListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1256,12 +1157,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_paramList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParamList" ):
-                return visitor.visitParamList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1303,7 +1198,6 @@ class BKOOLParser ( Parser ):
 
 
     class ParamDeclareContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1322,12 +1216,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_paramDeclare
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParamDeclare" ):
-                return visitor.visitParamDeclare(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1364,7 +1252,6 @@ class BKOOLParser ( Parser ):
 
 
     class ParamContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1380,12 +1267,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_param
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParam" ):
-                return visitor.visitParam(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1410,7 +1291,6 @@ class BKOOLParser ( Parser ):
 
 
     class StmBlockContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1428,12 +1308,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_stmBlock
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStmBlock" ):
-                return visitor.visitStmBlock(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1475,7 +1349,6 @@ class BKOOLParser ( Parser ):
 
 
     class ArraytypeContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1495,12 +1368,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_arraytype
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArraytype" ):
-                return visitor.visitArraytype(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1541,7 +1408,6 @@ class BKOOLParser ( Parser ):
 
 
     class ArrayLitContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1559,12 +1425,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_arrayLit
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArrayLit" ):
-                return visitor.visitArrayLit(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1591,7 +1451,6 @@ class BKOOLParser ( Parser ):
 
 
     class SizeContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1602,12 +1461,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_size
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSize" ):
-                return visitor.visitSize(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1630,7 +1483,6 @@ class BKOOLParser ( Parser ):
 
 
     class ElemListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1649,12 +1501,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_elemList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitElemList" ):
-                return visitor.visitElemList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1691,7 +1537,6 @@ class BKOOLParser ( Parser ):
 
 
     class ElemContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1711,12 +1556,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_elem
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitElem" ):
-                return visitor.visitElem(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1745,7 +1584,6 @@ class BKOOLParser ( Parser ):
 
 
     class ExplistContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1763,12 +1601,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_explist
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExplist" ):
-                return visitor.visitExplist(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1810,7 +1642,6 @@ class BKOOLParser ( Parser ):
 
 
     class ExpsContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1829,12 +1660,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exps
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExps" ):
-                return visitor.visitExps(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1874,7 +1699,6 @@ class BKOOLParser ( Parser ):
 
 
     class ExpContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1901,12 +1725,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp" ):
-                return visitor.visitExp(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1952,7 +1770,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp1Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1973,12 +1790,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp1
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp1" ):
-                return visitor.visitExp1(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2024,7 +1835,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp2Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2046,12 +1856,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp2
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp2" ):
-                return visitor.visitExp2(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2105,7 +1909,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp3Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2127,12 +1930,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp3
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp3" ):
-                return visitor.visitExp3(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2186,7 +1983,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp4Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2214,12 +2010,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp4
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp4" ):
-                return visitor.visitExp4(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2273,7 +2063,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp5Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2292,12 +2081,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp5
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp5" ):
-                return visitor.visitExp5(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2345,7 +2128,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp6Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2364,12 +2146,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp6
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp6" ):
-                return visitor.visitExp6(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2407,7 +2183,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp7Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2425,12 +2200,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp7
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp7" ):
-                return visitor.visitExp7(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2474,7 +2243,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp8Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2494,12 +2262,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp8
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp8" ):
-                return visitor.visitExp8(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2549,7 +2311,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp9Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2575,12 +2336,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp9
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp9" ):
-                return visitor.visitExp9(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2650,7 +2405,6 @@ class BKOOLParser ( Parser ):
 
 
     class Exp10Context(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2672,12 +2426,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_exp10
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExp10" ):
-                return visitor.visitExp10(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2717,7 +2465,6 @@ class BKOOLParser ( Parser ):
 
 
     class OperandContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2746,12 +2493,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_operand
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOperand" ):
-                return visitor.visitOperand(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2807,7 +2548,6 @@ class BKOOLParser ( Parser ):
 
 
     class SubexpContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2825,12 +2565,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_subexp
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSubexp" ):
-                return visitor.visitSubexp(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2857,7 +2591,6 @@ class BKOOLParser ( Parser ):
 
 
     class StmListContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2873,12 +2606,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_stmList
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStmList" ):
-                return visitor.visitStmList(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2923,7 +2650,6 @@ class BKOOLParser ( Parser ):
 
 
     class VariablesContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2939,12 +2665,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_variables
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVariables" ):
-                return visitor.visitVariables(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2979,7 +2699,6 @@ class BKOOLParser ( Parser ):
 
 
     class VariableContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3001,12 +2720,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_variable
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVariable" ):
-                return visitor.visitVariable(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3045,7 +2758,6 @@ class BKOOLParser ( Parser ):
 
 
     class StmsContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3061,12 +2773,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_stms
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStms" ):
-                return visitor.visitStms(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3101,7 +2807,6 @@ class BKOOLParser ( Parser ):
 
 
     class StmContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3185,12 +2890,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_stm
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStm" ):
-                return visitor.visitStm(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3321,7 +3020,6 @@ class BKOOLParser ( Parser ):
 
 
     class Scala_varContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3332,12 +3030,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_scala_var
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitScala_var" ):
-                return visitor.visitScala_var(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3360,7 +3052,6 @@ class BKOOLParser ( Parser ):
 
 
     class LhsContext(ParserRuleContext):
-        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3379,12 +3070,6 @@ class BKOOLParser ( Parser ):
 
         def getRuleIndex(self):
             return BKOOLParser.RULE_lhs
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLhs" ):
-                return visitor.visitLhs(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 

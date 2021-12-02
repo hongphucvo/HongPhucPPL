@@ -1,220 +1,178 @@
-// My ID: 1912700
+/*---1911881------------------*/
+/*---Vo Hong Phuc-------------*/
 
 grammar BKOOL;
 
 @lexer::header {
 from lexererr import *
+
 }
 
 options{
 	language=Python3;
 }
 
-program: classdecl+ EOF;  
+program  		: classdcls EOF                     ;
+classdcls       : classdcl (classdcls|)             ;
+classdcl		: CLASS ID (EXTEND ID|) memBlock    ;
 
-/*classdecl: CLASS ID (EXTENDS ID)? LP memberlist* RP;
+memBlock		: LP memList RP
+				| LP RP								;
+memList			: classMember (memList|)            ;
+classMember 	: attributeDeclare
+                | methodDeclare			    		;
 
-memberlist: attribute | method;*/
+//Attribute Declaration
+//attributes	: attributeDeclare attributes|	;
+attributeDeclare: ((STATIC|) (IMMUTABLE|) | IMMUTABLE STATIC) vartype attributeList SEMI ;
+vartype			: primtype | arraytype | classtype  ;
+primtype		: INTTYPE | VOIDTYPE | FLOATTYPE
+                | STRINGTYPE | BOOLTYPE             ;
+classtype       : ID                                ;
+attributeList	: attri (COMMA attributeList|)      ;
+attri			: ID (ASG exp|)                     ;
+idList      	: ID (COMMA idList|)                ;
+//METHOD DECLR
+methodDeclare	: ((STATIC|) vartype|) ID paramList stmBlock;
+paramList   	: LB paramDeclare RB
+            	| LB RB                   			;
+paramDeclare   	: param (SEMI paramDeclare|)        ;
+param      	    : vartype idList             		;
+//param:vartyep attributeList;
 
-classdecl: CLASS ID (EXTENDS ID)? LP memberlist RP;
+//param được gán assign không??? được thì dùng attri=idlist
+stmBlock	    : LP stmList RP
+				| LP RP								;
 
-member: attribute | method;
-memberlist: member membertail |;
-membertail: member membertail |;
+//ARRAY DCLR
+arraytype		: (primtype|classtype) '[' size ']'	;
+arrayLit		: LP exps RP					;
+size            : INTLIT                            ;
+elemList        : elem (COMMA elemList|)            ;
+elem            :INTLIT|FLOATLIT|BOOLLIT|STRINGLIT;
+//assign problem
 
-// attribute declaration
-/*attribute: STATIC? alltype vardecllist SEMI
-		| (FINAL STATIC | FINAL | STATIC FINAL) alltype constdecllist SEMI;
+//EXPRESSION
+explist			: LB exps RB | LB RB				;
+exps			: exp COMMA exps
+				| exp								;
+exp				: exp1 (GT|LT|LEQ|GEQ) exp1|exp1	;		    //relational expression
+exp1            : exp2 (EQ|NEQ) exp2| exp2  				;    //relational expression
 
-vardecl: ID (EQUAL expr)?;
-vardecllist: vardecl (COMMA vardecllist)*;
+exp2            : exp2 (AND|OR) exp3|exp3				 ;   //boolean expression
+exp3			: exp3 (ADD|SUB) exp4|exp4			 ;   //arithemic expression
+exp4			: exp4 (MUL|FLOATDIV|INTDIV|MOD) exp5   //arithemic expression
+				| exp5								;
+exp5			: exp5 CON exp6	|exp6				    ;//string expression
+exp6			: NOT exp6|exp7                     ;
+exp7			: (ADD|SUB) exp8					    //sign expression
+				| exp8								;
+exp8			: exp8 '[' exp ']'                      //index
+				| exp9								;
+exp9			: exp9 DOT ID | exp9 DOT ID explist| exp10 ;
+exp10			: NEW ID explist                        //Object creation
+				| operand						    ;
+operand			: arrayLit|elem|ID  //operand value
+				| SELF | NIL| subexp                       ;
+subexp          : LB exp RB                         ;
 
-constdecl: ID EQUAL expr;
-constdecllist: constdecl (COMMA constdecllist)*;*/
-attribute: STATIC? FINAL? alltype attdecllist SEMI
-		| FINAL STATIC alltype attdecllist SEMI;
 
-attdecl: ID (EQUAL expr)?;
-attdecllist: attdecl (COMMA attdecllist)*;
+stmList	        : (variables|) (stms|)              ;
+variables	    : variable (variables|)             ;
+variable	    : (IMMUTABLE|) vartype attributeList SEMI;
+//idlist hay attributes
 
-// method declaration
-method: STATIC? alltype ID LB paraml RB blockstatement 
-		| ID LB paraml RB blockstatement;
+stms		    : stm (stms|)                       ;
+stm			    : stmBlock
+                | lhs ASGOP exp SEMI
+			    | IF exp THEN stm (ELSE stm|)
+			    | FOR scala_var ASGOP exp (TO|DOWNTO) exp DO stm
+			    | (BREAK|CONT) SEMI
+			    | RETURN exp SEMI
+			    | exp9 DOT ID explist SEMI               ;   //method invoke 5.6
 
-//paraml: param (SEMI param)* |;
-paraml: param paramtail |;
-paramtail: SEMI param paramtail |;
-param: alltype attdecllist;
-//param: alltype ID (COMMA ID)*;
-// type
-alltype: pctype | arraytype; // ID is class type
-pctype: INTTYPE | BOOLTYPE | FLOATTYPE | STRINGTYPE | VOIDTYPE | ID;
-arraytype: pctype LSB INTLIT RSB;
-INTTYPE: 'int' ;
-VOIDTYPE: 'void'  ;
-BOOLTYPE: 'boolean' ;
-FLOATTYPE: 'float' ;
-STRINGTYPE: 'string' ;
+scala_var       : ID                                ;
+lhs             : ID | exp9 | exp9 '[' exp ']';
 
-// character set
-fragment STR_CHAR: ~[\n"\\] | ESC_SEQ ;
-fragment ESC_SEQ: '\\' [btnfr"\\] ;
-fragment ESC_ILLEGAL: '\\' ~[btnfr"\\];
+CLASS		: 'class'	;
+EXTEND		: 'extends'	;
+NEW			: 'new'		;
+SELF		: 'this'	;
+NIL			: 'nil'		;
+STATIC		: 'static'	;
+IMMUTABLE	: 'final'	;
 
-// comments
-LINE_CMT : '#' ~[\n]* -> skip ;
-BLOCK_CMT: '/*' .*? '*/' -> skip ;
+INTTYPE		: 'int' 	;
+VOIDTYPE	: 'void'  	;
+FLOATTYPE	: 'float'	;
+BOOLTYPE	: 'boolean'	;
+STRINGTYPE	: 'string'	;
 
-// 5. EXPRESSION
-// expression list
-expl: expr explist | ;
-explist: COMMA expr explist | ;
 
-// define expression
-expr: expr2 (LESS | GREATER | LESSOREQ | GREATEROREQ) expr2 | expr2;
-expr2: expr1 (EQ | NOTEQ) expr1 | expr1;
-expr1: <assoc=right> NEW ID LB expl RB
-	| expr1 DOT ID (LB expl RB)?
-	| expr1 LSB expr RSB
-	| <assoc=right> (ADD | SUB) expr1
-	| <assoc=right> NOT expr1
-	| expr1 CONCAT expr1
-	| expr1 (MUL | FLOATDIV | INTDIV | MOD) expr1
-	| expr1 (ADD | SUB) expr1
-	| expr1 (AND | OR) expr1
-	| operand;
-operand: literals | THIS | ID | NIL | LB expr RB;
-// 5.1 Arithmetic expression
-ADD: '+' ;
-SUB: '-' ;
-MUL: '*' ;
-FLOATDIV: '/' ;
-INTDIV: '\\' ;
-MOD: '%' ;
-// 5.2 Boolean expression
-OR: '||';
-AND: '&&';
-NOT: '!';
-// 5.3 Relational expression
-EQUAL: '=';
-ASSIGN: ':=';
-NOTEQ: '!=';
-EQ: '==';
-LESS: '<';
-GREATER: '>';
-LESSOREQ: '<=';
-GREATEROREQ: '>=';
-// 5.4 String expression
-CONCAT: '^';
-// 5.5 Index expression
-index: expr LSB expr RSB;
-// 5.6 Member access
-method_access: expr DOT ID LB expl RB;
-att_access: expr DOT ID;
-//tail: (DOT ID (LB expl RB)*)*;  
-// 5.7 Object creation
-NEW: 'new';
-// 5.8 This
-THIS: 'this';
+IF			: 'if'		;
+ELSE		: 'else'	;
+THEN		: 'then'	;
+FOR			: 'for'		;
+TO			: 'to'		;
+DOWNTO		: 'downto'	;
+DO			: 'do'		;
+BREAK		: 'break'	;
+CONT		: 'continue';
+RETURN		: 'return'	;
 
-// 6. STATEMENT
-statement: blockstatement | insidestatement;
-blockstatement: LP decllist statementlist RP;
-insidestatement: assign_stm | if_stm | for_stm | break_stm | continue_stm | return_stm | method_stm;
-decllist: decl_stm decltail |;
-decltail: decl_stm decltail |;
-statementlist: statement statementtail |;
-statementtail: statement statementtail |;
 
-// 6.1 Block statement
-/*decl_stm: FINAL? (ptype | arraytype) vardecllist SEMI
-		| FINAL? ID objectlist SEMI;*/
-decl_stm: FINAL? alltype attdecllist SEMI;
-// 6.2 Assignment statement
-assign_stm: (ID | index | att_access) ASSIGN expr SEMI;
-// 6.3 If statement
-if_stm: IF expr THEN statement (ELSE statement)?;
-// 6.4 For statement
-for_stm: FOR ID ASSIGN expr (TO|DOWNTO) expr DO statement;
-// 6.5 Break statement
-break_stm: BREAK SEMI;
-// 6.6 Continue statement
-continue_stm: CONTINUE SEMI;
-// 6.7 Return statement
-return_stm: RETURN expr SEMI;
-// 6.8 Method Invocation statement
-method_stm: expr DOT ID LB expl RB SEMI;
+LB			: '(' 		;
+RB			: ')' 		;
+LP			: '{'		;
+RP			: '}'		;
+SEMI		: ';' 		;
+COLON		: ':'		;
+COMMA		: ','		;
+DOT			: '.'		;
+ASGOP       : ':='      ;
+ASG			: '='		;
+ADD			: '+'		;
+SUB			: '-'		;
+MUL			: '*'		;
+FLOATDIV	: '/'		;
+INTDIV		: '\\'		;
+MOD			: '%'		;
+NEQ			: '!='		;
+EQ			: '=='		;
+LT			: '<'		;
+GT			: '>'		;
+LEQ			: '<='		;
+GEQ			: '>='		;
+OR			: '||'		;
+AND			: '&&'		;
+NOT			: '!'		;
+CON			: '^'		;
 
-// seperator
-LB: '(' ;
-RB: ')' ;
 
-LP: '{';
-RP: '}';
+LINECMT		: '#' .*? ('\n'|EOF) 	    -> skip	;
+BLOCKCMT	: '/*'.*?'*/'	            -> skip	;
+WS 			: [ \t\r\n\f]+ 	            -> skip ; // skip spaces, tabs, newlines
 
-LSB: '[';
-RSB: ']';
 
-SEMI: ';' ;
-COLON: ':';
-COMMA: ',';
-DOT: '.';
-
-// literal
-INTLIT: [0-9]+;
-FLOATLIT: INTLIT ('.' [0-9]*)? [eE][+-]?INTLIT
-		| INTLIT '.' [0-9]* ([eE][+-]?INTLIT)?;
-BOOLLIT: 'true' | 'false';
-STRINGLIT: '"' STR_CHAR*'"';
-arraylit: LP literals (COMMA literals)* RP;
-literals: INTLIT | FLOATLIT | BOOLLIT | STRINGLIT | arraylit;
-
-// key words
-RETURN: 'return';
-CLASS: 'class'; //class type
-NIL: 'nil'; // value of an uninitialized variable in class type
-EXTENDS: 'extends'; // inheritance
-
-// if statement
-IF: 'if';
-THEN: 'then';
-ELSE: 'else';
-
-// loop statement
-FOR: 'for';
-TO: 'to';
-DOWNTO: 'downto';
-DO: 'do';
-BREAK: 'break';
-CONTINUE: 'continue';
-
-// variable declaration
-FINAL: 'final';
-STATIC: 'static';
-
-// identifier
-ID: [a-zA-Z_][a-zA-Z0-9_]* ;
-
-// skip spaces, tabs, newlines
-WS : [ \t\r\n\f]+ -> skip ; 
-
-//error
-ERROR_CHAR: . {raise ErrorToken(self.text)};
-UNCLOSE_STRING: '"' STR_CHAR* ('\n'| EOF)
-	{
-		text = str(self.text)
-		if text[-1] == '\n':
-			raise UncloseString(text[0:-1])
-		else:
-			raise UncloseString(text[0:])
-	}
-	;
-ILLEGAL_ESCAPE: '"' STR_CHAR* ESC_ILLEGAL
-	{
-		text = str(self.text)
-		raise IllegalEscape(text[0:])
-	}
-	;
+fragment IntegerPart :  [0-9]+			;
+fragment DecimalPart : 	'.'[0-9]*		;
+fragment ExponentPart:	[Ee][+-]?[0-9]+	;
+fragment Char		: ~["\\\r\n]  | EscapeStr;
+fragment EscapeStr :  '\\'["bfrnt\\] ;
+FLOATLIT	: IntegerPart (DecimalPart | DecimalPart? ExponentPart);
+STRINGLIT	: '"'Char*?'"'              ;
+INTLIT		: IntegerPart	            ;
+BOOLLIT		: 'true'|'false'            ;
+ID			: [a-zA-Z_][a-zA-Z0-9_]* 	;
 
 
 
+ILLEGAL_ESCAPE  :	'"' Char* '\\' ~[bfnrt"\\]
+                    {raise IllegalEscape(self.text[0:])};
+UNCLOSE_STRING  :   '"' Char* ([\n\r]|EOF)
+                    {
+                    if self.text[-1] in ["\n","\r"] :
+                        raise UncloseString(self.text[0:-1])
+                    else: raise UncloseString(self.text[0:])};
+ERROR_CHAR      :	.
+                    {raise ErrorToken(self.text)};

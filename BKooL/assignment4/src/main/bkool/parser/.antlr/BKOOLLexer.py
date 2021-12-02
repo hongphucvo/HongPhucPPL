@@ -1,11 +1,8 @@
-# Generated from main/bkool/parser/BKOOL.g4 by ANTLR 4.9.2
+# Generated from e:\hongphuc\PPL\BKooL\assignment4\src\main\bkool\parser\BKOOL.g4 by ANTLR 4.8
 from antlr4 import *
 from io import StringIO
+from typing.io import TextIO
 import sys
-if sys.version_info[1] > 5:
-    from typing import TextIO
-else:
-    from typing.io import TextIO
 
 
 from lexererr import *
@@ -317,7 +314,7 @@ class BKOOLLexer(Lexer):
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.9.2")
+        self.checkVersion("4.8")
         self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None

@@ -60,8 +60,8 @@ class TestCodeGen():
             codeGen.gen(asttree, path)
             
             subprocess.call("java  -jar "+ JASMIN_JAR + " " + path + "/BKoolClass.j",shell=True,stderr=subprocess.STDOUT)
-            
-            subprocess.run("java -cp ./lib:. BKoolClass",shell=True, stdout = f, timeout=10)
+            #vì dùng win nên ./lib:. thành ./lib;.
+            subprocess.run("java -cp ./lib;. BKoolClass",shell=True, stdout = f, timeout=10)
         except StaticError as e:
             f.write(str(e))
         except subprocess.TimeoutExpired:

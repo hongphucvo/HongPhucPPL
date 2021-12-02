@@ -2,6 +2,7 @@
 public class HelloWorld {
   
   public static void main(String[] args) {
-    System.out.println(1);    
+    boolean a=true,b=false,c=true;
+    boolean d=a||b||c;    
   }
 }

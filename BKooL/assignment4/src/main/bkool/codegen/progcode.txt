@@ -1,0 +1,80 @@
+progcode
+Võ Hồng Phúc, [12/2/2021 9:42 PM]
+def visitIf(self,ctx,o):
+        e1c,e1t=self.visit(ctx.expr,Access(o.frame,o.sym,False))
+        self.emit.printout(e1c)
+        falseLable=o.frame.getNewLabel()
+        self.emit.printout(self.emit.emitIFFALSE(falseLable,o.frame))
+        self.visit(ctx.tstmt,o)
+        
+        if not ctx.estmt:
+            self.emit.printout(self.emit.emitLABEL(falseLable,o.frame))
+        else:
+            endelse=o.frame.getNewLabel()
+            self.emit.printout(self.emit.emitGOTO(endelse,o.frame))
+            self.emit.printout(self.emit.emitLABEL(falseLable,o.frame))
+            self.visit(ctx.estmt,o)
+            self.emit.printout(self.emit.emitLABEL(endelse,o.frame))
+
+Võ Hồng Phúc, [12/2/2021 9:42 PM]
+def visitId(self,ctx,o):
+        sym=next(filter(lambda x: x.name==ctx.name, o.sym), False)
+        index=(type(sym.value) == Index)
+        if o.isLeft:
+            if type(sym.value) is Index:
+                code = self.emit.emitWRITEVAR(sym.name, sym.mtype, sym.value.value, o.frame)
+            else:
+                code = self.emit.emitPUTSTATIC(sym.value.value + "." + sym.name, sym.mtype, o.frame)
+        else:
+            if type(sym.value) is Index:
+                code = self.emit.emitREADVAR(sym.name, sym.mtype, sym.value.value, o.frame)
+            else:
+                code = self.emit.emitGETSTATIC(sym.value.value + "." + sym.name, sym.mtype, o.frame)
+        return code, sym.mtype
+
+Võ Hồng Phúc, [12/2/2021 9:43 PM]
+def visitAssign(self,ctx,o):
+        o.isLeft = False
+        code1, type1 = self.visit(ctx.rhs, o)
+        self.emit.printout(code1)
+        o.isLeft = True
+        code2, type2 = self.visit(ctx.lhs, o)
+        self.emit.printout(code2)
+
+Võ Hồng Phúc, [12/2/2021 9:43 PM]
+def visitVarDecl(self,ctx,o):
+        if o.frame is None:
+            code=self.emit.emitATTRIBUTE(ctx.name,ctx.typ,False)
+            self.emit.printout(code)
+            return Symbol(ctx.name, ctx.typ, CName(self.className))
+        else:
+            idx = o.frame.getNewIndex()
+            code=self.emit.emitVAR(idx,ctx.name,ctx.typ,o.frame.getStartLabel(), o.frame.getEndLabel())
+            self.emit.printout(code)
+            return Symbol(ctx.name, ctx.typ, Index(idx))
+
+Võ Hồng Phúc, [12/2/2021 9:48 PM]
+def visitFuncDecl(self,ctx,o):
+        isInit = ctx.returnType is None
+        returnType = VoidType() if isInit else ctx.returnType
+        intype = list(map(lambda x: x.typ, ctx.param))
+        mtype = MType(intype, returnType)
+        frame = Frame(ctx.name, returnType)
+
+        self.emit.printout(self.emit.emitMETHOD(ctx.name, mtype, not isInit))
+        frame.enterScope(True)
+        
+        for item in ctx.param:
+            self.visit(item, SubBody(frame, o.sym))
+        
+        list(map(lambda x: self.visit(x, SubBody(frame, o.sym)), ctx.body[0]))
+        
+        self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
+        
+        list(map(lambda x: self.visit(x, SubBody(frame, o.sym)), ctx.body[1]))
+        
+        self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
+        self.emit.printout(self.emit.emitENDMETHOD(frame))
+        
+        frame.exitScope()
+        return Symbol(ctx.name, MType(list(), returnType), CName(self.className))

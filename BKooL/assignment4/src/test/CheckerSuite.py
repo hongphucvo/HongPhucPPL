@@ -436,7 +436,11 @@ class CheckerSuite(unittest.TestCase):
             final int a = 3.5;
         void main(){
         string A;
-        A:="This is a string containing tab \t";}}"""
+        A:="This is a string containing tab \t";
+        \\Dòng này là dòng write chèn thêm
+        writeInt(5);
+        
+        }}"""
         expect = "Type Mismatch In Constant Declaration: ConstDecl(Id(a),IntType,FloatLit(3.5))"
         self.assertTrue(TestChecker.test(input,expect,458))
     def test_literal8(self):

@@ -28,12 +28,12 @@ class CheckCodeGenSuite(unittest.TestCase):
         expect = "4"
         self.assertTrue(TestCodeGen.test(input,expect,503))
     def test_bkool_float_ast(self):
-        input = """class BKoolClass {static void main() {io.writeFloat(1.0);}}"""
+        input = """class BKoolClass {static void main() {io.writeFloat(1e-5);}}"""
         expect = "1"
         self.assertTrue(TestCodeGen.test(input,expect,504))
     
     def test_bkool_float_ast1(self):
-        input = """class BKoolClass {static void main() {io.writeFloat(1.0+3.0);}}"""
+        input = """class BKoolClass {static void main() {io.writeFloat(1.0);}}"""
         expect = "4"
         self.assertTrue(TestCodeGen.test(input,expect,505))
     

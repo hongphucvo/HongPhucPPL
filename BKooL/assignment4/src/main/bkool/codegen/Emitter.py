@@ -17,6 +17,8 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "I"
+        elif typeIn is BoolType: 
+            return "Z"
         elif typeIn is FloatType:
             return "F"
         elif typeIn is StringType:
@@ -36,8 +38,11 @@ class Emitter():
             return "int"
         elif typeIn is FloatType:
             return "float"
+        elif typeIn is BoolType: 
+            return "boolean"
         elif typeIn is StringType:
             return "java/lang/String"
+        
         elif typeIn is VoidType:
             return "void"
         elif typeIn is ClassType:
@@ -46,7 +51,6 @@ class Emitter():
     def emitPUSHICONST(self, in_, frame):
         #in: Int or Sring
         #frame: Frame
-        
         frame.push()
         if type(in_) is int:
             i = in_
@@ -67,16 +71,16 @@ class Emitter():
     def emitPUSHFCONST(self, in_, frame):
         #in_: String
         #frame: Frame
-        
+        # TODO check str(in_)
         f = float(in_)
         frame.push()
         rst = "{0:.4f}".format(f)
         if rst == "0.0000" or rst == "1.0000" or rst == "2.0000":
             return self.jvm.emitFCONST(rst[:3])
         else:
-            return self.jvm.emitLDC(in_)           
+            return self.jvm.emitLDC(str(in_))           
 
-    ''' 
+    '''  
     *    generate code to push a constant onto the operand stack.
     *    @param in the lexeme of the constant
     *    @param typ the type of the constant
@@ -91,6 +95,8 @@ class Emitter():
         elif type(typ) is StringType:
             frame.push()
             return self.jvm.emitLDC(in_)
+            # return self.jvm.emitLDC("\"" + in_ + "\"")
+            # according to pascal
         else:
             raise IllegalOperandException(in_)
 
@@ -106,15 +112,19 @@ class Emitter():
         typeIn = type(in_)
         if typeIn is IntType:
             return self.jvm.emitIALOAD()
+        elif type(in_) is BoolType:
+            return self.jvm.emitBALOAD()
         elif typeIn is FloatType:
             return self.jvm.emitFALOAD()
         elif typeIn is StringType:
             return self.jvm.emitAALOAD()
         elif typeIn is ClassType:
             return self.jvm.emitAALOAD()
+        elif typeIn is ArrayType:
+            return self.jvm.emitAALOAD()
         else:
             raise IllegalOperandException(str(in_))
-
+         
     def emitASTORE(self, in_, frame):
         #in_: Type
         #frame: Frame
@@ -126,11 +136,15 @@ class Emitter():
         typeIn = type(in_)
         if typeIn is IntType:
             return self.jvm.emitIASTORE()
+        elif typeIn is BoolType:
+            return self.jvm.emitBASTORE()
         elif typeIn is FloatType:
-            return self.jvm.emitFASTORE()
+            return self.jvm.emitFASTORE()        
         elif typeIn is StringType:
             return self.jvm.emitAASTORE()
         elif typeIn is ClassType:
+            return self.jvm.emitAASTORE()
+        elif typeIn is ArrayType:
             return self.jvm.emitAASTORE()
         else:
             raise IllegalOperandException(str(in_))
@@ -163,6 +177,8 @@ class Emitter():
         
         typeIn = type(inType)
         if typeIn is IntType:
+            return self.jvm.emitILOAD(index)
+        if typeIn is BoolType:
             return self.jvm.emitILOAD(index)
         elif typeIn is FloatType:
             return self.jvm.emitFLOAD(index)
@@ -199,7 +215,7 @@ class Emitter():
         #..., value -> ...
         frame.pop()
         typeIn = type(inType)
-        if typeIn is IntType:
+        if typeIn is IntType or typeIn is BoolType:
             return self.jvm.emitISTORE(index)
         elif typeIn is FloatType:
             return self.jvm.emitFSTORE(index)
@@ -229,6 +245,12 @@ class Emitter():
         buffer.append(self.emitPUSHICONST(size,frame))
         buffer.append(self.jvm.emitNEWARRAY(self.getFullType(type)))
         return ''.join(buffer)
+
+
+
+
+
+
     ''' generate the field (static) directive for a class mutable or immutable attribute.
     *   @param lexeme the name of the attribute.
     *   @param in the type of the attribute.
@@ -239,6 +261,26 @@ class Emitter():
         #in_: Type
         #isFinal: Boolean
         #value: String
+        # self.jvm.emitINSTANCEFIELD
+        
+
+        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), isFinal)
+    def emitINSTANCEATTRIBUTE(self, lexeme, in_, isFinal, value):
+        #lexeme: String
+        #in_: Type
+        #isFinal: Boolean
+        #value: String
+        # self.jvm.emitINSTANCEFIELD
+        
+
+        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), isFinal)
+    def emitSTATICATTRIBUTE(self, lexeme, in_, isFinal, value):
+        #lexeme: String
+        #in_: Type
+        #isFinal: Boolean
+        #value: String
+        # self.jvm.emitINSTANCEFIELD
+        
 
         return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), isFinal)
 
@@ -280,6 +322,10 @@ class Emitter():
         list(map(lambda x: frame.pop(), in_))
         frame.push()
         return self.jvm.emitNEW(lexeme)
+
+
+
+
     ''' generate code to invoke a static method
     *   @param lexeme the qualified name of the method(i.e., class-name/method-name)
     *   @param in the type descriptor of the method.
@@ -361,6 +407,8 @@ class Emitter():
         result.append(self.emitPUSHICONST("false", frame))
         # result.append(emitPUSHCONST("false", in_, frame))
         result.append(self.emitLABEL(label2, frame))
+        #frame.pop()
+        #according to pascal
         return ''.join(result)
 
     '''

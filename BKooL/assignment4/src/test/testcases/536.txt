@@ -1,0 +1,9 @@
+class A{
+        static void main(){
+                io.writeBool(2022.5==789);
+            }
+        int main(){
+          float number, root;
+          {}
+          }
+        }

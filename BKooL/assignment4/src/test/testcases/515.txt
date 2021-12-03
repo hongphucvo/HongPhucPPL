@@ -1,0 +1,6 @@
+class A{
+            int x(){ int m; m:=k;}
+            static void main(){
+                io.writeInt(-1*3);
+            }
+        }

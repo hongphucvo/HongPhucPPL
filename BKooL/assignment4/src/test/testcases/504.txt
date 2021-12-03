@@ -1,1 +1,1 @@
-class BKoolClass {static void main() {io.writeFloat(1e-5);}}
+class BKoolClass {static void main() {io.writeFloat(1.0);}}

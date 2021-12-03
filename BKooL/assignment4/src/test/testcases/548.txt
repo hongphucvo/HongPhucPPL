@@ -1,0 +1,7 @@
+class X{
+            static void main(){
+                io.writeFloat(2023.7);
+                io.writeStr("SIDKAHS/*-/23982\");
+            }
+            void k(){io.writeInt(1+4-e);}
+            X(){}}

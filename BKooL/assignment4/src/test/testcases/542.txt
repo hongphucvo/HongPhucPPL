@@ -1,0 +1,11 @@
+class School{
+        int id;
+        static void main(){
+                this.print();
+            }
+        void print(){io.writeFloat(5+7-9/88);}}
+        class Faculty{int id;
+        void Faculty(){
+            this.id:=1911881;
+        }}
+        

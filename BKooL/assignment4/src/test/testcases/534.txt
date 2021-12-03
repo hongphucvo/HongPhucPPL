@@ -1,0 +1,10 @@
+class m{
+            m(){
+                if true then {return 1.3;}
+            }
+
+            static void main(){
+                io.writeFloat(2022.3+54);
+            }
+
+        }

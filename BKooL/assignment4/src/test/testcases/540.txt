@@ -1,0 +1,12 @@
+class School{        
+            int id;        
+            void print(){
+                io.writeInt(this.id);
+            }
+            static void main(){
+                io.writeFloat(2022.9);
+                this.id=6;
+                io.writeInt(this.id);
+                
+            }
+        }

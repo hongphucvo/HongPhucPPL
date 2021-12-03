@@ -30,6 +30,8 @@ class Emitter():
         elif typeIn is cgen.MType:
             return "(" + "".join(list(map(lambda x: self.getJVMType(x), inType.partype))) + ")" + self.getJVMType(inType.rettype)
         elif typeIn is ClassType:
+            if inType.classname.name == "StringBuilder":
+                return "Ljava/lang/StringBuilder;"
             return "L" + inType.classname.name + ";"
 
     def getFullType(self,inType):
@@ -46,6 +48,8 @@ class Emitter():
         elif typeIn is VoidType:
             return "void"
         elif typeIn is ClassType:
+            if inType.classname.name == "StringBuilder":
+                return "java/lang/StringBuilder"
             return inType.classname.name
 
     def emitPUSHICONST(self, in_, frame):
@@ -265,6 +269,7 @@ class Emitter():
         
 
         return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), isFinal)
+            
     def emitINSTANCEATTRIBUTE(self, lexeme, in_, isFinal, value):
         #lexeme: String
         #in_: Type
@@ -501,6 +506,9 @@ class Emitter():
 
         frame.pop()
         frame.pop()
+        if type(in_) is FloatType:
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.emitPUSHICONST(0,frame))
         if op == ">":
             result.append(self.jvm.emitIFICMPLE(labelF))
         elif op == ">=":

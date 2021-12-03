@@ -1,0 +1,10 @@
+class A{
+            static void main(){
+                io.writeFloat(2022.1);
+            }
+    int main(){
+    int b;
+    {int a;}
+    return 0.5;
+    }
+}

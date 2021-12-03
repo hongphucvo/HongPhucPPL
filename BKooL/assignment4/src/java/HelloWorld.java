@@ -1,8 +1,21 @@
 
 public class HelloWorld {
-  
-  public static void main(String[] args) {
-    boolean a=true,b=false,c=true;
-    boolean d=a||b||c;    
-  }
+  // static final int a(){
+  //   return 1;
+  // }
+  // static final int b =123;
+  // static int x(){return 1;};
+  // static int y=1;
+ 
+  // final int c(){
+  //   return 1;
+  // }
+  // final int d=1;
+  // int z=1;
+  // int w(){
+  //   return 1;
+  // }
+  	public static void main(String[] args) {
+      int a=1;
+	}
 }

@@ -1,0 +1,7 @@
+class A{int main(){
+  final float number = root;
+  this.root:=5;}
+            static void main(){
+                io.writeFloat(2022.6);
+            }
+}

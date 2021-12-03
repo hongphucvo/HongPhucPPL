@@ -1,0 +1,10 @@
+class m{
+            int x(){
+                if (true)
+                    int a=7();
+                io.writeBool(true);
+            }
+            static void main(){
+                io.writeInt("2021"^"27247");
+            }
+        }

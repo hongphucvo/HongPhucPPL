@@ -1,0 +1,8 @@
+class m extends io{
+            static void main(){
+                io.writeFloat(2023.2);
+            }
+            int x(){
+            this.writeInt(1++35+8+6-4-5-2);
+            }
+        }

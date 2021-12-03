@@ -1,0 +1,11 @@
+class A{
+            static void main(){
+                io.writeFloat(2023.5);
+                io.writeInt(this.main());
+            }
+            int main(){
+                int a = (1234+9857-(6574*(8754-87/3\1)));
+                io.writeFoat(a);
+                return 1;
+            }
+        }

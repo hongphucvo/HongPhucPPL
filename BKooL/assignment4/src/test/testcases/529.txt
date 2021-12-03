@@ -1,0 +1,11 @@
+class m{
+            int x(){
+                io.writeInt(9);
+                return 2;
+            }
+            static void main(){
+                if(false)
+                    io.writeInt(2020);
+                io.writeInt(2020);
+            }
+        }

@@ -1,0 +1,12 @@
+
+        class A {
+            int[1] k;
+            static void main(){
+                bool x=true;
+                io.writeBoolLn(x);
+                io.writeInt(2013);
+            }
+            int x()
+            {  this.k[2]:=2.5;
+            }
+            }

@@ -302,9 +302,10 @@ class MachineCode(ABC):
         #isFinal: Boolean
         pass
     @abstractmethod
-    def emitINSTANCEFIELD(self, lexeme, typ):
+    def emitINSTANCEFIELD(self, lexeme, typ, isFinal):
         #lexeme: String
         #typ: String
+        #isFinal: Boolean
         pass
     @abstractmethod
     def emitRETURN(self):
@@ -665,10 +666,14 @@ class JasminCode(MachineCode):
         else:
             return ".field static " + lexeme + " " + typ + JasminCode.END
     
-    def emitINSTANCEFIELD(self, lexeme, typ):
+    def emitINSTANCEFIELD(self, lexeme, typ,isFinal):
         #lexeme: String
         #typ: String
-        return ".field " + lexeme + " " + typ + JasminCode.END
+        #isFinal: Boolean
+        if isFinal:
+            return ".field final " + lexeme + " " + typ + JasminCode.END
+        else:
+            return ".field " + lexeme + " " + typ + JasminCode.END
     
     def emitRETURN(self):
         return JasminCode.INDENT + "return" + JasminCode.END

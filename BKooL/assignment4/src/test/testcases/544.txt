@@ -1,0 +1,7 @@
+class m {int x(){
+                io.writeInt(0);
+            }
+            static void main(){
+                io.writeFloat(2023.3);
+            }
+        }

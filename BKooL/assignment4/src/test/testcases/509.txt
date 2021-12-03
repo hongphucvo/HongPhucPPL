@@ -1,0 +1,7 @@
+class A{
+            float x=5.0;
+
+            static void main(){
+                io.writeFloat(x);
+            }
+        }

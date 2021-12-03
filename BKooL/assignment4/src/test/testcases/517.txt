@@ -1,0 +1,10 @@
+class A{
+           void x(){
+                int[1] m={4};
+                
+                io.writeInt(2010);
+            }
+            static void main(){
+                io.writeInt(5);
+            }
+        }

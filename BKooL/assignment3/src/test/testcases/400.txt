@@ -1,1 +1,8 @@
-Program([ClassDecl(Id(a),Id(b),[])])
+class A {
+            int x(){
+                for i:=5 downto 10 do {continue;} 
+            }
+            static void main(){
+                io.writeInt(12);
+            }
+        }

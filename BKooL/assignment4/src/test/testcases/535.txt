@@ -1,0 +1,11 @@
+class m{
+            int x(){
+                io.writeStr("123456");
+            }
+
+            static void main(){
+                io.writeFloat(2022.4);
+                io.writeStr("123456");
+            }
+
+        }

@@ -1,0 +1,13 @@
+class X{
+            int k;
+            static void main(){
+                io.writeStr("hippo1");
+                X m;
+                m.k=5;
+                io.writeBool(this.mod2(m));
+            }
+            boolean mod2(X source){
+                if (this.k%2==0 )&&(source.k%2==0) then return true;
+                else return false;
+            }
+            }

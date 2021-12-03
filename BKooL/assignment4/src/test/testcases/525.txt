@@ -1,0 +1,5 @@
+class M{
+            static void main(){
+                io.writeFloat(7/7/7/7)
+            }
+            }

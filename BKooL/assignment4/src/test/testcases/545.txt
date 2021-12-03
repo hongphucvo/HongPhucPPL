@@ -1,0 +1,16 @@
+class School{
+        static int id;
+        static void main(){
+            Faculty x;
+            x.print();
+                io.writeFloat(2023.4);
+            }
+        void print(){
+        int a=100;
+        io.writeInt(a);}
+        }
+        class Faculty extends School{
+            void print(){
+                io.writeInt(1);
+            }
+        }

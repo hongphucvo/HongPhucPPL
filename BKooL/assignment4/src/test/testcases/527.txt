@@ -1,0 +1,7 @@
+class me extends io{
+            int x=5;
+            static void main(){
+
+                io.writeInt(this.x+6);
+            }
+            }

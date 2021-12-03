@@ -1,0 +1,7 @@
+
+        class A {
+            int A;
+            static void main(){
+                io.writeBool(7-5!=4*3)
+            }
+        }

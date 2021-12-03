@@ -3,7 +3,33 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckerSuite(unittest.TestCase):
- #   '''
+    
+    def test_un_parent(self):
+        input = """class A {
+            int x(){
+                for i:=5 downto 10 do {continue;} 
+            }
+            static void main(){
+                io.writeInt(12);
+            }
+        }"""
+        expect = "Undeclared Class: b"
+        self.assertTrue(TestChecker.test(input,expect,400))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    '''
     def test_un_parent(self):
         input = Program([ClassDecl(Id("a"),[],Id("b"))])
         expect = "Undeclared Class: b"
@@ -354,7 +380,7 @@ class CheckerSuite(unittest.TestCase):
                 }"""
         expect = ""
         self.assertTrue(TestChecker.test(input,expect,449))
-    #'''
+    #"""
     def test_t02(self):
         input = """class X{
             int k;
@@ -909,4 +935,4 @@ a[0]:= s;
         }}"""
         expect = "Type Mismatch In Statement: Call(Id(io),Id(readInt),[Id(x)])"
         self.assertTrue(TestChecker.test(input,expect,499))
-    
+    '''

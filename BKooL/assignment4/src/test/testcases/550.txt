@@ -1,0 +1,13 @@
+class X{
+            int k;
+            static void main(){
+                X m;
+                m.k=5;
+                io.writeBool(this.lessthan(m));
+            }
+            boolean lessthan(X source){
+                if this.k<source.k then return true;
+                else if this.k==source.k then return false;
+                else return false;
+            }
+            }

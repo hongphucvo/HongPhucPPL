@@ -1,0 +1,12 @@
+class X{
+            static void main(){
+                io.writeInt(this.main());
+            }
+                int main(){
+                boolean _=true||false;
+                int a=+1-5;
+                boolean  e= _;
+                io.writeBool(_);
+                return a;
+                }
+                }

@@ -1,0 +1,7 @@
+class A{
+            int x(){ string a="5";return 5;}
+            static void main(){
+                string x="5.2";
+                io.writeInt(x);
+            }
+        }

@@ -1,0 +1,7 @@
+class A{
+            string x="1";
+            static void main(){
+                io.writeStr(x);
+            }
+
+        }

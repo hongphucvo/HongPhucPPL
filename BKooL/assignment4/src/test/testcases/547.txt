@@ -1,0 +1,7 @@
+class X{
+        int[2]m;
+        static void main(){
+                io.writeFloat(2023.6);
+            }
+         void X(){
+         this.m:={1,2};}}

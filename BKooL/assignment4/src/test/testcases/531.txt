@@ -1,0 +1,11 @@
+class m{
+            int x(){
+                io.writeStr("123456");
+            }
+            static void main(){
+                string a="";
+                if a!="1"
+                    io.writeInt(2022);
+                io.writeStr(a);
+            }
+        }

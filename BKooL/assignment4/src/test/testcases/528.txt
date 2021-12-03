@@ -1,0 +1,10 @@
+class m{
+            int x(){
+                io.writeInt(9);
+            }
+            static void main(){
+                if (true)
+                    io.writeInt(2019);
+                else io.writeFloat(7.0);
+            }
+        }

@@ -1,0 +1,6 @@
+class A{
+            int x(){ int a=5;a:=2.1;}
+            static void main(){int a=5;a:=2;
+                io.writeInt(a+7);
+            }
+        }

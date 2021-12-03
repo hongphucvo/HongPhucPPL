@@ -1,0 +1,12 @@
+class School{
+        int id=4;
+        static void main(){
+                io.writeFloat(2023.1);
+                this.print();
+            }
+        void print(){io.writeInt(this.id);}
+        int go(int a,b;float d){
+            io.writeInt(0);
+
+        }
+        }

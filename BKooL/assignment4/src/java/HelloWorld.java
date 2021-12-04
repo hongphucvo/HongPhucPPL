@@ -16,6 +16,7 @@ public class HelloWorld {
   //   return 1;
   // }
   	public static void main(String[] args) {
-      int a=1;
+      int a;
+      a=1;
 	}
 }

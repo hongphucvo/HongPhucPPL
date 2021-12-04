@@ -160,14 +160,25 @@ class Emitter():
     *   @param fromLabel the starting label of the scope where the variable is active.
     *   @param toLabel the ending label  of the scope where the variable is active.
     '''
-    def emitVAR(self, in_, varName, inType, fromLabel, toLabel, frame):
+    def emitVAR(self, in_, varName, inType, fromLabel, toLabel, frame, isFinal):
         #in_: Int
         #varName: String
         #inType: Type
         #fromLabel: Int
         #toLabel: Int
         #frame: Frame
-        
+        if not isFinal:
+            return 
+        return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
+    def emitCONST(self, in_, varName, inType, fromLabel, toLabel, frame):
+        #in_: Int
+        #varName: String
+        #inType: Type
+        #fromLabel: Int
+        #toLabel: Int
+        #frame: Frame
+        # return ".var " + str(in_) + " is " + varName + " " + inType + " from Label" + str(fromLabel) + " to Label" + str(toLabel) + JasminCode.END 
+    
         return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
 
     def emitREADVAR(self, name, inType, index, frame):

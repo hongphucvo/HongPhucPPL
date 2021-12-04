@@ -82,13 +82,34 @@ class CheckCodeGenSuite(unittest.TestCase):
         self.assertTrue(TestCodeGen.test(input,expect,557))
     
 '''
+
+
+
+    '''
     def test_bkool_bool1(self):
         input = """class BKoolClass {static void main() {int a;}}"""
         expect = ""
         self.assertTrue(TestCodeGen.test(input,expect,558))
     
+    def test_bkool_bool1(self):
+        input = """class BKoolClass {static void main() {final int a;}}"""
+        expect = ""
+        self.assertTrue(TestCodeGen.test(input,expect,559))
+    
+'''
 
-
+#TODO: const and var check
+    def test_bkool_bool1(self):
+        input = """class BKoolClass { static void main() {int a;a:=1;}}"""
+        expect = ""
+        self.assertTrue(TestCodeGen.test(input,expect,559))
+    
+'''
+    def test_bkool_bool1(self):
+        input = """class BKoolClass {int b; static void main() {int a;a:=1;}}"""
+        expect = ""
+        self.assertTrue(TestCodeGen.test(input,expect,559))
+    '''
 
 
 

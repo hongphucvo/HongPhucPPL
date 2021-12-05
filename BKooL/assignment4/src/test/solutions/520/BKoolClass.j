@@ -16,12 +16,15 @@ Label1:
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	iconst_0
-	invokestatic io/writeBool(Z)V
+.var 1 is x Lbool; from Label0 to Label1
+	iconst_1
+	astore_1
+	sipush 2013
+	invokestatic io/writeInt(I)V
 Label1:
 	return
 .limit stack 2
-.limit locals 1
+.limit locals 2
 .end method
 
 .method public static <clinit>()V

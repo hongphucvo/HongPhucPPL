@@ -23,7 +23,7 @@ Label0:
 	invokestatic io/writeInt(I)V
 Label1:
 	return
-.limit stack 2
+.limit stack 1
 .limit locals 2
 .end method
 

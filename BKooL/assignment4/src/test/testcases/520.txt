@@ -1,13 +1,7 @@
 
         class BKoolClass{
-            int[1] k;
             static void main(){
                 bool x=true;
-                io.writeBoolLn(x);
                 io.writeInt(2013);
-            }
-            int x()
-            {  this.k[0]:=2;
-            return 5;
             }
             }

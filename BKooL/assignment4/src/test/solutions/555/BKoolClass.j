@@ -20,7 +20,7 @@ Label0:
 	invokestatic io/writeStr(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 2
+.limit stack 1
 .limit locals 1
 .end method
 

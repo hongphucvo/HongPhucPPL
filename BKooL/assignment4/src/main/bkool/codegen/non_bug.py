@@ -4,11 +4,12 @@ from Frame import Frame
 from abc import ABC
 from Visitor import * 
 from AST import *
+from Utils import *
+
 class MType:
-    def __init__(self,partype,rettype,skind=Static()):
+    def __init__(self,partype,rettype):
         self.partype = partype
         self.rettype = rettype
-        self.skind  = skind
 
 class Symbol:
     def __init__(self,name,mtype,value = None):
@@ -94,7 +95,6 @@ class CodeGenVisitor(BaseVisitor):
         
         # print(self.env[0])
         #field decl
-        
         [map(lambda x: self.visit(x,c) ,filter(lambda x: type(x) is AttributeDecl,ast.memlist))]
         
         
@@ -114,8 +114,8 @@ class CodeGenVisitor(BaseVisitor):
         # [map(lambda x:self.visit(x,SubBody(None, self.env)),[filter(lambda mem: type(mem)is MethodDecl, ast.memlist)])]
        
         [self.visit(ele, SubBody(Frame(ele.name, ele.returnType), self.env)) for ele in ast.memlist if type(ele) == MethodDecl]
-        
-        self.genCLINITMETHOD(ast, c, Frame("<clinit>", VoidType() ))
+      
+        self.genCLINITMETHOD(MethodDecl(Instance(),Id("<clinit>"), list(), None,Block([],[])), c, Frame("<clinit>", VoidType() ))
         #TODO clinit handle put static cho .field static y=1, chơi luôn final đi
         self.emit.emitEPILOG()
         return c
@@ -126,8 +126,8 @@ class CodeGenVisitor(BaseVisitor):
         isMain = consdecl.name.name == "main" and len(consdecl.param) == 0 and type(consdecl.returnType) is VoidType
         returnType = VoidType() if isInit else consdecl.returnType
         # methodName = "<init>" if isInit else consdecl.name.name
-        intype = [ArrayType(0,StringType())] if isMain else list(map(lambda x: x.varType,consdecl.param))
-        mtype = MType(intype, returnType,consdecl.kind)
+        intype = [ArrayType(0,StringType())] if isMain else list(map(lambda x: x.typ,consdecl.param))
+        mtype = MType(intype, returnType)
         isStatic=True if isMain else \
             False if isInit else type(consdecl.kind) is Static
         self.emit.printout(self.emit.emitMETHOD(consdecl.name.name, mtype, isStatic,frame))
@@ -166,7 +166,7 @@ class CodeGenVisitor(BaseVisitor):
         # // call super's constructor
         # emitter.printout(emitter.emitREADVAR(0, "this", ClassType(className), frame))
         # //: call super's constructor: <methodType>???
-            # self.emit.printout(self.emit.emitINVOKESPECIAL(superClass + "/<init>",  MType(List(), VoidType()) if (superClass == "java/lang/Object") else methodType, frame))
+        # emitter.printout(emitter.emitINVOKESPECIAL(superClass + "/<init>", if (superClass == "java/lang/Object") MethodType(List(), VoidType) else methodType, frame))
         # emitter.printout("\n")
         #first in init
 
@@ -192,66 +192,54 @@ class CodeGenVisitor(BaseVisitor):
         frame.exitScope()
     def genCLINITMETHOD(self, consdecl, o, frame):
         #included default init and init
+        isInit = True
+        isMain = False
         self.emit.printout(self.emit.emitMETHOD("<clinit>", MType([], VoidType()), True,frame))
         frame.enterScope(True)
-        att=list(filter(lambda x:type(x)is AttributeDecl and type(x.kind)is Static,consdecl.memlist))
-        list(map(lambda x: self.visit(Assign(x.decl.variable,x.decl.varInit),SubBody(frame,o)) if type(x.decl) is VarDecl else\
-            self.visit(Assign(x.decl.constant,x.decl.value),SubBody(frame,o)),att))
-        # for x in consdecl.memlist:
-
-        #     if type(x.kind) is Static:
-        #         if type(x.decl) is VarDecl:
-        #             self.visit(Assign(x.decl.variable.name,x.decl.varInit),SubBody(frame,o))
-        #         else:
-        #             self.visit(Assign(x.decl.constant.name,x.decl.value),SubBody(frame,o))
-                
+        
         
         #field init value for static
         # self.emit.printout(self.emit.emitFieldInitialization(self.className, true, frame))
         self.emit.printout(self.emit.emitRETURN(VoidType(), frame))
         self.emit.printout(self.emit.emitENDMETHOD(frame))
         frame.exitScope()
-    def genDEFAULTINITMETHOD(self, consdecl, o, frame):
-        #included default init and init
-        isInit = True
-        self.emit.printout(self.emit.emitMETHOD("<init>", MType([ClassType(Id(self.className))], VoidType()), False,frame))
-        frame.enterScope(True)
-        self.emit.printout(self.emit.emitVAR(frame.getNewIndex(), "this", ClassType(Id(self.className)), frame.getStartLabel(), frame.getEndLabel(),frame,False))
-        att=list(filter(lambda x:type(x)is AttributeDecl and type(x.kind)is Instance,consdecl.memlist))
-        list(map(lambda x: self.visit(Assign(x.decl.variable.name,x.decl.varInit),SubBody(frame,o)) if type(x.decl) is VarDecl else\
-            self.visit(Assign(x.decl.constant.name,x.decl.value),SubBody(frame,o)),att))
+    # def genDEFAULTINITMETHOD(self, consdecl, o, frame):
+    #     #included default init and init
+    #     isInit = True
+    #     self.emit.printout(self.emit.emitMETHOD("<init>", MType([ClassType(self.className)], VoidType()), False,frame))
+    #     frame.enterScope(True)
+    #     self.emit.printout(self.emit.emitVAR(frame.getNewIndex(), "this", ClassType(Id(self.className)), frame.getStartLabel(), frame.getEndLabel(),frame))
         
         
         
-        #TODO emit gán giá trị cho non static
+    #     #TODO emit gán giá trị cho non static
 
-        self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
+    #     self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
 
-        # Generate code for statements
-        if isInit:
-            self.emit.printout(self.emit.emitREADVAR("this", ClassType(Id(self.className)), 0, frame))
-            self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
+    #     # Generate code for statements
+    #     if isInit:
+    #         self.emit.printout(self.emit.emitREADVAR("this", ClassType(Id(self.className)), 0, frame))
+    #         self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
        
-        self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
-        self.emit.printout(self.emit.emitRETURN(VoidType(), frame))
-        self.emit.printout(self.emit.emitENDMETHOD(frame))
-        frame.exitScope()
+    #     self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
+    #     self.emit.printout(self.emit.emitRETURN(VoidType(), frame))
+    #     self.emit.printout(self.emit.emitENDMETHOD(frame))
+    #     frame.exitScope()
     
     def visitMethodDecl(self, ast, o):
         # frame = Frame(ast.name, ast.returnType)
         self.genMETHOD(ast, o.sym, o.frame)
         # return Symbol(ast.name, MType([x.typ for x in ast.param], ast.returnType), CName(self.className))
       
-    def visitAttributeDecl(self,ast,o):
-        # kind: SIKind #Instance or Static
-        # decl: StoreDecl # VarDecl for mutable or ConstDecl for immutable
-        field=ast.decl
-        # if type(ast.kind) is Static:
-        if type(field)is VarDecl:
-            self.emit.emitATTRIBUTE(field.name.name,field.varType,False)
-        else:
-            self.emit.emitATTRIBUTE(field.name.name,field.varType,True)
+    # def visitAttributeDecl(self,ast,o):
+    #     kind: SIKind #Instance or Static
+    #   decl: StoreDecl # VarDecl for mutable or ConstDecl for immutable
+        # field=ast.decl
+        # # if type(ast.kind) is Static:
+        # if type(field)is VarDecl:
+        #     self.emit.emitATTRIBUTE(field.name.name,field.varType,False)
 
+    #     return None
     def visitVarDecl(self,ast,o):
         #TODO: value init
     # variable : Id
@@ -271,9 +259,6 @@ class CodeGenVisitor(BaseVisitor):
             # Decl mot bien local hoac param
         idx = frame.getNewIndex()
         self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame,False))
-        if ast.varInit:
-            #TODO Bug
-            self.visit(Assign(ast.variable,ast.varInit),SubBody(o.frame,[Symbol(name, mtype, Index(idx))]+o.sym))
         return Symbol(name, mtype, Index(idx))
 
         # return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
@@ -301,7 +286,10 @@ class CodeGenVisitor(BaseVisitor):
             # Decl mot bien local hoac param
         idx = frame.getNewIndex()
         self.emit.printout(self.emit.emitCONST(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
-        return  Symbol(name, mtype, Index(idx))
+        return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
+    def visitFieldAccess(self,ast,o):
+        #TODO 
+        pass
 
     def visitBlock(self,ast,o):
         
@@ -335,47 +323,13 @@ class CodeGenVisitor(BaseVisitor):
         in_ = ("", list())
         # val caller = visit(ast.parent, AccessContext(context, isLhs = false, isFirstAccess = true)).asInstanceOf[DataObject]
         # emitter.printout(caller.code)
+
         for x in ast.param:
             str1, typ1 = self.visit(x, Access(frame, nenv, False, True))
             in_ = (in_[0] + str1, in_[1].append(typ1))
-        if type(ctype.skind) is Static:
-            # des=None if cname=="io" else ctype
-            
-            # self.emit.printout(self.emit.emitGETSTATIC(cname + "/" + ast.method.name,ctype, frame))
-            self.emit.printout(in_[0])
-            # self.emit.printout(self.emit.emitINVOKEVIRTUAL(cname + "/" + ast.method.name, ctype, frame))
-            self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
-        else:
-            # self.emit.printout(self.emit.emitGETFIELD(cname + "/" + ast.method.name ,ctype, frame))
-            self.emit.printout(in_[0])
-            self.emit.printout(self.emit.emitINVOKEVIRTUAL(cname + "/" + ast.method.name, ctype, frame))
-        # self.emit.printout(in_[0])
-        # self.emit.printout(in_[0])
-        # self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
-        
-    def visitFieldAccess(self,ast,o):
-        #TODO 
-        ctxt = o
-        frame = ctxt.frame
-        nenv = ctxt.sym
-        # sym = next(filter(lambda x: ast.fieldname.name == x.name,nenv),None)
-        sym=self.lookup(ast.fieldname.name,nenv,lambda x: x.name)
-        cname = sym.value.value    
-        ctype = sym.mtype
-        # val caller = visit(ast.parent, AccessContext(context, isLhs = false, isFirstAccess = true)).asInstanceOf[DataObject]
-        # emitter.printout(caller.code)
-        oc,ot=self.visit(ast.obj,Access(frame,o.sym,False))
-        if not o.isLeft:
-            if type(ctype.skind) is Static:
-                return oc+self.emit.emitGETSTATIC(cname + "/" + ast.fieldname.name ,ctype, frame),ctype.rettype
-            else:
-                return oc+self.emit.emitGETFIELD(cname + "/" + ast.fieldname.name  ,ctype, frame),ctype.rettype
-        else:            
-            if type(ctype.skind) is Static:
-                return oc+self.emit.emitPUTSTATIC(cname + "/" + ast.fieldname.name ,ctype, frame),ctype.rettype
-            else:
-                return oc+self.emit.emitPUTFIELD(cname + "/" + ast.fieldname.name ,ctype, frame),ctype.rettype
-
+        self.emit.printout(in_[0])
+        self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
+    
     def visitFor(self,ast,o):
     # id:Id
     # expr1:Expr
@@ -473,11 +427,12 @@ class CodeGenVisitor(BaseVisitor):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
-        str1, typ1 = self.visit(ast.expr, Access(frame, nenv, False))
-        if type(typ1) is IntType and type(frame.returnType) is FloatType:
-            str1 += self.emit.emitI2F(frame)
-        self.emit.printout(str1)
-        # self.emit.printout(self.visit(ast.expr,Access(frame,nenv,False)))    
+        typ1=VoidType()
+        if ast.expr is not None:
+            str1, typ1 = self.visit(ast.expr, Access(frame, nenv, False, True))
+            if type(typ1) is IntType and type(frame.returnType) is FloatType:
+                str1 += self.emit.emitI2F(frame)
+            self.emit.printout(str1)
         self.emit.printout(self.emit.emitRETURN(typ1, frame))        
         #TODO: GOTO or not GOTO
         self.emit.printout(self.emit.emitGOTO(frame.getEndLabel(), frame))
@@ -503,9 +458,9 @@ class CodeGenVisitor(BaseVisitor):
             # gan mot gia tri cho mot bien
         rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
         lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
-
         if type(rt) is IntType and type(lt) is FloatType:
             rc += self.emit.emitI2F(frame)
+        print(rc+lc)
         self.emit.printout(rc + lc)
 
         # return None
@@ -529,14 +484,14 @@ class CodeGenVisitor(BaseVisitor):
             if leftType!=rightType:
                 if leftType is FloatType:
                     rightVal +=self.emit.emitI2F(frame)
-                    rightType=FloatType()
+                    rightType=FloatType
                 else:
                     leftVal += self.emit.emitI2F(frame)
-                    leftType=FloatType()
+                    leftType=FloatType
             if leftType is FloatType or rightType is FloatType or ast.op=='/' :
-                rType=FloatType()
+                rType=FloatType
             else:
-                rType = IntType()
+                rType = IntType
             if ast.op in ['+','-']:
                 return leftVal + rightVal+ self.emit.emitADDOP(ast.op, rType, frame), rType
             elif ast.op in ['*','/']:
@@ -647,6 +602,24 @@ class CodeGenVisitor(BaseVisitor):
 
     
 
+
+
+
+
+  
+class MType:
+    def __init__(self,partype,rettype):
+        self.partype = partype
+        self.rettype = rettype
+
+class Symbol:
+    def __init__(self,name,mtype,value = None):
+        self.name = name
+        self.mtype = mtype
+        self.value = value
+    def __str__(self):
+        return "Symbol("+self.name+","+str(self.mtype)+")"
+  
 class GetName(BaseVisitor):
     def visitProgram(self, ast,  o):
         return reduce (lambda env,x:self.visit(x,env)+env,ast.decl,[])
@@ -659,16 +632,16 @@ class GetName(BaseVisitor):
         # return self.visit(ast.decl,o)
         ctx=ast.decl        
         if type(ctx) is VarDecl:
-            return Symbol(ctx.variable.name,MType([],ctx.varType,ast.kind),CName(self.classname))
-        return Symbol(ctx.constant.name, MType([],ctx.constType,ast.kind),CName(self.classname))
+            return Symbol(ctx.variable.name,MType([],ctx.varType),CName(o))
+        return Symbol(ctx.constant.name, MType([],ctx.constType),CName(o))
     
     def visitVarDecl(self, ast, o):
         # return ast.variable.name
-        return Symbol(ast.variable.name,MType([],ast.varType,Instance()),Index(ast.varInit))
+        return Symbol(ast.variable.name,MType([],ast.varType),Index(ast.varInit))
     def visitConstDecl(self, ast, o):
-        return Symbol(ast.constant.name,MType([],ast.constType,Instance()),Index(ast.value))
+        return Symbol(ast.constant.name,MType([],ast.constType),Index(ast.value))
     def visitBlock(self, ast, o):
         return [map(lambda x: self.visit(x,o),ast.decl)]
     def visitMethodDecl(self, ast, o):
-        return Symbol(ast.name.name,MType([map(lambda x: self.visit(x,o),ast.param)],ast.returnType,ast.kind),CName(self.classname))
+        return Symbol(ast.name.name,MType([map(lambda x: self.visit(x,o),ast.param)],ast.returnType),CName(o))
         # [ast.name.name,[map(lambda x: self.visit(x,newenv),ast.param)]]

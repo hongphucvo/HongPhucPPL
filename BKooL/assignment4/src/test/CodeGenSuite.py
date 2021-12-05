@@ -4,7 +4,14 @@ from AST import *
 
 
 class CheckCodeGenSuite(unittest.TestCase):
-    '''def test_bkool_int_ast(self):
+    # def test_bkool_var_ast(self):
+    #     input = Program([ClassDecl(Id("BKoolClass"),
+    #                 [MethodDecl(Static(),Id("main"),[],VoidType(),
+    #                     Block([VarDecl(Id("a"), IntType(), IntLiteral(5))],[]))])])
+    #     expect = ""
+    #     self.assertTrue(TestCodeGen.test(input,expect,509))
+
+    def test_bkool_int_ast(self):
         input = """class BKoolClass {static void main() {io.writeInt(1);}}"""
         expect = "1"
         self.assertTrue(TestCodeGen.test(input,expect,500))
@@ -27,7 +34,7 @@ class CheckCodeGenSuite(unittest.TestCase):
                         Block([],[CallStmt(Id("io"),Id("writeInt"),[BinaryOp("+",IntLiteral(1),IntLiteral(3))])]))])])
         expect = "4"
         self.assertTrue(TestCodeGen.test(input,expect,503))
-   
+    '''
     def test_bkool_float_ast(self):
         input = """class BKoolClass {static void main() {io.writeFloat(1.0);}}"""
         expect = "1.0"
@@ -59,7 +66,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         input = """class BKoolClass {static void main() {io.writeStr("1.1");}}"""
         expect = "1.1"
         self.assertTrue(TestCodeGen.test(input,expect,553))
-   def test_bkool_str1(self):
+    def test_bkool_str1(self):
         input = """class BKoolClass {static void main() {io.writeStr("1.1+178273hjshaslcnad");}}"""
         expect = "1.1+178273hjshaslcnad"
         self.assertTrue(TestCodeGen.test(input,expect,554))
@@ -181,7 +188,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         }"""
         expect = "1"
         self.assertTrue(TestCodeGen.test(input,expect,510))
-
+    
     #TODO func mismatch    
     def test_wrong_var(self):
         input = """class BKoolClass{
@@ -296,7 +303,30 @@ class CheckCodeGenSuite(unittest.TestCase):
             }"""
         expect = ""
         self.assertTrue(TestCodeGen.test(input,expect,518))
-    '''      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #TODO: Field access
     def test_right_field_par(self):
         input = """
         class X{int m;}
@@ -314,26 +344,20 @@ class CheckCodeGenSuite(unittest.TestCase):
             }"""
         expect = "truntruetruetruetrue"
         self.assertTrue(TestCodeGen.test(input,expect,519))
-    
+
+       
     def test_wrong_cell(self):
         input = """
         class BKoolClass{
-            int[1] k;
             static void main(){
                 bool x=true;
-                io.writeBoolLn(x);
                 io.writeInt(2013);
-            }
-            int x()
-            {  this.k[0]:=2;
-            return 5;
             }
             }"""
         expect = "true2013"
         self.assertTrue(TestCodeGen.test(input,expect,520))
-    
-
-    ''' 
+    '''
+    '''
     def test_wrong_call_void(self):
         input = """
         class BKoolClass{

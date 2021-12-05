@@ -17,10 +17,10 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "I"
-        elif typeIn is BoolType: 
-            return "Z"
         elif typeIn is FloatType:
             return "F"
+        elif typeIn is BoolType: 
+            return "Z"
         elif typeIn is StringType:
             return "Ljava/lang/String;"
         elif typeIn is VoidType:
@@ -33,7 +33,7 @@ class Emitter():
             if inType.classname.name == "StringBuilder":
                 return "Ljava/lang/StringBuilder;"
             return "L" + inType.classname.name + ";"
-
+        
     def getFullType(self,inType):
         typeIn = type(inType)
         if typeIn is IntType:
@@ -160,7 +160,7 @@ class Emitter():
     *   @param fromLabel the starting label of the scope where the variable is active.
     *   @param toLabel the ending label  of the scope where the variable is active.
     '''
-    def emitVAR(self, in_, varName, inType, fromLabel, toLabel, frame, isFinal):
+    def emitVAR(self, in_, varName, inType, fromLabel, toLabel, frame, isFinal=False):
         #in_: Int
         #varName: String
         #inType: Type

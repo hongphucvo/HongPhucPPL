@@ -1,4 +1,4 @@
-class A{int main(){
+class BKoolClass{int main(){
   final float number = root;
   this.root:=5;}
             static void main(){

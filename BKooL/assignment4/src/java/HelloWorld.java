@@ -15,8 +15,11 @@ public class HelloWorld {
   // int w(){
   //   return 1;
   // }
+            int lk(){ return 5;}
+           
   	public static void main(String[] args) {
-      int a;
-      a=1;
+      String x="1";
+      System.out.print(x);
 	}
+        
 }

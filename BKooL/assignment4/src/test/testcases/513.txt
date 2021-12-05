@@ -1,5 +1,5 @@
-class A{
-            int x(){ int a=5;a:=2.1;}
+class BKoolClass{
+            int x(){ float a=5;return 5;}
             static void main(){int a=5;a:=2;
                 io.writeInt(a+7);
             }

@@ -1,5 +1,5 @@
 
-        class A {
+        class BKoolClass{
             int[1] k;
             static void main(){
                 bool x=true;
@@ -7,6 +7,7 @@
                 io.writeInt(2013);
             }
             int x()
-            {  this.k[2]:=2.5;
+            {  this.k[0]:=2;
+            return 5;
             }
             }

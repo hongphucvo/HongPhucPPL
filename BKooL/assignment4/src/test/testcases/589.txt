@@ -1,0 +1,21 @@
+
+            class testing {
+                int a,b;
+                static void main(){
+                io.writeStr("gau4");
+            }
+                testing(){
+                    this.a:=5;
+                    this.b:=6;
+                }
+            void test(testing a; float b) {
+                if a.a then {
+                    a := new testing();
+                    m := a;
+                }
+                else {
+                    this.a := 5;
+                    b := this.test(this.a,1.0);
+                }
+            }
+        } 

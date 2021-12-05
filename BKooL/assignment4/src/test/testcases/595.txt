@@ -1,0 +1,13 @@
+class X{
+            static void main(){
+                io.writeStr("gau9");
+            }
+        int[100] Intarray;
+        X(){
+        for i := 1 to 100 do {
+io.writeIntLn(i);
+this.Intarray[i] := i + 1;
+}
+for x := 5 downto 3 do
+io.writeIntLn(x);
+}}

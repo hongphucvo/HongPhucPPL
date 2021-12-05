@@ -1,0 +1,12 @@
+class A{
+            static void main(){
+                io.writeBool(false);
+            }
+            void main(){
+            for i:= 3 to 100 do {
+            #a line cmt
+            /*i:=1000*/
+            continue;
+            }
+            }
+            }

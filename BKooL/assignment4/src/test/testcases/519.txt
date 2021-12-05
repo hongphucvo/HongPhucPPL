@@ -1,13 +1,14 @@
 
         class X{int m;}
-        class A extends X{
+        class BKoolClass extends X{
             int k;
             int x(int e)
             {  A temp;
-                temp.m:=5;
+                temp.k:=5;
+                return 3;
             }
             static void main(){
                 int x;
-                for x:=5 to 10 do io.writeBool(true);
+                for x:=5 to 10 do io.writeBool(false);
             }
             }

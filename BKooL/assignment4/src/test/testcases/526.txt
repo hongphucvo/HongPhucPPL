@@ -1,4 +1,4 @@
-class m extends io{int x;
+class BKoolClass extends io{int x;
             static void main(){
                 this.writeInt(2000);
             }

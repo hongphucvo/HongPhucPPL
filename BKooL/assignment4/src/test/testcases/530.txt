@@ -1,8 +1,8 @@
-class m{
+class BKoolClass{
             int x(){
-                if (true)
+                if (false)
                     int a=7();
-                io.writeBool(true);
+                io.writeBool(false);
             }
             static void main(){
                 io.writeInt("2021"^"27247");

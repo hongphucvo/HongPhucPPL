@@ -1,4 +1,4 @@
-class A{
+class BKoolClass{
         static void main(){
                 io.writeBool(2022.5==789);
             }

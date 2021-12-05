@@ -1,7 +1,7 @@
 
-        class A {
+        class BKoolClass{
             int A;
             static void main(){
-                io.writeBool(7-5!=4*3)
+                io.writeBool(7-5!=4*3);
             }
         }

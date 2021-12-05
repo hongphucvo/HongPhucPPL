@@ -1,4 +1,4 @@
-class School{        
+class BKoolClass{        
             int id;        
             void print(){
                 io.writeInt(this.id);

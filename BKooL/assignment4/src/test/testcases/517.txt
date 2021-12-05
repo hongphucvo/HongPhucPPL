@@ -1,4 +1,4 @@
-class A{
+class BKoolClass{
            void x(){
                 int[1] m={4};
                 

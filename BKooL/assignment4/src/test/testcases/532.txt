@@ -1,4 +1,4 @@
-class A{
+class BKoolClass{
             static void main(){
                 io.writeFloat(2022.1);
             }

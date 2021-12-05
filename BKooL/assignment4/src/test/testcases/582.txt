@@ -1,0 +1,13 @@
+class A{
+            static void main(){
+                io.writeBool(false);
+            }
+            int m(){return 5;}
+            void main(){
+            for i:= 3 to 100 do {
+                #if i%2==0 then i:=i*2;
+                
+            io.writeInt(i);
+            break;
+            }
+            }}

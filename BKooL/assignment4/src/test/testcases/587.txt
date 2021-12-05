@@ -1,0 +1,7 @@
+class A{
+            static void main(){
+                io.writeStr("gau2");
+            }
+        void main(){
+        boolean x;
+        }}

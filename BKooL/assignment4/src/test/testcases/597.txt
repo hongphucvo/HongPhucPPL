@@ -1,0 +1,10 @@
+class A{
+            static void main(){
+                io.writeStr("gau11");
+            }
+        int main(){
+        string x;
+        io.readStr(x);
+        io.writeStr("Your name is");
+        io.writeStr(x);
+        }}

@@ -1,7 +1,7 @@
-class A{
-            string x="1";
+class BKoolClass{
+            
             static void main(){
-                io.writeStr(x);
+                string x="1";io.writeStr(x);
             }
 
         }

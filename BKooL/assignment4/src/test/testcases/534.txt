@@ -1,4 +1,4 @@
-class m{
+class BKoolClass{
             m(){
                 if true then {return 1.3;}
             }

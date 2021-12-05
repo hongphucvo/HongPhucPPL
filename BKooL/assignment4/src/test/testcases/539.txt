@@ -1,4 +1,4 @@
-class School{
+class BKoolClass{
             int id;
             static void main(){
                 io.writeBool(89==9&&"k"="m");

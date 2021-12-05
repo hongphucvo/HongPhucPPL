@@ -1,0 +1,5 @@
+class A{
+            static void main(){
+                io.writeStr("hippo18");
+            }
+        final static int k,y=5;}

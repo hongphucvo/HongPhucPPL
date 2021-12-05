@@ -1,9 +1,8 @@
-class A{
+class BKoolClass{
             int k;
             int x(int e)
             {  A temp;
                 temp.k:=5;
-
             }
             static void main(){
                 io.writeInt(-74+65

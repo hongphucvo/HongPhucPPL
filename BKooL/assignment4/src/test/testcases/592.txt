@@ -1,0 +1,11 @@
+class Shape {
+float length,width;
+static void main(){
+                io.writeStr("gau7");
+            }
+float getArea() {}
+Shape(float length,width){
+this.length := length;
+this.width := width;
+}
+}

@@ -1,7 +1,8 @@
-class A{
+class BKoolClass{
             float x=5.0;
 
             static void main(){
+                float x=1.3;
                 io.writeFloat(x);
             }
         }

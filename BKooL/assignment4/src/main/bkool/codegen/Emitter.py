@@ -48,9 +48,9 @@ class Emitter():
         elif typeIn is VoidType:
             return "void"
         elif typeIn is ClassType:
-            if inType.classname.name == "StringBuilder":
+            if inType.classname == "StringBuilder":
                 return "java/lang/StringBuilder"
-            return inType.classname.name
+            return inType.classname
 
     def emitPUSHICONST(self, in_, frame):
         #in: Int or Sring
@@ -167,8 +167,8 @@ class Emitter():
         #fromLabel: Int
         #toLabel: Int
         #frame: Frame
-        if not isFinal:
-            return 
+        # if not isFinal:
+        #     return 
         return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
     def emitCONST(self, in_, varName, inType, fromLabel, toLabel, frame):
         #in_: Int
@@ -390,7 +390,7 @@ class Emitter():
         typ = in_
         list(map(lambda x: frame.pop(), typ.partype))
         frame.pop()
-        if not type(typ) is VoidType:
+        if not type(typ.rettype) is VoidType:
             frame.push()
         return self.jvm.emitINVOKEVIRTUAL(lexeme, self.getJVMType(in_))
 

@@ -1,0 +1,14 @@
+class A{
+            static void main(){
+                io.writeStr("gau10");
+            }
+        A(){
+        
+#start of declaration part
+float r,s;
+int[5] a,b;
+#list of statements
+r:=2.0;
+s:=r*r*3.14;
+}
+}

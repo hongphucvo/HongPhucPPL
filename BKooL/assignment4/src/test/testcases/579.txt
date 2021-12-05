@@ -1,0 +1,4 @@
+class A{
+            static void main(){
+                io.writeBool(false);
+            }

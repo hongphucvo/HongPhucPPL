@@ -1,5 +1,5 @@
 
-        class A {
+        class BKoolClass{
             int[1] k;
             void y(int b){int a=5;}
             int x()

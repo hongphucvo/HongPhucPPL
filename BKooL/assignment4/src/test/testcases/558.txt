@@ -1,1 +1,1 @@
-class BKoolClass {static void main() {final int a;}}
+class BKoolClass {static void main() {int a;}}

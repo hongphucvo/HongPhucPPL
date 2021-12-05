@@ -1,4 +1,4 @@
-class A{int main(){ 
+class BKoolClass{int main(){ 
              io.writeFloat(7*9-10);
             }
             static void main(){

@@ -1,4 +1,4 @@
-class X{
+class BKoolClass{
             int k;
             static void main(){
                 io.writeStr("hippo1");

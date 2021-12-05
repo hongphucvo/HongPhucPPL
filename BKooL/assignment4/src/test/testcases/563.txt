@@ -1,0 +1,7 @@
+class A{
+            void x(){}
+            static void main(){
+                io.writeStr("hippo11");
+            }
+        }
+        class B extends A{void x(){io.writeInt(4+5);}}

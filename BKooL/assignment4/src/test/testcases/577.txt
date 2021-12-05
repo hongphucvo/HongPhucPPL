@@ -1,0 +1,8 @@
+class A{
+            static void main(){
+                io.writeBool(false);
+            }
+            void main(){string m;
+            m:="VO"^"HONGPHUC";
+            io.writeBool(m=="VOHONG");
+            }}

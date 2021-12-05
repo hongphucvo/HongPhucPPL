@@ -1,0 +1,5 @@
+class A{
+            int b(int s){return s;}
+            static void main(){
+                io.writeBool(false);
+            }}

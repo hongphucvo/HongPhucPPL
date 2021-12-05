@@ -1,4 +1,4 @@
-class School{
+class BKoolClass{
         int id=4;
         static void main(){
                 io.writeFloat(2023.1);

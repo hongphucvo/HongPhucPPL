@@ -1,6 +1,6 @@
-class A{
+class BKoolClass{
             int x(){return 5;}
             static void main(){
-                io.writeInt(this.x);
+                io.writeInt(this.x());
             }    
         }

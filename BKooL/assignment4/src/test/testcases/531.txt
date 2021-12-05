@@ -1,4 +1,4 @@
-class m{
+class BKoolClass{
             int x(){
                 io.writeStr("123456");
             }

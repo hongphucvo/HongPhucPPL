@@ -1,0 +1,7 @@
+class BKoolClass{
+            void x(){string a="5";}
+            static void main(){
+                string x="5.2";
+                io.writeStr(x);
+            }
+        }

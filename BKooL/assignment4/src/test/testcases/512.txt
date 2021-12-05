@@ -1,6 +1,6 @@
-class A{
+class BKoolClass{
             float x(){ int a=5;return 5.2;}
             static void main(){
-                io.writeBool(true);
+                io.writeBool(false);
             }
         }

@@ -1,0 +1,8 @@
+class A{
+            int m;
+            static void main(){
+                io.writeBool(false);
+            }
+            int k(){final int d;
+            return 5;}
+            }

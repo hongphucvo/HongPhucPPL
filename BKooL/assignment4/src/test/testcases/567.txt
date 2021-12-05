@@ -1,0 +1,7 @@
+class A{
+            static void main(){
+                io.writeStr("hippo15");
+            }
+            void main(){float m;
+            m:=   (1*7)-(5*9)+1.6*50.1      ;
+            }}

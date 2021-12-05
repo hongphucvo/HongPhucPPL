@@ -1,0 +1,11 @@
+class A{
+            static void main(){
+                io.writeStr("hippo20");
+            }
+            int func(){
+            int f,k;
+            final string n=5,m;
+            m:=k;
+            return 3;
+            }
+            }

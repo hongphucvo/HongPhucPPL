@@ -1,11 +1,11 @@
 
-        class A {
+        class BKoolClass{
             int[1] k;
             int y(){int a=5;}
             int x()
             {  this.y();
             }
             static void main(){
-                io.writeIntStr("2014/asfaf\asfa");
+                io.writeIntStr("2014/asfaf\ asfa");
             }
             }

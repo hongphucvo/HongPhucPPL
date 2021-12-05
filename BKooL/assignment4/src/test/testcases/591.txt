@@ -1,0 +1,7 @@
+class A{
+        A(){}
+        A(string x,y; int m){}
+        static void main(){
+                io.writeStr("gau6");
+            }
+        }

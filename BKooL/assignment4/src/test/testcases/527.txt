@@ -1,4 +1,4 @@
-class me extends io{
+class BKoolClass extends io{
             int x=5;
             static void main(){
 

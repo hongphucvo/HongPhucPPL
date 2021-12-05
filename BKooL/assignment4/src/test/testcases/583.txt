@@ -1,0 +1,11 @@
+class A{
+            static void main(){
+                io.writeBool(false);
+            }
+            void main(){
+                string m="PHUC";
+            for i:= 1 to 100 do {
+                m:=m^"123";
+            }
+            }
+            }

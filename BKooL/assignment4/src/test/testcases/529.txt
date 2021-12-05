@@ -1,4 +1,4 @@
-class m{
+class BKoolClass{
             int x(){
                 io.writeInt(9);
                 return 2;

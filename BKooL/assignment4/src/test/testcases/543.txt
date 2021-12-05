@@ -1,4 +1,4 @@
-class m extends io{
+class BKoolClass extends io{
             static void main(){
                 io.writeFloat(2023.2);
             }

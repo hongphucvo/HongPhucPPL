@@ -1,0 +1,9 @@
+class A{
+        static void main(){
+            io.writeStr("gau");
+        }
+        void main(){
+        boolean x;
+        int m=5;
+        if x then if x then if m==6 then m:=1000;
+        }}

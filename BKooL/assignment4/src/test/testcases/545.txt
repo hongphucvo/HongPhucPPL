@@ -1,4 +1,4 @@
-class School{
+class BKoolClass{
         static int id;
         static void main(){
             Faculty x;
@@ -9,7 +9,7 @@ class School{
         int a=100;
         io.writeInt(a);}
         }
-        class Faculty extends School{
+        class Faculty extends BKoolClass{
             void print(){
                 io.writeInt(1);
             }

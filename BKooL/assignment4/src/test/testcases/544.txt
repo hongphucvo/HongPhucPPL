@@ -1,4 +1,4 @@
-class m {int x(){
+class BKoolClass {int x(){
                 io.writeInt(0);
             }
             static void main(){

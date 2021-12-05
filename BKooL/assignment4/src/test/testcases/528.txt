@@ -1,9 +1,9 @@
-class m{
+class BKoolClass{
             int x(){
                 io.writeInt(9);
             }
             static void main(){
-                if (true)
+                if (false)
                     io.writeInt(2019);
                 else io.writeFloat(7.0);
             }

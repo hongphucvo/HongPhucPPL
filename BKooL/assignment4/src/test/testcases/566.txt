@@ -1,0 +1,9 @@
+class A{
+            static void main(){
+                io.writeStr("hippo14");
+            }
+            void main(){float m;
+            m:=   4*5/3\6+1      ;
+            if m==0 then io.writeStr("m=0");
+            else io.writeStr("m=0");
+            }}

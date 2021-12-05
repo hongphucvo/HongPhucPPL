@@ -1,5 +1,5 @@
 class BKoolClass{
-            int x(int k,k){}
+            int x(int k,m){return 3;}
 
             static void main(){
                 io.writeInt(2001+1234);

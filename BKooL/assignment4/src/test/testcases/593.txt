@@ -1,0 +1,5 @@
+class Shape {
+float length,width;
+static void main(){
+                io.writeStr("gau8");
+            }}

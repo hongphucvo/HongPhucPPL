@@ -1,0 +1,10 @@
+class A{
+            static void main(){
+                io.writeStr("gau13");
+            }
+        int main(){
+        int x,sum;
+        sum:=0;
+        x:=io.readInt();
+        for i:=1 to x do sum:=sum+i;
+        }}

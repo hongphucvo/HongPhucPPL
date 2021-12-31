@@ -34,7 +34,7 @@ class CheckCodeGenSuite(unittest.TestCase):
                         Block([],[CallStmt(Id("io"),Id("writeInt"),[BinaryOp("+",IntLiteral(1),IntLiteral(3))])]))])])
         expect = "4"
         self.assertTrue(TestCodeGen.test(input,expect,503))
-    '''
+    
     def test_bkool_float_ast(self):
         input = """class BKoolClass {static void main() {io.writeFloat(1.0);}}"""
         expect = "1.0"
@@ -356,8 +356,8 @@ class CheckCodeGenSuite(unittest.TestCase):
             }"""
         expect = "true2013"
         self.assertTrue(TestCodeGen.test(input,expect,520))
-    '''
-    '''
+    
+    
     def test_wrong_call_void(self):
         input = """
         class BKoolClass{
@@ -1292,6 +1292,3 @@ s:=r*r*3.14;
 
 
 
-
-
-'''

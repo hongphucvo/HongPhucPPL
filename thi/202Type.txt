@@ -1,0 +1,26 @@
+1. Lời gọi hàm z(x) nhận x là đầu vào nên z có kiểu đầu vào là kiểu của x
+2. Giả sử kiểu của x là T1, ta suy ra kiểu đầu vào của z là T1
+3. Giả sử kiểu đầu ra của z là T2
+4. Vậy z có kiểu biểu diễn là T1->T2
+5. Vì phép + chỉ áp dụng trên kiểu nguyên (integer) nên cả 2 toán hạng đều phải có kiểu integer
+6. Mà kết quả của z(x) là toán hạng trong biểu thức z(x)+1 nên kiểu đầu ra của z(x) phải là integer
+7. Từ (3) và (7) suy ra T2 là integer
+8. Từ (4) và (8) suy ra kiểu biểu diễn của z là T1->integer
+9. Vì phép + chỉ áp dụng trên kiểu nguyên integer nên kết quả của phép toán sẽ có kiểu biểu diễn là integer
+10. Lời gọi hàm y(z(x)+1) nhận kết quả của biểu thức z(x)+1 là đầu vào nên kiểu đầu vào của y là kiểu integer
+11. Giả sử kiểu đầu ra của y là T3, ta có kiểu biểu diễn của y là integer->T3
+12. Đầu ra của y cũng là đầu ra của foo
+13. Vậy kiểu biểu diễn của foo là (T1*(integer->T3)*(T1->integer))->T3
+Điều chỉnh kiểu, ta kết luậnkiểu biểu diễn của foo là: (T1*T2*integer)->T2
+
+
+
+
+
+
+
+
+
+https://meet.google.com/cxb-pkir-pqm?pli=1&authuser=1
+
+Cô Nguyễn Thị Kim Cương (0985 420 181) hoặc Trần Ngọc Bảo Duy (033 547 4602, chỉ liên lạc về đề thi trong trường hợp thực sự cần thiết).

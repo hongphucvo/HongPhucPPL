@@ -1,0 +1,23 @@
+﻿H (T1 x T2 x T3) -> T4
+	+) f(f(x)):
+ 		f ngoài: T2 = (T5 -> T6)
+		f trong: T2 = (T7 -> T8)
+		=> T7 = T5 vì cùng kiểu input của hàm f
+		   T7 = T1
+		   T8 = T6 vì cùng kiểu trả về của hàm f
+		   T5 = T8 vì kiểu trả về của hàm f trong là kiểu input của f ngoài
+		=> T7 = T5 = T1
+		   T8 = T6 = T5
+	+) if f(f(x)):
+		=> T5 = T6 = T8 = boolean
+		=> T7 = T1 = T5 = boolean
+	+) h(x):
+		h: T3 = (T9 -> T10)
+		=> T9 = T1 = boolean
+	+) then h(x): T10 = T4
+	
+	+) f(x):
+		f: T2 = (T7 -> T8)
+	+) else f(x): T6 = T8 = T10 = T4 = boolean
+
+H: (boolean x (boolean -> boolean) x (boolean -> boolean)) -> boolean

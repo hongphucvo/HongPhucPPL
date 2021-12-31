@@ -1,0 +1,8 @@
+1. lời gọi hàm z(x) nhận x làm đầu vào nên z có kiểu hàm với kiểu đầu vào là kiểu của x
+2. Giả sử x có kiểu t1, kết hợp (1) ta suy ra: kiểu đầu vào của hàm z là T1
+3. Đầu ra của hàm z đượcy nhận vào đầu vào cho nên đầu ra của z cũng là đầu ra của y
+4. Giả sử kiểu đầu vào của y là T2 nên kiểu đầu ra của z là t2
+5. Kết hợp 2 và 4 ta có: z có biểu thức kiều T1->T2
+6. Đầu ra của y cũng là đầu ra hàm foo
+7. Giả sử đầu ra cùa y là T3 thì đầu ra của foo cũng là T3
+Kết luận T1*(T2->T3)*(T1->T2)->T3

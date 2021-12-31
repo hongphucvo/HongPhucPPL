@@ -423,6 +423,18 @@ class StaticChecker(BaseVisitor):
     
     def visitClassType(self, ast , o):
         return ast.classname.name
+
+
+
+
+
+
+
+
+
+
+
+
 ################################################################################
 class GetName(BaseVisitor):
     """Get the name and SIKind in code"""
@@ -514,6 +526,26 @@ class GetName(BaseVisitor):
         return 0
     def visitStatic(self, ast, o):
         return 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ################################################################################
 class GetFor(BaseVisitor):
     def visitProgram(self, ast, o):

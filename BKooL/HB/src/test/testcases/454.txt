@@ -1,9 +1,0 @@
-
-        class Test {
-            void main(){
-                if a != b then {
-                    b := (a-b)[2*3+5];
-                }
-            }
-        }
-	    

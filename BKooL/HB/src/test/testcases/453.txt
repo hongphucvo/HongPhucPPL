@@ -1,9 +1,0 @@
-
-        class Test {
-            void main(){
-                if a == b then
-                io.write("a equals to b");
-                else break;
-            }
-        }
-	    

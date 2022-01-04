@@ -1,8 +1,0 @@
-
-        class School{
-		void main(){
-            string s = 1;
-            final int a = 0;
-        }
-	    }
-	    

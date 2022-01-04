@@ -1,8 +1,0 @@
-
-        class Hero extends Character {
-            void a;
-            void check(){
-                a := 0 == 1;
-            }
-        }
-        

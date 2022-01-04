@@ -1,7 +1,0 @@
-class A {
-            int main(int input) {
-                int x = -1, y;
-                final int c;
-                c:=a.b().d()[2];
-            }
-        }

@@ -1,7 +1,0 @@
-
-        class Example{
-		void assign(){
-            (a>=b).c := "Hello World";
-        }
-	    }
-	    

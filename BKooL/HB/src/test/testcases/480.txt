@@ -1,8 +1,0 @@
-
-        class Dog {
-            calcAge() {
-                #calculate age using today's date and birthday
-                return Date.now() - this.birthday;
-            }
-        }
-	    

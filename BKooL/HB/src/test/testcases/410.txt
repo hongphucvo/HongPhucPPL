@@ -1,6 +1,0 @@
-class Shape {
-        void main() {
-            int[5] a;
-            Object o = 1;
-        }
-        }

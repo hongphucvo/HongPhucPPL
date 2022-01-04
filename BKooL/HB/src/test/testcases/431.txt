@@ -1,7 +1,0 @@
-
-        class Example{
-		void assign(){
-            a[3+x.foo(2)] := a[b[2]] +3;
-        }
-	    }
-	    

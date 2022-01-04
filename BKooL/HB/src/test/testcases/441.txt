@@ -1,6 +1,0 @@
-
-        class A {
-        final int i = 5;
-        static ABC[5] f() {}
-        }
-        

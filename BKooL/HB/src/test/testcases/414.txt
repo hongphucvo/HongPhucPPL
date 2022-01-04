@@ -1,9 +1,0 @@
-
-        class ABC extends Character {
-            void main(){
-                #start of declaration part
-                if x == 5 && 2 then
-                    io.writeIntLn(x);
-            }
-        }
-        

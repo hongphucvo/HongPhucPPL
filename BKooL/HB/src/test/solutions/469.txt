@@ -1,1 +1,0 @@
-Type Mismatch In Constant Declaration: ConstDecl(Id(a),ArrayType(5,IntType),[])

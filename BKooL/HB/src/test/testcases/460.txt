@@ -1,7 +1,0 @@
-
-        class Test {
-            string toString(int a; float b,c,d; bool e){
-                return new Object(a[2]);
-            }
-        }
-	    

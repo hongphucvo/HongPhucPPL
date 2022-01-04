@@ -1,8 +1,0 @@
-
-        class Dog {
-            constructor(string name, birthday) {
-                this.name[1] := name;
-                this.birthday[a<=c] := birthday;
-            }
-        }
-	    

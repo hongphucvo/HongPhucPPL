@@ -1,5 +1,0 @@
-
-        class ABC extends Character {
-            static Shape[10] a;
-        }
-        

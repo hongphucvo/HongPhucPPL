@@ -1,8 +1,0 @@
-
-        class name{
-		void main(){
-            string s = 1;
-            final int m, a = 5+4*a-m;
-        }
-	    }
-	    

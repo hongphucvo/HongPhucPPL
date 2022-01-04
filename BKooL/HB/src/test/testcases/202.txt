@@ -1,1 +1,0 @@
-class A{int x(){ int m;for a:=4.5 to 10 do {int x;}}}

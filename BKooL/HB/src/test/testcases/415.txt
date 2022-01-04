@@ -1,7 +1,0 @@
-
-        class Example extends _E1{
-		Example(int a; float b ){
-			int a = 3 == 5 <= 6;
-		}
-	    }
-	    

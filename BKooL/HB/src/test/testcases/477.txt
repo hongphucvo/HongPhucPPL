@@ -1,9 +1,0 @@
-
-        class Dog {
-            int _attendance = 0;
-            constructor(name birthday) {
-                this.name := name;
-                this.birthday := birthday;
-            }
-        }
-	    

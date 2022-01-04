@@ -1,9 +1,0 @@
-
-        class Fraction{
-            Fraction(){
-                this.n := n;
-                this.d := d;
-                a := n/0 +2 - a >= b;
-            }
-        }
-	    
